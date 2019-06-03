@@ -3,8 +3,9 @@
 			<div class="row no_row row-header">
 				<div class="brand-be">
 					<a href="index.html">
-						<!--img class="logo-c active be_logo"  src="img/logo.png" alt="logo"!-->
-						<img class="logo-c be_logo" src="img/logo-green.png" alt="logo2">
+				    	<img class="logo-c be_logo" src="img/logo-green.png" alt="logo2">
+						<!--img class="logo-c active be_logo img-responsive"  src="images/logo_seductives.jpg" alt="logo"!-->
+						<!--img class="logo-c be_logo" src="img/logo-green.png" alt="logo2"!-->
 						<img  class="logo-c be_logo" src="img/logo-orang.png" alt="logo3">
 						<img class="logo-c be_logo" src="img/logo-red.png" alt="logo4">
 					</a>

@@ -11,6 +11,8 @@ use App\Escort_Fotos;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+
 
 class EscortController extends Controller
 {
@@ -129,5 +131,46 @@ class EscortController extends Controller
       }
       
 
+        public function getEscortInfo () {
 
-} // fin store
+            $id = Input::get('id');
+           
+            $query = DB::table("escorts")
+						->select("escorts.id","escorts.nombres","escorts.apellidos",
+						 "escorts.nacionalidad",
+						 "perfiles.edad",
+						 "perfiles.comuna",
+						 "perfiles.telefono",
+						 "perfiles.altura",
+						 "perfiles.medidas",
+             "perfiles.foto_principal",
+             "perfiles.foto_secundaria_1",
+             "perfiles.foto_secundaria_2" )
+						->join("perfiles","perfiles.id_escort","=","escorts.id")
+						->WHERE("escorts.id", "=", $id)
+				    ->get();
+
+         
+         
+           // return ['success' => true, 'data' => $data];
+          //  return Response::json(array(
+          //         'success' => true,
+          //        'data'   => $data
+          //  )); 
+            
+          return Response::json(['success' => true, 'respuesta' => $query]);
+          
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+} // fin class

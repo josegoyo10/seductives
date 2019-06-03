@@ -3731,3 +3731,10 @@ body .login-user-down:hover {
   visibility: visible;
   opacity: 1;
 }
+*/
+.texto_escort {
+    font-family: arial, sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+   /* color: #0088CC;*/
+}

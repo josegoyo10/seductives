@@ -21,8 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/registro_escort','EscortController@index')->name('registro_escort');
 Route::POST('/create_escort','EscortController@store')->name('create_scort');
+Route::get('/getEscortInfo','EscortController@getEscortInfo' ); 
 
 Route::post('images-upload', 'HomeController@imagesUploadPost')->name('images.upload');
+
+
 
  // Authentication Routes...
  Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

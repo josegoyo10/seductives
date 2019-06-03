@@ -107,11 +107,10 @@
          @foreach($data as $row) 
          <div class="category-1 mix custom-column-5">
             <div class="be-post">
-               <a  class="be-img-block red-tooltip" id="modalEscort" data-show="tip"
+               <a  class="be-img-block red-tooltip" id="modalEscort" data-show="tip" style="cursor:pointer"
                  data-target="#exampleModalCenter" data-id="{{ $row->id }}" 
                  data-toggle="modal"
-                 data-original-title="
-                                       <div class='row' style='float: none; margin: 0 auto;'>
+                 data-original-title="<div class='row' style='float: none; margin: 0 auto;'>
                                         <div class='col-md-12'>
                                           <div class='form-group'>
                                              <h4 class='text-align:left;'> <i class='fa fa-user-circle' style='font-size: 25px;'></i><em> {{ $row->nombres}}</em></h4>
@@ -169,27 +168,57 @@
    <script src="/js/bootstrap.min.js"></script>
   
 <!-- Modal para mostrar las fotos relacionadas a las escorts -->
-   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-            </div>
-            <div class="modal-body">
-               ...
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle"><span id="nombre_escort" class="texto_escort"></span></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                   <div class="row">
+                        <div class="col-sm-5">
+                         <div class="box box-primary">
+                              <div class="box-body">
+                                 <div class="form-group ">
+                                    <label>Edad:</label>
+                                    <span id="edad_escort"><em></em></span>
+                                 </div>
+                              </div>
+                              <div class="box-body">
+                                 <div class="form-group ">
+                                    <label>Altura:</label>
+                                    <span id="altura_escort"><em></em></span>
+                                 </div>
+                              </div>
+                           </div>
+                        
+                        </div>
+                        <div class="col-sm-7">
+                           <div class="box box-primary">
+                              <div class="box-body">
+                                 <div class="form-group">
+                                    <img src= "" alt="omg" id="image_escort" style="width:300px;">
+                                 </div>
+
+                              </div>
+                           </div>
+                        </div>
+                      
+                  </div>
+                              
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  </div>
+               </div>
+               <!--fin modal !-->
             </div>
          </div>
       </div>
-   </div>
 
-
+<!---------------------------------------------------------------------!-->
 
 <script>
    $(document).ready(function(){
@@ -200,32 +229,35 @@
           html: true
           
           
-        })
+        });
 
-   //Modal para mostrar info de la escort.
-   $(".red-tooltip").click(function(){
+         //Modal para mostrar info de la escort.
+         $(".red-tooltip").click(function(){
+            var id_escort = $(this).attr("data-id"); 
+             $('#nombre_escort').html('');
+           // alert('mostrar:'+ id_escort);
+                   $.ajax({
+                        url:'/getEscortInfo',
+                        type:'GET',
+                        data: {
+                           id: id_escort
+                        },
+                        dataType: 'JSON',
+                        success:function(data) {
+                           //var datos =  JSON.parse(data);
+                         //  console.log(data[0].nombres);
+                         $('#nombre_escort').html(data.respuesta[0].nombres);
+                         $('#edad_escort').html(data.respuesta[0].edad); 
+                         $('#altura_escort').html(data.respuesta[0].altura); 
+                         $("#image_escort").attr("src", " " + data.respuesta[0].foto_principal);
 
-      var id_escort = $(this).attr("data-id"); 
-   
-       alert('mostrar:'+ id_escort);
-
-   
-   });
-   
+                      },
+                    
+                  });
+               });
 
 
-
-
-
-
-
-
-
-
-
-
-
-}); 
+   }); 
 </script>
 
 
