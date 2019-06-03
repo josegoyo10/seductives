@@ -107,8 +107,8 @@
          @foreach($data as $row) 
          <div class="category-1 mix custom-column-5">
             <div class="be-post">
-               <a href="#" class="be-img-block red-tooltip" id="myTooltips" data-show="tip"
-                 data-target="#exampleModalCenter"
+               <a  class="be-img-block red-tooltip" id="modalEscort" data-show="tip"
+                 data-target="#exampleModalCenter" data-id="{{ $row->id }}" 
                  data-toggle="modal"
                  data-original-title="
                                        <div class='row' style='float: none; margin: 0 auto;'>
@@ -170,23 +170,23 @@
   
 <!-- Modal para mostrar las fotos relacionadas a las escorts -->
    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-         </button>
-         </div>
-         <div class="modal-body">
-         ...
-         </div>
-         <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               ...
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
          </div>
       </div>
-   </div>
    </div>
 
 
@@ -201,6 +201,30 @@
           
           
         })
+
+   //Modal para mostrar info de la escort.
+   $(".red-tooltip").click(function(){
+
+      var id_escort = $(this).attr("data-id"); 
+   
+       alert('mostrar:'+ id_escort);
+
+   
+   });
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
 }); 
 </script>
 

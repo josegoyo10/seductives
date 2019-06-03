@@ -3689,7 +3689,7 @@ body .login-user-down:hover {
 }
  
 .red-tooltip + .tooltip > .tooltip-inner {
-    background-color:#ff8c00;
+    background-color:#f4424b;
 }
 /*
 .tooltip {

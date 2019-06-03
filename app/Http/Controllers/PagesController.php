@@ -23,7 +23,7 @@ class PagesController extends Controller
        
 		//$posts = Post::published()->paginate(1);
 		$data = DB::table("escorts")
-						->select("escorts.nombres","escorts.apellidos","escorts.email",
+						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 						 "escorts.nacionalidad",
 						 "perfiles.edad",
 						 "perfiles.comuna",
