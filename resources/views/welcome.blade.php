@@ -94,16 +94,22 @@
    </div>
 </div>
 <div class="container-fluid custom-container">
+
+   <span title="The tooltip" data-toggle="tooltip" data-placement="top">
+       <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#deModal">modal trigger
+  </button>
+  </span>
+
 <div class="row">
    @include('sidebar')
    <div class="col-md-10">
       <div id="container-mix"  class="row _post-container_">
          @foreach($data as $row) 
          <div class="category-1 mix custom-column-5">
-            <div class="be-post"> 
-               <a href="#" class="be-img-block red-tooltip" id="myTooltips"
-                 data-toggle="modal" data-target="#exampleModalCenter"
-                 data-toggle="tooltip"
+            <div class="be-post">
+               <a href="#" class="be-img-block red-tooltip" id="myTooltips" data-show="tip"
+                 data-target="#exampleModalCenter"
+                 data-toggle="modal"
                  data-original-title="
                                        <div class='row' style='float: none; margin: 0 auto;'>
                                         <div class='col-md-12'>
@@ -128,7 +134,9 @@
                                     " data-placement="bottom">
                     <!--{{ url($row->foto_principal) }}!-->
                     <img src= "" alt="omg">
-               </a>
+                    <span title="The tooltip" data-toggle="tooltip" data-placement="top"></span>
+                </a>
+              </span>
 
                <a href="page1.html" class="be-post-title">{{ $row->nombres.' '.$row->apellidos }}</a>
                <span>
@@ -160,5 +168,40 @@
    <script src="/js/jquery-2.1.4.min.js"></script>
    <script src="/js/bootstrap.min.js"></script>
   
-<!-- Modal -->
-   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="tru
+<!-- Modal para mostrar las fotos relacionadas a las escorts -->
+   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+         </div>
+         <div class="modal-body">
+         ...
+         </div>
+         <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-primary">Save changes</button>
+         </div>
+      </div>
+   </div>
+   </div>
+
+
+
+<script>
+   $(document).ready(function(){
+
+       $("body").tooltip({
+          selector:'[data-show=tip]',
+          animated: 'fade',
+          html: true
+          
+          
+        })
+}); 
+</script>
+
+
