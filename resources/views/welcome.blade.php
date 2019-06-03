@@ -235,6 +235,9 @@
          $(".red-tooltip").click(function(){
             var id_escort = $(this).attr("data-id"); 
              $('#nombre_escort').html('');
+             $('#edad_escort').html('');
+             $('#altura_escort').html('');
+             $('#image_escort').attr('src', '');
            // alert('mostrar:'+ id_escort);
                    $.ajax({
                         url:'/getEscortInfo',
