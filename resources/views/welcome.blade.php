@@ -1,42 +1,43 @@
 @extends('layout')
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 @section('content')
-<div id="content-block">
-<div class="head-bg">
-   <div class="head-bg-img"></div>
-   <div class="head-bg-content">
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-         <!-- Indicators -->
-         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-         </ol>
-         <!-- Wrapper for slides -->
-         <div class="carousel-inner">
-            <div class="item active">
-               <img src="img/la.jpg" alt="Los Angeles">
-            </div>
-            <div class="item">
-               <img src="img/chicago.jpg" alt="Chicago">
-            </div>
-            <div class="item">
-               <img src="img/ny.jpg" alt="New York">
-            </div>
-         </div>
-         <!-- Left and right controls -->
-         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-         <span class="glyphicon glyphicon-chevron-left"></span>
-         <span class="sr-only">Anterior</span>
-         </a>
-         <a class="right carousel-control" href="#myCarousel" data-slide="next">
-         <span class="glyphicon glyphicon-chevron-right"></span>
-         <span class="sr-only">Siguiente</span>
-         </a>
-      </div>
-   </div>
-</div>
-<div class="container-fluid cd-main-content custom-container">
+ <div id="content-block">
+		<div class="head-bg">
+		   <!--div class="head-bg-img"></div!-->
+		   <!--div class="head-bg-content">
+			  <div id="myCarousel" class="carousel slide" data-ride="carousel" 
+				style="width: 650px; margin-left:240px; padding-top:50px;">
+				
+				 <ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				 </ol>
+			
+				 <div class="carousel-inner">
+					<div class="item active">
+					   <img src="img/la.jpg" alt="Los Angeles">
+					</div>
+					<div class="item">
+					   <img src="img/chicago.jpg" alt="Chicago">
+					</div>
+					<div class="item">
+					   <img src="img/ny.jpg" alt="New York">
+					</div>
+				 </div>
+				
+				 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				 <span class="glyphicon glyphicon-chevron-left"></span>
+				 <span class="sr-only">Anterior</span>
+				 </a>
+				 <a class="right carousel-control" href="#myCarousel" data-slide="next">
+				 <span class="glyphicon glyphicon-chevron-right"></span>
+				 <span class="sr-only">Siguiente</span>
+				 </a>
+			  </div!-->
+		   </div>
+		</div>
+<!--div class="container-fluid cd-main-content custom-container">
    <div class="row">
       <div class="col-md-2 left-feild">
          <form action="./" class="input-search">
@@ -91,16 +92,10 @@
             </div>
          </div>
       </div>
-   </div>
+   </div!-->
 </div>
 <div class="container-fluid custom-container">
-
-   <span title="The tooltip" data-toggle="tooltip" data-placement="top">
-       <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#deModal">modal trigger
-  </button>
-  </span>
-
-<div class="row">
+ <div class="row">
    @include('sidebar')
    <div class="col-md-10">
       <div id="container-mix"  class="row _post-container_">
@@ -110,34 +105,42 @@
                <a  class="be-img-block red-tooltip" id="modalEscort" data-show="tip" style="cursor:pointer"
                  data-target="#exampleModalCenter" data-id="{{ $row->id }}" 
                  data-toggle="modal"
-                 data-original-title="<div class='row' style='float: none; margin: 0 auto;'>
+                 data-original-title="<div class='row'>
                                         <div class='col-md-12'>
                                           <div class='form-group'>
-                                             <h4 class='text-align:left;'> <i class='fa fa-user-circle' style='font-size: 25px;'></i><em> {{ $row->nombres}}</em></h4>
-                                          </div>
-                                          </div>
-                                          <hr>
-                                          <div class='form-group'>
-                                             <h4 class='text-align:left;'>
-                                                 <i class='fab fa-whatsapp' style='font-size: 25px;'></i><em> {{ $row->telefono}}</em>
-                                             </h4>
-                                          </div>
-                                          </div>
-                                          <div class='form-group'>
-                                             <h4 class='text-align:left;'>
-                                                 <i class='fa fa-map-marker' style='font-size: 22jpx;'></i> {{ $row->comuna}}
-                                             </h4>
+                                             <p class='text-align:left;' style='font-size: 12px;'>
+											 <i class='fa fa-user-circle'></i> {{ $row->nombres}}
+											 </p>
+                                           </div>
+                                         </div>
+										</div>
+										<div class='row'>
+										  <div class='col-md-12'>
+											  <div class='form-group'>
+												 <p class='text-align:left;'  style='font-size: 12px;'>
+													 <i class='fab fa-whatsapp'></i> {{ $row->telefono}}
+												 </p>
+											  </div>
+										   </div>
+										 </div>
+                                       <div class='row'>
+										  <div class='col-md-12'>
+											   <div class='form-group'>
+												 <p class='text-align:left;' style='font-size: 12px;'>
+													 <i class='fa fa-map-marker'></i> {{ $row->comuna}}
+												 </p>
+												</div>
                                             </div>
-                                          </div>
                                        </div>
                                     " data-placement="bottom">
                     <!--{{ url($row->foto_principal) }}!-->
-                    <img src= "" alt="omg">
-                    <span title="The tooltip" data-toggle="tooltip" data-placement="top"></span>
+                    <img src= "" 
+					alt="omg" style="width:130px; heigth:117px;margin:0 auto;" class="centrar">
+                    <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                 </a>
               </span>
 
-               <a href="page1.html" class="be-post-title">{{ $row->nombres.' '.$row->apellidos }}</a>
+               <a href="page1.html" class="be-post-title" style="font-size:10px;">{{ $row->nombres }}</a>
                <span>
                <a href="blog-detail-2.html" class="be-post-tag"></a>, 
                <a href="blog-detail-2.html" class="be-post-tag">UI/UX</a>,  
@@ -145,21 +148,22 @@
                </span>
                <!-- Generated markup by the plugin -->
           
-               <div class="author-post">
-                  <img src="img/a1.png" alt="" class="ava-author">
+               <!--div class="author-post">
+                  // <img src="img/a1.png" alt="" class="ava-author">
               
-                  <span>by <a href="page1.html">Hoang Nguyen</a></span>
-               </div>
-               <div class="info-block">
+                  // <span>by <a href="page1.html">Hoang Nguyen</a></span>
+               // </div!-->
+               <!--div class="info-block" style="width:10px;">
                   <span><i class="fa fa-thumbs-o-up"></i> 360</span>
                   <span><i class="fa fa-eye"></i> 789</span>
                   <span><i class="fa fa-comment-o"></i> 20</span>
-               </div>
+               </div!-->
             </div>
          </div>
          @endforeach
       </div>
    </div>
+  </div>
 </div>
 @stop
 

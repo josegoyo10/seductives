@@ -1,8 +1,6 @@
 <div class="col-md-2 left-feild">
    <div class="be-vidget">
-      <h3 class="letf-menu-article">
-         Popular Creative Filds
-      </h3>
+      <h3 class="letf-menu-article">Novedades</h3>
       <div class="creative_filds_block">
          <div class="ul">
             <a  data-filter=".category-1" class="filter">Graphic Design		</a>

@@ -49,15 +49,34 @@
                         <i class="fa fa-times close-button"></i>
                         <h3 class="large-popup-title" style="position:relative;top:-20px;">Acceso</h3>
                      </div>
-                     <form action="./" class="popup-input-search">
+                     <form  method="POST" action="{{ route('login') }}" class="popup-input-search">
+                        {{ csrf_field() }}
                         <div class="col-md-5">
-                           <input class="input-signtype" type="email" required="" placeholder="Your email">
+                           <input  class="form-control @error('email') is-invalid @enderror" name="email" 
+                             type="email" required="" placeholder="Email" value="{{old('email') }}" required autofocus>
+                              
+                              
+                             @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+
                         </div>
                         <div class="col-md-5">
-                           <input class="input-signtype" type="password" required="" placeholder="Password">
+                           <input  type="password" required="" placeholder="Contraseña" " 
+                              class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                              @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
                         </div>
                         <div class="col-md-2">
-                           <input type="submit" class="be-popup-sign-button size-3" value="Entrar">
+                           <input type="submit" class="btn btn-primary" value="Entrar">
                         </div>
                         <br><br>
                         <div class="col-xs-6" style="margin-top:10px;">

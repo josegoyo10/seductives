@@ -14,26 +14,44 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', 'PagesController@home')->name('inicio');
-Auth::routes();
+    Route::get('/', 'PagesController@home')->name('inicio');
+    Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+      Route::get('admin', 'HomeController@index')->name('home');
 
-Route::get('/registro_escort','EscortController@index')->name('registro_escort');
-Route::POST('/create_escort','EscortController@store')->name('create_scort');
-Route::get('/getEscortInfo','EscortController@getEscortInfo' ); 
+      Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => 'auth'],
+                function () {
 
-Route::post('images-upload', 'HomeController@imagesUploadPost')->name('images.upload');
+                  Route::get('clientes', 'ClienteController@index')->name('admin.clientes.index');
+                  //rutas de administración
+
+
+
+      });
+
+   
+    // Route::get('/admin', 'AdminController@index')->name('layout');
+    // Route::get('admin', function() {
+
+    //   return view('admin.dashboard');
+
+    // });
+
+
+    Route::get('/registro_escort','EscortController@index')->name('registro_escort');
+    Route::POST('/create_escort','EscortController@store')->name('create_scort');
+    Route::get('/getEscortInfo','EscortController@getEscortInfo' ); 
+    Route::post('images-upload', 'HomeController@imagesUploadPost')->name('images.upload');
 
 
 
  // Authentication Routes...
- Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
- Route::post('login', 'Auth\LoginController@login');
- Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\LoginController@login');
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
- Route::POST('registro','UserController@store');
+     Route::POST('registro','UserController@store');
 
  
 

@@ -45,7 +45,7 @@
 				<div class="login-header-block" style="float:right;margin:20px;">
 					<div>
 					<a class="btn-login btn color-1 size-3 hover-2"  href="{{ route('registro_escort') }}"><i class="fa fa-user"></i>
-						Registro Escort </a>
+						¿Eres Escort click aqui? </a>
 					</div>	
 				</div>
 			</div>

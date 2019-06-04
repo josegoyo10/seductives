@@ -22,6 +22,7 @@ class CreateEscortsTable extends Migration
             $table->string('sexo',2)->nullable();
             $table->string('fecha_nacimiento')->nullable();
             $table->string('nacionalidad',20)->nullable();
+            $table->string('comentarios',350)->nullable();
             $table->integer('id_estado')->unsigned();
             $table->timestamps();
 

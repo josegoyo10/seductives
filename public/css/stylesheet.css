@@ -46,11 +46,22 @@ ul, li, ol { list-style: none; margin: 0; padding: 0; }
 
 .custom-container { max-width: 1800px; }
 
-.custom-column-5 { width: 20%; padding: 0 15px; float: left; }
+.custom-column-5 { 
+      width: 20%; 
+	  padding: 0 15px; 
+	  float: left;
+}
 
 .custom-column-5:nth-child(5n+1) { clear: both; }
 
-@media screen and (max-width: 1500px) { .custom-column-5 { width: 25%; }
+.centrar {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+@media screen and (max-width: 1500px) { .custom-column-5 { width: 16%; }
   .custom-column-5:nth-child(5n+1) { clear: none; }
   .custom-column-5:nth-child(4n+1) { clear: both; } }
 
@@ -353,11 +364,35 @@ header .header-menu > #ad-work-li {position: static; float: right;margin-top: 20
 	02 - HEADER BACKGROUND
 ==================================
 */
-.head-bg { background: #000; position: relative; padding: 10px; margin-bottom: 50px; }
+.head-bg { 
+    background: #FFF; 
+    position: relative; 
+    padding: 10px; 
+    margin-bottom: 50px;  
+}
 
-.head-bg-img { position: absolute; left: 0; top: 0; background: url(../img/bg.jpg); height: 100%; width: 100%; background-size: cover; opacity: 0.2; z-index: 1; background-position: center center; }
+.head-bg-img { 
+    position: absolute; 
+    left: 0; top: 0; 
+   /* background: url(../img/bg.jpg); */
+    height: 50%; 
+    width: 20%; 
+    background-size: cover; 
+    opacity: 0.2; 
+    z-index: 1; 
+    background-position: center center; 
+}
 
-.head-bg-content { height: 400px; text-align: center; position: relative; z-index: 200; display: table-cell; vertical-align: middle; width: 5000px; }
+.head-bg-content { 
+       height: 400px; 
+	   text-align: 
+	   center; position: 
+	   relative; 
+	   /*z-index: 200; */
+	   display: table-cell; 
+	   vertical-align: middle; 
+	   width: 5000px; 
+}
 
 #content-block .head-bg-content .btn { margin-bottom: 10px; }
 
@@ -386,7 +421,11 @@ header .header-menu > #ad-work-li {position: static; float: right;margin-top: 20
 	03 - MAIN
 ==================================
 */
-#content-block { margin-top: 70px; margin-bottom: 50px; }
+#content-block { 
+      margin-top: 40px; 
+      margin-bottom: 20px; 
+    
+}
 
 .for-be-dropdowns .be-drop-down { display: inline-block; margin-bottom: 50px; margin-right: 30px; }
 
@@ -602,7 +641,12 @@ form.input-search { position: relative; margin-bottom: 50px; }
 	06 - POST BLOCK
 ==================================
 */
-.be-post { border: 1px solid #edeff2; border-radius: 2px; width: 100%; margin-bottom: 30px !important; }
+.be-post { 
+         border: 1px solid #edeff2; 
+         border-radius: 2px; 
+		 width:100%;
+		 margin-bottom: 30px !important; 
+}
 
 .be-img-block { overflow: hidden; display: block; }
 
@@ -614,7 +658,21 @@ form.input-search { position: relative; margin-bottom: 50px; }
 
 .be-post .be-img-block:after { content: ""; position: absolute; bottom: 0; left: 15px; width: 0; height: 0; border-style: solid; border-width: 0 15px 15px 15px; border-color: transparent transparent #FFF transparent; }
 
-.be-post-title { position: relative; display: block; font-size: 13px; line-height: 20px; font-family: 'Conv_helveticaneuecyr-bold'; color: #262626; border-bottom: 1px solid #edeff2; margin: 0 15px 10px 15px; cursor: pointer; min-height: 52px; padding-bottom: 11px; overflow: hidden; text-overflow: ellipsis; }
+.be-post-title { 
+      position: relative; 
+      display: block; 
+	  font-size: 13px; 
+	  line-height: 20px; 
+	  font-family: 'Conv_helveticaneuecyr-bold'; 
+	  color: #262626; 
+	  border-bottom: 1px solid #edeff2; 
+	  margin: 0 15px 10px 15px; 
+	  cursor: pointer; 
+	  min-height: 22px; 
+	  padding-bottom: 11px; 
+	  overflow: hidden; 
+	  text-overflow: ellipsis; 
+}
 
 a.be-post-title:hover { color: #0D58C8; }
 
@@ -626,7 +684,14 @@ a.be-post-title:hover { color: #0D58C8; }
 
 .author-post a:hover { color: #0D58C8; }
 
-.be-post > span { color: #b4b7c1; display: block; font-size: 11px; line-height: 20px; padding: 0 15px; margin-bottom: 15px; }
+.be-post > span { 
+       color: #b4b7c1; 
+	   display: block; 
+	   font-size: 11px; 
+	   line-height: 20px; 
+	   padding: 0 15px; 
+	   margin-bottom: 8px; 
+	 }
 
 .info-block { background: #F6F6F6; padding: 20px 15px; font-size: 10px; color: #b4b7c1 !important; }
 
@@ -2265,7 +2330,12 @@ FIXES
 .form-block .btn{margin-right: 15px;}
 .blog-list .info-block{padding-right: 30px;margin-left: -15px;margin-right: -15px;}
 .be-large-post .author-post{padding-right: 0;}
-.custom-a-b{margin-bottom: 25px;padding-bottom: 10px; border-bottom: 1px solid #edeff2;}
+
+.custom-a-b{
+     margin-bottom: 10px;
+     padding-bottom: 10px; 
+     border-bottom: 1px solid #edeff2;
+}
 #content-block .blog-post.type-2 .be-post-title{border: none;margin-bottom: 30px !important;padding-bottom: 0 !important;
 min-height: 0;}
 #content-block .blog-post.type-2 .embed-responsive{margin-bottom: 50px;}

@@ -73,6 +73,7 @@ class EscortController extends Controller
            $escort->apellidos        = $request->apellidos;
            $escort->email            = $request->email;
            $escort->sexo             = $request->sexo;
+           $escort->comentarios      = $request->comentarios;
            $escort->fecha_nacimiento = $request->fecha_nacimiento;
            $escort->nacionalidad     = $request->nacionalidad;
            $escort->id_estado        = "1";
@@ -91,7 +92,7 @@ class EscortController extends Controller
            $perfil->comuna            = $request->comunas;
            $perfil->descripcion       = $request->descripcion;
            $perfil->altura            = $request->altura;
-           $perfil->edad              = $request->edad;
+           $perfil->edad              = $request->edad_cliente;
            $perfil->medidas           = $request->medidas;
            $perfil->horario           = $request->horario;
            $perfil->atencion          = $request->atencion;
@@ -124,13 +125,14 @@ class EscortController extends Controller
             // }
 
 
-              return back()->with('success', 'Su registro ha sido Exitoso');
+              return back()->with('success', 'Su registro ha sido Exitoso, nosotros nos contactaremos contigo a la brevedad posible...Muchas Gracias');
 
         
 
       }
       
 
+      //Obtener Informacion de la Escort
         public function getEscortInfo () {
 
             $id = Input::get('id');
