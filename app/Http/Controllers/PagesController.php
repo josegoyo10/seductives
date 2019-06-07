@@ -32,6 +32,7 @@ class PagesController extends Controller
 						 "perfiles.medidas",
 						 "perfiles.foto_principal")
 						->join("perfiles","perfiles.id_escort","=","escorts.id")
+						->where("escorts.id_estado",'=','3')
 						->orderby('escorts.id')
 				    ->get();
 

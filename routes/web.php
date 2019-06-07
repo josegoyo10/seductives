@@ -21,9 +21,10 @@
 
       Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => 'auth'],
                 function () {
-
-                  Route::get('clientes', 'ClienteController@index')->name('admin.clientes.index');
-                  //rutas de administración
+           //rutas de administración
+          Route::get('clientes', 'ClienteController@index')->name('admin.clientes.index');
+          Route::get('showInfoCliente/{id}', 'ClienteController@getInfoCliente')->name('admin.clientes.info');
+          Route::get('updateestado_escort', 'ClienteController@updateEstadoescort')->name('admin.clientes.updateEstado');            
 
 
 
@@ -46,8 +47,8 @@
 
 
  // Authentication Routes...
-    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-    Route::post('login', 'Auth\LoginController@login');
+    Route::get('login', 'Auth\LoginController@showLoginForm');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 

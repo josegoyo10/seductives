@@ -67,16 +67,16 @@ class EscortController extends Controller
       //   ]);
       
         //Primero Guardo en la tabla escorts.
-           $escort                   = new Escort();
-           $escort->rut              = $request->rut;
-           $escort->nombres          = $request->nombres;
-           $escort->apellidos        = $request->apellidos;
-           $escort->email            = $request->email;
-           $escort->sexo             = $request->sexo;
-           $escort->comentarios      = $request->comentarios;
-           $escort->fecha_nacimiento = $request->fecha_nacimiento;
-           $escort->nacionalidad     = $request->nacionalidad;
-           $escort->id_estado        = "1";
+           $escort                      = new Escort();
+           $escort->rut                 = $request->rut;
+           $escort->nombres             = $request->nombres;
+           $escort->apellidos           = $request->apellidos;
+           $escort->email               = $request->email;
+           $escort->sexo                = $request->sexo;
+           $escort->comentario_escort   = $request->comentario_escort;
+           $escort->fecha_nacimiento    = $request->fecha_nacimiento;
+           $escort->nacionalidad        = $request->nacionalidad;
+           $escort->id_estado           = "1";
            $escort->save();
 
            //Obtener el ID del valor guardado en escort y luego insertarlo en la 

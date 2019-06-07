@@ -19,6 +19,14 @@
   <link rel="stylesheet" href='{{ url("adminlte/css/skins/skin-blue.min.css") }}'>
     <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
+   <!-- DataTables -->
+   <link rel="stylesheet" href='{{ url("adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css") }}'>
+ 
+   <!--Image Lighbox !-->
+   <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+  
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -321,14 +329,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
+         @yield('header')
     </section>
 
     <!-- Main content -->
@@ -345,10 +346,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Derechos Reservados &copy; 2019 - Seductives.</strong>
   </footer>
 
   <!-- Control Sidebar -->
@@ -556,5 +556,36 @@
       <!-- DataTables -->
       <script src='{{ url("adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js") }}'></script>
       <script src='{{ url("adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js") }}'></script>
+
+      <!--boostrap lightbox !-->
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js'></script>
+     
+      <script>
+      $(function () {
+            $('#cliente-table').DataTable({
+              'paging'      : true,
+              'lengthChange': false,
+              'searching'   : true,
+              'ordering'    : true,
+              'info'        : true,
+              'autoWidth'   : false,
+              "language": {
+                  "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+               }
+            })
+      })
+
+
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+      </script>
+
+
+
+
+
+
 </body>
 </html>

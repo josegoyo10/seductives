@@ -49,7 +49,7 @@
                         <i class="fa fa-times close-button"></i>
                         <h3 class="large-popup-title" style="position:relative;top:-20px;">Acceso</h3>
                      </div>
-                     <form  method="POST" action="{{ route('login') }}" class="popup-input-search">
+                     <form  method="POST" action="{{ route('login') }}" class="popup-input-search" id="frm_login">
                         {{ csrf_field() }}
                         <div class="col-md-5">
                            <input  class="form-control @error('email') is-invalid @enderror" name="email" 
@@ -65,7 +65,7 @@
 
                         </div>
                         <div class="col-md-5">
-                           <input  type="password" required="" placeholder="Contraseña" " 
+                           <input  type="password" required="" placeholder="Contraseña"
                               class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                               @error('password')
@@ -76,14 +76,14 @@
 
                         </div>
                         <div class="col-md-2">
-                           <input type="submit" class="btn btn-primary" value="Entrar">
+                           <input type="submit" id="btn_login" class="btn btn-primary btn-prime white btn-flat" value="Entrar"/>
                         </div>
                         <br><br>
                         <div class="col-xs-6" style="margin-top:10px;">
                            <a href="blog-detail-2.html" class="link-large-popup" style="color:#FFF;">Olvidaste tu Contraseña?</a>
                            <a href="#" class="link-large-popup" data-toggle="modal" 
                               data-target="#exampleModal" id="btn_registro" style="color:#FFF;">Registrarse</a>
-                        </div>
+                       </div>
                      </form>
                   </div>
                </div>
@@ -219,6 +219,30 @@
          			$('#div_login').hide();
              });
          
+
+
+            //login usuario
+
+             $('#btn_login').on('submit', function(e) {
+                 e.preventDefault();
+
+                 alert('ddd');
+                 //  var formData = registerForm.serialize();
+                 // $.ajax({
+                 //     url : $(this).attr('action') || window.location.pathname,
+                 //     type: "GET",
+                 //     data: $(this).serialize(),
+                 //     success: function (data) {
+                 //         $("#form_output").html(data);
+                 //     },
+                 //     error: function (jXHR, textStatus, errorThrown) {
+                 //         alert(errorThrown);
+                 //     }
+                // });
+             });
+
+
+
          
              //registrar usuario.
              $('body').on('click', '#submitForm', function(){
@@ -259,6 +283,7 @@
                               setInterval(function(){ 
                                     $('#SignUp').modal('hide');
                                     $('#success-msg').addClass('hide');
+                                    $('#exampleModal').addClass('hide');
                               }, 4000);
                            }
                         },

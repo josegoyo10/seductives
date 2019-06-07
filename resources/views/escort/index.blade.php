@@ -335,7 +335,7 @@
                                                 <div class='col-md-12'>
                                                    <div class="form-group">
                                                       <label>Comentarios</label>
-                                                      <textarea rows="5" name="comentarios" id="comentarios" class="form-control" autofocus>
+                                                      <textarea rows="5" name="comentario_escort" id="comentario_escort" class="form-control" autofocus>
                                                       </textarea>
                                                    </div>
                                                    <span class="text-danger">
