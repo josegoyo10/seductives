@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>Seductives | Administración</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -25,7 +25,7 @@
  
    <!--Image Lighbox !-->
    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
-  
+   @yield('css')
   
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -559,7 +559,7 @@
 
       <!--boostrap lightbox !-->
       <script src='https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js'></script>
-     
+     @yield('scripts')
       <script>
       $(function () {
             $('#cliente-table').DataTable({

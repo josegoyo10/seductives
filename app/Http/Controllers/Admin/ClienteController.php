@@ -8,6 +8,8 @@ use App\Escort;
 use App\Perfil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
+use Response;
 
 class ClienteController extends Controller
 {
@@ -16,17 +18,22 @@ class ClienteController extends Controller
         public function index()
         {
            
+          $user = Auth::user(); 
+          // dd($user);
             
             if (auth()->user()->hasRole('Admin')) {
 
                //  $clientes = Escort::orderBy('id', 'ASC')->get();
                 $clientes =   $query = DB::table("escorts")
-                ->select("escorts.id","escorts.rut","escorts.nombres","escorts.apellidos","escorts.email",
-                "escorts.nacionalidad",
-                "escorts.id_estado",
-                "escorts.fecha_nacimiento",
-                "escorts.comentario_escort",
-                "escorts.comentario_aprob_rechazo",
+                ->select("escorts.id","escorts.rut","escorts.nombres",
+                    "escorts.apellidos",
+                    "escorts.email",
+                    "escorts.nacionalidad",
+                    "escorts.id_estado",
+                    "escorts.fecha_nacimiento",
+                    "escorts.comentario_escort",
+                    "escorts.comentario_aprob_rechazo",
+              
                 DB::raw('CASE 
 
                 WHEN escorts.id_estado = 1 THEN "PENDIENTE"
@@ -40,12 +47,11 @@ class ClienteController extends Controller
                 ->orderby('escorts.id')
                 ->get();
 
-                   
-          } elseif (auth()->user()->hasRole('Escort')) {
+                    //en caso de que tenga rol de escort y tipo usuario sea una escort
+          } elseif (auth()->user()->hasRole('Escort') AND ($user->id_tipo_usuario == 1))  {
 
              $email_usuario_sesion = auth()->user()->email;
 
-           
             $clientes =   $query = DB::table("escorts")
             ->select("escorts.id","escorts.rut",
             "escorts.nombres",
@@ -56,6 +62,7 @@ class ClienteController extends Controller
             "escorts.fecha_nacimiento",
             "escorts.comentario_escort",
             "escorts.comentario_aprob_rechazo",
+
             DB::raw('CASE 
 
             WHEN escorts.id_estado = 1 THEN "PENDIENTE"
@@ -70,9 +77,9 @@ class ClienteController extends Controller
             ->orderby('escorts.id')
             ->get();
 
-          } elseif (auth()->user()->hasRole('Usuario Basico')) {
+          } elseif (auth()->user()->hasRole('Usuario Basico') AND ($user->id_tipo_usuario == 2)) {
 
-                    $clientes =    DB::table("escorts")
+                    $clientes =  DB::table("escorts")
                     ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
                      "escorts.nacionalidad",
                      "perfiles.edad",
@@ -88,12 +95,10 @@ class ClienteController extends Controller
 
                }
           
-    
 
              return view('admin.clientes.index', compact('clientes'));
        
         
-       
         }
 
         public function getInfoCliente($id) {
@@ -103,6 +108,7 @@ class ClienteController extends Controller
             $query = DB::table("escorts")
             ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
              "escorts.nacionalidad","escorts.id_estado",
+             "perfiles.id_perfil",
              "perfiles.edad",
              "perfiles.comuna",
              "perfiles.region",
@@ -122,7 +128,14 @@ class ClienteController extends Controller
             ->orderby('escorts.id')
         ->first();
 
-           return view('admin.clientes.show', compact('query'));
+          $sql_foto_escort = DB::table("escort_fotos")
+              ->SELECT("escorts.id","escort_fotos.url_fotos")
+              ->JOIN("escorts","escorts.id",'=',"escort_fotos.id_escort")
+              ->WHERE("escorts.id",'=',$id)->get();
+            
+           // dd($sql_foto_escort);
+
+           return view('admin.clientes.show', compact('query','sql_foto_escort'));
 
 
         }
@@ -139,9 +152,13 @@ class ClienteController extends Controller
 
           
            $escorts                           =  Escort::find($escort_id);
-           $escorts->id_estado                = $id_opcion;
+           $escorts->id_estado                =  $id_opcion;
            $escorts->comentario_aprob_rechazo =  $comentario_aprobacion_rechazo;
            $escorts->save();
+
+          //Si el escorts existe en la tabla users.
+
+
 
            if ($escorts) {
                return "1";
@@ -152,12 +169,35 @@ class ClienteController extends Controller
         }
 
 
+         //actualizar Perfil Escort
+
+         public function updateEscortInfo(Request $request) {
+
+            $escort_id             = Input::get('escort_id');
+            $escorts               =  Escort::find($escort_id);
+            $escorts->nombres      =  Input::get('nombre_escort');
+            $escorts->apellidos    =  Input::get('apellido_escort');
+            $escorts->save();
+
+            
+             $perfil                 = Perfil::where('id_escort', '=', $escort_id )->firstOrFail();
+             $perfil->edad           = Input::get('edad_escort');
+             $perfil->region         = Input::get('region_escort');
+             $perfil->comuna         = Input::get('comuna_escort');
+             $perfil->telefono       = Input::get('telefono_escort');
+             $perfil->descripcion    = Input::get('comentario_escort');
+             $perfil->id_estado       = "3" ;
+             $perfil->save();
 
 
+                 if ($perfil) {
+                      return Response::json(['success' => '1']);
+                  } else {
+                     return "0";
+                    }
 
+         
 
-
-
-
+       }
 
 }

@@ -2,27 +2,28 @@
 		<div class="container-fluid custom-container">
 			<div class="row no_row row-header">
 				<div class="brand-be">
-					<a href="index.html">
-				    	<img class="logo-c be_logo" src="img/logo-green.png" alt="logo2">
+					<a href="index.html">  
+				    	<img style="height:65px;width:100%;margin:-13px;" src ="{{ '/images/logo_header_seductives.jpg' }}" alt="logo2">
 						<!--img class="logo-c active be_logo img-responsive"  src="images/logo_seductives.jpg" alt="logo"!-->
 						<!--img class="logo-c be_logo" src="img/logo-green.png" alt="logo2"!-->
 						<img  class="logo-c be_logo" src="img/logo-orang.png" alt="logo3">
 						<img class="logo-c be_logo" src="img/logo-red.png" alt="logo4">
-					</a>
+					</a>  
 				</div>
+						 
 				<div class="header-menu-block">
 					<button class="cmn-toggle-switch cmn-toggle-switch__htx"><span></span></button>
 					<ul class="header-menu" id="one">
 						<li><a href="activity.html">Actividad</a></li>
-						<li><a href="search.html">Discover</a>
+						<li><a href="search.html">Categorias</a>
 							<ul>
-								<li><a href="search.html">Explore</a></li>
-								<li><a href="people.html">People</a></li>
-								<li><a href="gallery.html">Galleries</a></li>
+								<li><a href="search.html">Escorts</a></li>
+								<li><a href="people.html">Maduras</a></li>
+								<li><a href="gallery.html">Lesbianas</a></li>
 							</ul>
 						</li>
-						<li><a href="author-login.html">My Portfolio</a></li>
-						<li><a href="site-map.html">Site Map</a></li>
+						<li><a href="author-login.html">Contactanos</a></li>
+						<li><a href="site-map.html">Quienes Somos</a></li>
 						<li><a href="organization.html">Organization</a></li>
 						<li id="ad-work-li">
 						<!-- <a id="add-work-btn" class="btn btn-primary" 

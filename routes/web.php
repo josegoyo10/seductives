@@ -25,10 +25,18 @@
           Route::get('clientes', 'ClienteController@index')->name('admin.clientes.index');
           Route::get('showInfoCliente/{id}', 'ClienteController@getInfoCliente')->name('admin.clientes.info');
           Route::get('updateestado_escort', 'ClienteController@updateEstadoescort')->name('admin.clientes.updateEstado');            
+          
+          // Route::resource('file', 'FileController');
+
+           Route::POST('files/store','FileController@store')->name('files.store');
+
+           //actualizar escort perfil.
+
+           Route::POST('/updateEscort_info', 'ClienteController@updateEscortInfo');
 
 
 
-      });
+      }); 
 
    
     // Route::get('/admin', 'AdminController@index')->name('layout');
@@ -47,6 +55,10 @@
 
 
  // Authentication Routes...
+    Route::post('/login/user', 'CustomLoginController@loginUser');
+
+ 
+
     Route::get('login', 'Auth\LoginController@showLoginForm');
     Route::post('login', 'Auth\LoginController@login')->name('login');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');

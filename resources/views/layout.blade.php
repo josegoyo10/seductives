@@ -49,20 +49,17 @@
                         <i class="fa fa-times close-button"></i>
                         <h3 class="large-popup-title" style="position:relative;top:-20px;">Acceso</h3>
                      </div>
-                     <form  method="POST" action="{{ route('login') }}" class="popup-input-search" id="frm_login">
-                        {{ csrf_field() }}
+                      
+                      <form id="login-form" method="post" onsubmit="return LoginUser()" role="form" style="display: block;" class="popup-input-search">
+
                         <div class="col-md-5">
                            <input  class="form-control @error('email') is-invalid @enderror" name="email" 
                              type="email" required="" placeholder="Email" value="{{old('email') }}" required autofocus>
+                              <span class="invalid-feedback" role="alert" 
+                                 style="display: none;color:#fff;" id="error_mail">
+                                     <strong></strong>
+                              </span>
                               
-                              
-                             @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-
                         </div>
                         <div class="col-md-5">
                            <input  type="password" required="" placeholder="Contraseña"
@@ -76,7 +73,10 @@
 
                         </div>
                         <div class="col-md-2">
-                           <input type="submit" id="btn_login" class="btn btn-primary btn-prime white btn-flat" value="Entrar"/>
+                           <!--input type="submit" id="btn_login" class="btn btn-primary btn-prime white btn-flat"
+                            value="Entrar"/!-->
+                            <!--button type="button" id="btn_login" class="btn btn-primary btn-prime white btn-flat">Entrar</button!-->
+                             <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Entrar">
                         </div>
                         <br><br>
                         <div class="col-xs-6" style="margin-top:10px;">
@@ -90,6 +90,8 @@
             </div>
          </div>
       </div>
+
+      <!--Modal para Registrar un nuevo Usuario !-->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -211,6 +213,50 @@
 
       @stack('scripts')
       <script>
+
+            function LoginUser()
+                 {
+
+                  // alert('prueba');
+                     var token    =  "{{ csrf_token() }}";
+                     var email    = $("input[name=email]").val();
+                     var password = $("input[name=password]").val();
+                     var data = {
+                         _token:token,
+                         email:email,
+                         password:password
+                     };
+                     // Ajax Post 
+                     $.ajax({
+                         type: "post",
+                         url: "/login",
+                         data: data,
+                         cache: false,
+                         success: function (data)
+                         {
+                             //location.reload();
+                             console.log(data); 
+                             console.log('login request sent !');
+                             // console.log('status: ' +data.status);
+                             //  console.log('status: ' +data.user);
+                             // console.log('message: ' +data.message);
+                             window.location = "/admin";
+                         }, 
+                         error: function (data){
+                             console.log(data);
+                            $('#error_mail').html(data.responseJSON.errors.email[0]).show();
+                          //  console.log(data.responseJSON.errors.email[0]);
+                            // console.log(data);
+                            // alert('Fail to run Login..');
+                         }
+                     });
+                     return false;
+                 }
+
+
+
+
+
          $( document ).ready(function() {
          
             $('#btn_registro').click(function(){
@@ -219,27 +265,35 @@
          			$('#div_login').hide();
              });
          
-
+             
+             
 
             //login usuario
+            // $("#btn_login").click(function(e){
+            //      e.preventDefault();
+            //       var loginForm = $("#login-form");
+            //       var formData = loginForm.serialize();
 
-             $('#btn_login').on('submit', function(e) {
-                 e.preventDefault();
+            //      $.ajax({
+                      
+            //           url:'/login',
+            //           type:'POST',
+            //           data:formData,
+            //            cache: false, 
+            //            processData: false,
+            //            contentType: false, 
+            //          success: function (data) {
+            //             console.log(data.success);
+            //            //alert(data);
+            //            // console.log(data.intended);
+            //           window.location = '/admin' ;
+            //           },
+            //             error: function (jXHR, textStatus, errorThrown) {
+            //              alert(errorThrown);
+            //            }
 
-                 alert('ddd');
-                 //  var formData = registerForm.serialize();
-                 // $.ajax({
-                 //     url : $(this).attr('action') || window.location.pathname,
-                 //     type: "GET",
-                 //     data: $(this).serialize(),
-                 //     success: function (data) {
-                 //         $("#form_output").html(data);
-                 //     },
-                 //     error: function (jXHR, textStatus, errorThrown) {
-                 //         alert(errorThrown);
-                 //     }
-                // });
-             });
+            //     });
+            //  }); 
 
 
 

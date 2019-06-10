@@ -136,7 +136,9 @@ class EscortController extends Controller
         public function getEscortInfo () {
 
             $id = Input::get('id');
-           
+            
+            //return $id;
+                    
             $query = DB::table("escorts")
 						->select("escorts.id","escorts.nombres","escorts.apellidos",
 						 "escorts.nacionalidad",
@@ -152,7 +154,7 @@ class EscortController extends Controller
 						->WHERE("escorts.id", "=", $id)
 				    ->get();
 
-         
+                        
          
            // return ['success' => true, 'data' => $data];
           //  return Response::json(array(

@@ -12,8 +12,27 @@
       </span>
       </a>
       <ul class="treeview-menu">
-         <li class="active"><a href="{{ route('admin.clientes.index') }}"><i class="fa fa-eye"></i> Ver todos los usuarios</a></li>
-         <li><a href="index2.html"><i class="fa fa-pencil"></i> Actualizar Perfil</a></li>
+        @if (auth()->user()->hasRole('Admin'))
+              <li class="active"><a href="{{ route('admin.clientes.index') }}">
+                    <i class="fa fa-eye"></i> Ver todas las Clientas</a>
+              </li>
+         @else
+
+           @if (Auth::user()->id_tipo_usuario == 1)
+
+             <li>
+                 <a href="{{ route('admin.clientes.index') }}"><i class="fa fa-pencil"></i> Ver Mi Perfil</a>
+              </li>
+            
+            @else
+              <li>
+                 <a href="{{ route('admin.clientes.index') }}"><i class="fa fa-pencil"></i> Ver Escorts</a>
+              </li>
+
+            @endif
+          @endif
+
+
       </ul>
    </li>
 

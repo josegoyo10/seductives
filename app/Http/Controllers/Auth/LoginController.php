@@ -18,7 +18,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+   use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -37,4 +37,27 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+
+
+
+
+
+  //  protected function authenticated(Request $request, $user)
+  //    {
+
+  //       dd($this->redirectPath());
+
+  //       if ($request->ajax()){
+
+  //           return response()->json([
+  //            'auth' => auth()->check(),
+  //            'user' => $user,
+  //            'intended' => $this->redirectPath(),
+  //            ]);
+
+  //       }
+  // }
+
 }

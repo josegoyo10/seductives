@@ -106,7 +106,7 @@
                         <td>{{ $cliente->nacionalidad }}</td>
                         <td>{!! $cliente->descripcion_estado  !!}</td>
                         <td> 
-                           <a href="{{ route('admin.clientes.info', $cliente->id) }}" class="btn btn-primary">Ver</a>
+                           <a href="{{ route('admin.clientes.info',$cliente->id) }}" class="btn btn-primary">Ver</a>
                         </td>
                      </tr>
                      @endforeach
