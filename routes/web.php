@@ -17,7 +17,9 @@
     Route::get('/', 'PagesController@home')->name('inicio');
     Auth::routes();
 
+
       Route::get('admin', 'HomeController@index')->name('home');
+
 
       Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => 'auth'],
                 function () {
@@ -31,14 +33,15 @@
            Route::POST('files/store','FileController@store')->name('files.store');
 
            //actualizar escort perfil.
-
+ 
            Route::POST('/updateEscort_info', 'ClienteController@updateEscortInfo');
 
-
+           Route::get('actualizarcomuna/{id}', 'ComunaAdminController@updatecomboComuna');
+           
 
       }); 
 
-   
+      Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');
     // Route::get('/admin', 'AdminController@index')->name('layout');
     // Route::get('admin', function() {
 

@@ -158,7 +158,7 @@
                                                          <div class="input-group-addon">
                                                             <i class="fa fa-calendar"></i>
                                                          </div>
-														 <input type="text"  name="fecha_nacimiento" class="form-control pull-right" id="datepicker">
+                                                         <input type="text"  name="fecha_nacimiento" class="form-control pull-right" id="datepicker">
                                                       </div>
                                                       <span class="text-danger">
                                                       <strong id="fecha_nacimiento-error"></strong>
@@ -184,12 +184,19 @@
                                                 </div>
                                              </div>
                                              <!-- <h5>PERFIL ESCORT</h5>
-                                             <hr style="background-color: #fff;border-top: 2px dotted #8c8b8b;"> -->
+                                                <hr style="background-color: #fff;border-top: 2px dotted #8c8b8b;"> -->
                                              <div class='row'>
                                                 <div class='col-md-8'>
                                                    <div class='form-group'>
                                                       <label for="exampleFormControlSelect1">Region</label>
-                                                      <select id="regiones" class="form-control" name="regiones"></select>
+                                                      <select id="regiones" class="form-control" name="regiones">
+                                                      @foreach ($regiones as $region)
+                                                         <option value="{{$region->id}}" 
+                                                                        >{{ $region->nombre }}</option>
+                                                         @endforeach
+                                                                                             
+                                                      
+                                                      </select>
                                                    </div>
                                                    <span class="text-danger">
                                                    <strong id="regiones-error"></strong>
@@ -211,13 +218,13 @@
                                                       <label for="edad" class="col-form-label">Edad:</label>
                                                       <input type="text" class="form-control" id="edad" name="edad"
                                                          onkeypress="return isNumber(event)" maxlength="5" value="{{ old('edad') }}" disabled >
-												   </div>
-												    <input type="hidden" id="edad_cliente" name="edad_cliente" />
+                                                   </div>
+                                                   <input type="hidden" id="edad_cliente" name="edad_cliente" />
                                                    <span class="text-danger">
                                                    <strong id="edad-error"></strong>
                                                    </span>
                                                 </div>
-												<div class='col-md-4'>
+                                                <div class='col-md-4'>
                                                    <div class='form-group'>
                                                       <label for="Sexo" class="col-form-label">Sexo:</label>
                                                       <select class="form-control" id="sexo" name="sexo" value="{{ old('sexo') }}">
@@ -229,8 +236,8 @@
                                                       <strong id="sexo-error"></strong>
                                                       </span>
                                                    </div>
-												</div>
-												 <div class='col-md-4'>
+                                                </div>
+                                                <div class='col-md-4'>
                                                    <div class='form-group'>
                                                       <label for="rut" class="col-form-label">Teléfono:</label>
                                                       <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" maxlength="12">
@@ -238,57 +245,57 @@
                                                    <span class="text-danger">
                                                    <strong id="telefono-error"></strong>
                                                    </span>
-												 </div>
-											   </div>
-                                                <!-- <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="altura" class="col-form-label">Altura:</label>
-                                                      <input type="text" class="form-control" id="altura"
-                                                         name="altura" maxlength="8" value="{{ old('altura') }}">
-                                                   </div>
-                                                   <span class="text-danger">
-                                                   <strong id="altura-error"></strong>
-                                                   </span>
+                                                </div>
+                                             </div>
+                                             <!-- <div class='col-md-4'>
+                                                <div class='form-group'>
+                                                   <label for="altura" class="col-form-label">Altura:</label>
+                                                   <input type="text" class="form-control" id="altura"
+                                                      name="altura" maxlength="8" value="{{ old('altura') }}">
+                                                </div>
+                                                <span class="text-danger">
+                                                <strong id="altura-error"></strong>
+                                                </span>
                                                 </div>
                                                 <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="medidas" class="col-form-label">Medidas:</label>
-                                                      <input type="text" class="form-control" id="medidas" name="medidas" maxlength="10" value="{{ old('medidas') }}">
-                                                   </div>
-                                                   <span class="text-danger">
-                                                   <strong id="medidas-error"></strong>
-                                                   </span>
+                                                <div class='form-group'>
+                                                   <label for="medidas" class="col-form-label">Medidas:</label>
+                                                   <input type="text" class="form-control" id="medidas" name="medidas" maxlength="10" value="{{ old('medidas') }}">
+                                                </div>
+                                                <span class="text-danger">
+                                                <strong id="medidas-error"></strong>
+                                                </span>
                                                 </div> -->
                                              <!--/div>
-                                             <div class="row">
-                                                 <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="nombres" class="col-form-label">Horario:</label>
-                                                      <input type="text" class="form-control" id="horario" name="horario" value="{{ old('horario') }}" maxlength="20">
-                                                   </div>
-                                                   <span class="text-danger">
-                                                   <strong id="horario-error"></strong>
-                                                   </span>
-                                                </div> -->
-                                                <!-- <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="apellidos" class="col-form-label">Dias de Atención:</label>
-                                                      <input type="text" class="form-control" id="atencion" name="atencion"  value="{{ old('atencion') }}">
-                                                   </div>
-                                                   <span class="text-danger">
-                                                   <strong id="atencion-error"></strong>
-                                                   </span>
+                                                <div class="row">
+                                                    <div class='col-md-4'>
+                                                      <div class='form-group'>
+                                                         <label for="nombres" class="col-form-label">Horario:</label>
+                                                         <input type="text" class="form-control" id="horario" name="horario" value="{{ old('horario') }}" maxlength="20">
+                                                      </div>
+                                                      <span class="text-danger">
+                                                      <strong id="horario-error"></strong>
+                                                      </span>
+                                                   </div> -->
+                                             <!-- <div class='col-md-4'>
+                                                <div class='form-group'>
+                                                   <label for="apellidos" class="col-form-label">Dias de Atención:</label>
+                                                   <input type="text" class="form-control" id="atencion" name="atencion"  value="{{ old('atencion') }}">
+                                                </div>
+                                                <span class="text-danger">
+                                                <strong id="atencion-error"></strong>
+                                                </span>
                                                 </div>
                                                 <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="rut" class="col-form-label">Teléfono:</label>
-                                                      <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" maxlength="12">
-                                                   </div>
-                                                   <span class="text-danger">
-                                                   <strong id="telefono-error"></strong>
-                                                   </span>
+                                                <div class='form-group'>
+                                                   <label for="rut" class="col-form-label">Teléfono:</label>
+                                                   <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" maxlength="12">
                                                 </div>
-                                             </div> -->
+                                                <span class="text-danger">
+                                                <strong id="telefono-error"></strong>
+                                                </span>
+                                                </div>
+                                                </div> -->
                                              <!--div class='row'>
                                                 <div class='col-md-4'>
                                                    <div class='form-group'>
@@ -300,37 +307,37 @@
                                                    <strong id="precio-error"></strong>
                                                    </span>
                                                 </div> -->
-                                                <!-- <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="apellidos" class="col-form-label">Categoria:</label>
-                                                      <select class="form-control" id="categoria" name="categoria"   value="{{ old('categoria') }}">
-                                                         <option value="0">«« SELECCIONE »»</option>
-                                                         <option value="escorts">Escorts</option>
-                                                         <option value="trans">Trans y Travestis</option>
-                                                         <option value="masajes">Masajes</option>
-                                                         <option value="gays">Gays</option>
-                                                         <option value="madura">Madura</option>
-                                                         <option value="swingers">Swingers</option>
-                                                      </select>
-                                                   </div>
-                                                   <span class="text-danger">
-                                                   <strong id="categoria-error"></strong>
-                                                   </span>
+                                             <!-- <div class='col-md-4'>
+                                                <div class='form-group'>
+                                                   <label for="apellidos" class="col-form-label">Categoria:</label>
+                                                   <select class="form-control" id="categoria" name="categoria"   value="{{ old('categoria') }}">
+                                                      <option value="0">«« SELECCIONE »»</option>
+                                                      <option value="escorts">Escorts</option>
+                                                      <option value="trans">Trans y Travestis</option>
+                                                      <option value="masajes">Masajes</option>
+                                                      <option value="gays">Gays</option>
+                                                      <option value="madura">Madura</option>
+                                                      <option value="swingers">Swingers</option>
+                                                   </select>
+                                                </div>
+                                                <span class="text-danger">
+                                                <strong id="categoria-error"></strong>
+                                                </span>
                                                 </div> -->
-                                                <!-- <div class='col-md-4'>
-                                                   <div class='form-group'>
-                                                      <label for="Sexo" class="col-form-label">Sexo:</label>
-                                                      <select class="form-control" id="sexo" name="sexo" value="{{ old('sexo') }}">
-                                                         <option value="0">«« SELECCIONE »»</option>
-                                                         <option value="1">Femenino</option>
-                                                         <option value="2">Masculino</option>
-                                                      </select>
-                                                      <span class="text-danger">
-                                                      <strong id="sexo-error"></strong>
-                                                      </span>
-                                                   </div>
+                                             <!-- <div class='col-md-4'>
+                                                <div class='form-group'>
+                                                   <label for="Sexo" class="col-form-label">Sexo:</label>
+                                                   <select class="form-control" id="sexo" name="sexo" value="{{ old('sexo') }}">
+                                                      <option value="0">«« SELECCIONE »»</option>
+                                                      <option value="1">Femenino</option>
+                                                      <option value="2">Masculino</option>
+                                                   </select>
+                                                   <span class="text-danger">
+                                                   <strong id="sexo-error"></strong>
+                                                   </span>
+                                                </div>
                                                 </div> >
-                                             </div-->
+                                                </div-->
                                              <div class="row">
                                                 <div class='col-md-12'>
                                                    <div class="form-group">
@@ -417,81 +424,78 @@
          
          //Date picker
          $('#datepicker').datepicker({
-        		 autoclose: true
+         	 autoclose: true
          });
          
-
+         
          $("#photo_principal").change(function(){
          
-        	 $('#image_preview').html("");
+          $('#image_preview').html("");
          
          		var total_file=document.getElementById("photo_principal").files.length;
          
-				for(var i=0;i<total_file;i++)
-			
-				{
-			
-					$('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
-			
-				}
-         
+                  for(var i=0;i<total_file;i++)
+                  
+                  {
+                  
+                        $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+                  
+                  }
+                  
          });
          
          $("#photo_secundaria_1").change(function(){
          
-        	 $('#image_preview_1').html("");
-         
-				var total_file=document.getElementById("photo_secundaria_1").files.length;
-			
-				for(var i=0;i<total_file;i++)
-				
-					{
-				
-					$('#image_preview_1').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
-				
-					}
-         
+                  $('#image_preview_1').html("");
+                  
+                  var total_file=document.getElementById("photo_secundaria_1").files.length;
+                  
+                  for(var i=0;i<total_file;i++)
+                  
+                  {
+                  
+                  $('#image_preview_1').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+                  
+                  }
+                  
           });
          
          
          $("#photo_secundaria_2").change(function(){
          
-        	 $('#image_preview_2').html("");
-         
-         		var total_file=document.getElementById("photo_secundaria_2").files.length;
-         
-				for(var i=0;i<total_file;i++)
-				
-				{
-				
-				$('#image_preview_2').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
-				
-				}
+               $('#image_preview_2').html("");
+               
+                     var total_file=document.getElementById("photo_secundaria_2").files.length;
+               
+               for(var i=0;i<total_file;i++)
+               
+               {
+               
+               $('#image_preview_2').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+               
+               }
          
           });
          
-        //calcular edad del cliente.
-		$("#datepicker").change(function(){
-			$('input[name="edad_cliente"]').val(' ');
-		   // alert('xx');
-				var today = new Date();
-				var birthDate = new Date($('#datepicker').val());
-				var age = today.getFullYear() - birthDate.getFullYear();
-				var m = today.getMonth() - birthDate.getMonth();
-				if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-					age--;
-				}
-
-				$('input[name="edad_cliente"]').val(age);
-				return $('input[name="edad"]').val(age + ' ' + 'años');
-			
-		});
-
+         //calcular edad del cliente.
+         $("#datepicker").change(function(){
+               $('input[name="edad_cliente"]').val(' ');
+               // alert('xx');
+               var today = new Date();
+               var birthDate = new Date($('#datepicker').val());
+               var age = today.getFullYear() - birthDate.getFullYear();
+               var m = today.getMonth() - birthDate.getMonth();
+               if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                   age--;
+               }
          
-
-
-
-
+                  $('input[name="edad_cliente"]').val(age);
+                  return $('input[name="edad"]').val(age + ' ' + 'años');
+                  
+         });
+         
+         
+         
          //Guardar formulario
          
          $('body').on('click', '#btn_guardar', function(e){
@@ -505,43 +509,84 @@
          // $( '#email-error' ).html( "" );
          // $( '#password-error' ).html( "" );
          
-         $.ajax({
-         url:'/create_escort',
-         type:'POST',
-         data:formData,
-         success:function(data) {
-         console.log(data);
-         if(data.errors) {
-			if(data.errors.name){
-			$( '#name-error' ).html( data.errors.name[0] );
-			}
+                  $.ajax({
+                        url:'/create_escort',
+                        type:'POST',
+                        data:formData,
+                        success:function(data) {
+                        console.log(data);
+                        if(data.errors) {
+                           if(data.errors.name){
+                              $( '#name-error' ).html( data.errors.name[0] );
+                           }
+                  
+                           if(data.errors.last_name){
+                                $( '#last_name-error' ).html( data.errors.last_name[0] );
+                           }
+                  
+                           if(data.errors.email){
+                                $( '#email-error' ).html( data.errors.email[0] );
+                              }
+                           
+                           if(data.errors.password){
+                                $( '#password-error' ).html( data.errors.password[0] );
+                           }
+                              
+                  }
+                  if(data.success) {
+                     $('#success-msg').removeClass('hide');
+                        setInterval(function(){
+                        $('#SignUp').modal('hide');
+                        $('#success-msg').addClass('hide');
+                       }, 4000);
+                       }
+                     },
+                   });
+                  
+                });
          
-         if(data.errors.last_name){
-			$( '#last_name-error' ).html( data.errors.last_name[0] );
-			}
+                 //actualizar combo de regiones y comuna
+
+         //para refrescar el combo de factores reporte 5
+      $('select[name="regiones"]').on('change', function() {
+            var stateID = $(this).val();
+            $('select[name="comuna_escort"]').empty();
+         //   alert('stateid:'+ stateID);
+
+               if(stateID) {
+                     $.ajax({
+                        url: 'updatecomuna/'+stateID,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+
+                        $.each(data.comuna, function(i, comuna){
+                           //do something
+                           //console.log(comuna.nombre);
+                           $('select[name="comunas"]').append('<option value="'+ comuna.id +'">'+ comuna.nombre+'</option>');
+                        });
+
+
+                     //   $('select[name="comuna_escort"]').empty();
+                        if(data == ""){
+                              $('select[name="comunas"]').append('<option value="0">'+'«« No hay Comunas »»'+'</option>');
+                              
+                           }
+                        
+                        
+                     },
+
+                        fail: function(jqXHR, textStatus, errorThrown){ 
+                        alert('Error: ' + jqXHR.responseText); 
          
-         if(data.errors.email){
-         	$( '#email-error' ).html( data.errors.email[0] );
-         	}
-         
-         
-         if(data.errors.password){
-        	 $( '#password-error' ).html( data.errors.password[0] );
-         }
-         
-         }
-         if(data.success) {
-         	$('#success-msg').removeClass('hide');
-				setInterval(function(){
-					$('#SignUp').modal('hide');
-					$('#success-msg').addClass('hide');
-				}, 4000);
-				}
-         	},
-         	});
-         
-         });
-         
+                       }
+                    });
+                 }else{
+              
+                //$('select[name="factor_id"]').empty();
+                
+                      }
+                });
          
          
          

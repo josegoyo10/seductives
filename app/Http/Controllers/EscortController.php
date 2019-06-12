@@ -8,6 +8,8 @@ use Response;
 use App\Escort;
 use App\Perfil;
 use App\Escort_Fotos;
+use App\Region;
+use App\Comuna;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
@@ -22,7 +24,10 @@ class EscortController extends Controller
             $fecha = Carbon::now()->format('d-m-Y H:i:s') ;
             //$fecha =  $mytime->toDateTimeString();
 
-            return view('escort.index', compact('fecha'));
+            $regiones = Region::all();
+            $comunas   = Comuna::all();
+
+            return view('escort.index', compact('fecha','regiones','comunas'));
         }
 
         public function store(Request $request) {

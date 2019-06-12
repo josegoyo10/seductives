@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Escort;
 use App\Perfil;
+use App\Region;
+use App\Comuna;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
@@ -103,7 +105,9 @@ class ClienteController extends Controller
 
         public function getInfoCliente($id) {
          
-         
+           
+           $regiones = Region::all();
+           $comunas   = Comuna::all();
 
             $query = DB::table("escorts")
             ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
@@ -124,21 +128,23 @@ class ClienteController extends Controller
              "escorts.comentario_aprob_rechazo"
             )
             ->join("perfiles","perfiles.id_escort","=","escorts.id")
+           
             ->WHERE("escorts.id",'=',$id)
             ->orderby('escorts.id')
-        ->first();
+            ->first();
 
           $sql_foto_escort = DB::table("escort_fotos")
               ->SELECT("escorts.id","escort_fotos.url_fotos")
               ->JOIN("escorts","escorts.id",'=',"escort_fotos.id_escort")
               ->WHERE("escorts.id",'=',$id)->get();
-            
-           // dd($sql_foto_escort);
 
-           return view('admin.clientes.show', compact('query','sql_foto_escort'));
+          $sql_desc_comuna = DB::table("comuna")
+          ->SELECT("comuna.id","comuna.nombre")
+          ->WHERE("comuna.id",'=', $query->comuna)->first();
 
+           return view('admin.clientes.show', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna'));
 
-        }
+       }
 
 
         //actualizar estado escort

@@ -50,18 +50,24 @@
         <div class="col-md-4">
            <div class="form-group">
               <label>Region </label>
-              <input type="text" class="form-control"  
-              value="{{ $query->region }}"  id="region_escort" name="region_escort" {{ auth()->user()->hasRole('Admin') ? 'disabled' : '' }}/>
-              
-
+             <select name="region_escort" id="region_escort" class="form-control">
+              <option value="">Seleccione una Region</option>
+                  @foreach ($regiones as $region)
+                  <option value="{{$region->id}}" 
+                     {{ $query->region == $region->id ? 'selected' : '' }}
+                                 >{{ $region->nombre }}</option>
+                  @endforeach
+            </select>
            </div>
         </div>
         <div class="col-md-4">
            <div class="form-group">
               <label>Comuna</label>
-              <input type="text" class="form-control"  id="comuna_escort" name="comuna_escort" 
-              value="{{ $query->comuna }}"  
-              {{ auth()->user()->hasRole('Admin') ? 'disabled' : '' }}>
+              <select name="comuna_escort" id="comuna_escort" class="form-control">
+                  <option value="{{$sql_desc_comuna->id}}"  selected >{{ $sql_desc_comuna->nombre }}
+                        </option>
+              </select>
+            
            </div>
         </div>
         <div class="col-md-4">
@@ -299,6 +305,59 @@
 
 
         });
+
+
+       //actualizar combo de regiones y comuna
+
+         //para refrescar el combo de factores reporte 5
+      $('select[name="region_escort"]').on('change', function() {
+            var stateID = $(this).val();
+            $('select[name="comuna_escort"]').empty();
+         //   alert('stateid:'+ stateID);
+
+          if(stateID) {
+                $.ajax({
+                   // url: '/admin/updatecomuna/'+stateID,
+                   url: '/admin/actualizarcomuna/'+stateID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+                     $.each(data.comuna, function(i, comuna){
+                        //do something
+                        //console.log(comuna.nombre);
+                        $('select[name="comuna_escort"]').append('<option value="'+ comuna.id +'">'+ comuna.nombre+'</option>');
+                     });
+
+
+                     //   $('select[name="comuna_escort"]').empty();
+                     if(data == ""){
+                            $('select[name="comuna_escort"]').append('<option value="0">'+'«« No hay Comunas »»'+'</option>');
+                             
+                          }
+                     
+                       
+                    },
+                      
+
+                      fail: function(jqXHR, textStatus, errorThrown){ 
+                      alert('Error: ' + jqXHR.responseText); 
+        
+                     }
+                 });
+              }else{
+              
+                //$('select[name="factor_id"]').empty();
+                
+            }
+    });
+
+
+
+
+
+
+
 
 
 
