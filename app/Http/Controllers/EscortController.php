@@ -171,6 +171,13 @@ class EscortController extends Controller
           
         }
 
+      //
+      public function getPerfilEscort($id) {
+
+          
+          return view('escort.perfilpublico_escort',compact('id'));
+      }
+
 
 
 

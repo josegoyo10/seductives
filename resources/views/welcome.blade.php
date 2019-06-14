@@ -102,9 +102,9 @@
          @foreach($data as $row) 
          <div class="category-1 mix custom-column-5">
             <div class="be-post">
-               <a  class="be-img-block red-tooltip" id="modalEscort" data-show="tip" style="cursor:pointer"
-                 data-target="#exampleModalCenter" data-id="{{ $row->id }}" 
-                 data-toggle="modal"
+               <a href="escort_perfil/{{ $row->id }}" class="be-img-block red-tooltip" id="modalEscort" data-show="tip" 
+                 style="cursor:pointer"
+                  data-id="{{ $row->id }}" 
                  data-original-title="<div class='row'>
                                         <div class='col-md-12'>
                                           <div class='form-group'>
@@ -168,8 +168,8 @@
 @stop
 
 
-   <script src="/js/jquery-2.1.4.min.js"></script>
-   <script src="/js/bootstrap.min.js"></script>
+<script src='{{ url("js/jquery-2.1.4.min.js") }}'></script>
+<script src='{{ url("js/bootstrap.min.js") }}'></script>
   
 <!-- Modal para mostrar las fotos relacionadas a las escorts -->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -235,33 +235,33 @@
           
         });
 
-         //Modal para mostrar info de la escort.
-         $(".red-tooltip").click(function(){
-            var id_escort = $(this).attr("data-id"); 
-             $('#nombre_escort').html('');
-             $('#edad_escort').html('');
-             $('#altura_escort').html('');
-             $('#image_escort').attr('src', '');
-           // alert('mostrar:'+ id_escort);
-                   $.ajax({
-                        url:'/getEscortInfo',
-                        type:'GET',
-                        data: {
-                           id: id_escort
-                        },
-                        dataType: 'JSON',
-                        success:function(data) {
-                           //var datos =  JSON.parse(data);
-                         //  console.log(data[0].nombres);
-                         $('#nombre_escort').html(data.respuesta[0].nombres);
-                         $('#edad_escort').html(data.respuesta[0].edad); 
-                         $('#altura_escort').html(data.respuesta[0].altura); 
-                         $("#image_escort").attr("src", " " + data.respuesta[0].foto_principal);
+         // //Modal para mostrar info de la escort.
+         // $(".red-tooltip").click(function(){
+         //    var id_escort = $(this).attr("data-id"); 
+         //     $('#nombre_escort').html('');
+         //     $('#edad_escort').html('');
+         //     $('#altura_escort').html('');
+         //     $('#image_escort').attr('src', '');
+         //   // alert('mostrar:'+ id_escort);
+         //           $.ajax({
+         //                url:'/getEscortInfo',
+         //                type:'GET',
+         //                data: {
+         //                   id: id_escort
+         //                },
+         //                dataType: 'JSON',
+         //                success:function(data) {
+         //                   //var datos =  JSON.parse(data);
+         //                 //  console.log(data[0].nombres);
+         //                 $('#nombre_escort').html(data.respuesta[0].nombres);
+         //                 $('#edad_escort').html(data.respuesta[0].edad); 
+         //                 $('#altura_escort').html(data.respuesta[0].altura); 
+         //                 $("#image_escort").attr("src", " " + data.respuesta[0].foto_principal);
 
-                      },
+         //              },
                     
-                  });
-               });
+         //          });
+         //       });
 
 
    }); 

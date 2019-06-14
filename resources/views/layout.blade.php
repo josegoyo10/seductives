@@ -6,24 +6,26 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <link rel="shortcut icon" href="img/favicon.png">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" href="{{url('css/bootstrap.min.css') }}">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/css/icon.css">
-      <link rel="stylesheet" href="/css/loader.css">
-      <link rel="stylesheet" href="/css/idangerous.swiper.css">
-      <link rel="stylesheet" href="/css/jquery-ui.css">
-      <link rel="stylesheet" href="/css/stylesheet.css">
+      <link rel="stylesheet" href="{{url('css/icon.css') }}">
+      <link rel="stylesheet" href='{{url("css/loader.css") }}'>
+      <link rel="stylesheet" href='{{url("css/idangerous.swiper.css") }}'>
+      <link rel="stylesheet" href='{{url("css/jquery-ui.css") }}'>
+      <link rel="stylesheet" href='{{url("css/stylesheet.css")}}'>
+      <link rel="stylesheet" href='{{url("css/magnific.css")}}'>
       <!--Fontawesome CDN-->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     
+      <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"!-->
+      <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"!-->
+       
+
       @stack('styles')
    </head>
-   <body >
+   <body > 
       <!-- THE LOADER -->
       <div class="be-loader">
          <div class="spinner">
-            <img src="img/logo-loader.png"  alt="">
+            <img src='{{ url("img/logo-loader.png") }}'  alt="">
             <p class="circle">
                <span class="ouro">
                <span class="left"><span class="anim"></span></span>
@@ -201,15 +203,16 @@
          <div class="open"><img src="img/icon-134.png" alt=""></div>
          </div> -->
       <!-- SCRIPTS	 -->
-      <script src="/js/jquery-2.1.4.min.js"></script>
-      <script src="/js/jquery-ui.min.js"></script>
-      <script src="/js/bootstrap.min.js"></script>		
-      <script src="/js/idangerous.swiper.min.js"></script>
-      <script src="/js/jquery.mixitup.js"></script>
-      <script src="/js/jquery.viewportchecker.min.js"></script>
-      <script src="/js/filters.js"></script>
-      <script src="/js/global.js"></script>
-      <script  src="assets/dist/js/tooltipster.bundle.min.js"></script>
+      
+      <script src='{{ url("js/jquery-2.1.4.min.js") }}'></script>
+      <script src='{{ url("js/jquery-ui.min.js") }}'></script>
+      <script src='{{ url("js/bootstrap.min.js") }}'></script>		
+      <script src='{{ url("js/idangerous.swiper.min.js") }}'></script>
+      <script src='{{ url("js/jquery.mixitup.js") }}'></script>
+      <script src='{{ url("js/jquery.viewportchecker.min.js") }}'></script>
+      <!--script src='{{ url("js/filters.js") }}'></script!-->
+      <script src='{{ url("js/global.js") }}'></script>
+      <script  src='{{ url("assets/dist/js/tooltipster.bundle.min.js") }}'></script>
 
       @stack('scripts')
       <script>

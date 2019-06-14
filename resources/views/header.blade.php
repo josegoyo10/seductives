@@ -2,12 +2,12 @@
 		<div class="container-fluid custom-container">
 			<div class="row no_row row-header">
 				<div class="brand-be">
-					<a href="index.html">  
-				    	<img style="height:65px;width:100%;margin:-13px;" src ="{{ '/images/logo_header_seductives.jpg' }}" alt="logo2">
+					<a href="index.html">   
+				    	<img style="height:65px;width:100%;margin:-13px;" src ='{{ url("images/logo_header_seductives.jpg") }}' alt="logo2">
 						<!--img class="logo-c active be_logo img-responsive"  src="images/logo_seductives.jpg" alt="logo"!-->
 						<!--img class="logo-c be_logo" src="img/logo-green.png" alt="logo2"!-->
-						<img  class="logo-c be_logo" src="img/logo-orang.png" alt="logo3">
-						<img class="logo-c be_logo" src="img/logo-red.png" alt="logo4">
+						<img  class="logo-c be_logo" src='{{ url("img/logo-orang.png") }}' alt="logo3">
+						<img class="logo-c be_logo" src='{{ url("img/logo-red.png") }}' alt="logo4">
 					</a>  
 				</div>
 						 
@@ -53,8 +53,8 @@
 		</div>
 	</header>
 	
-
+	
   <!--JQUERY !-->
-  <script src="/js/jquery-2.1.4.min.js"></script>
+  <script src='{{ url("js/jquery-2.1.4.min.js") }}'></script>
   	<!-- Date Picker -->
 	<!--script src='{{ url("assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}'></script!-->
