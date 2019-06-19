@@ -157,7 +157,7 @@ class EscortController extends Controller
              "perfiles.foto_secundaria_2" )
 						->join("perfiles","perfiles.id_escort","=","escorts.id")
 						->WHERE("escorts.id", "=", $id)
-				    ->get();
+				    ->first();
 
                         
          
@@ -174,8 +174,36 @@ class EscortController extends Controller
       //
       public function getPerfilEscort($id) {
 
+                   
+        $data = DB::table("escorts")
+        ->select("escorts.id","escorts.nombres","escorts.apellidos",
+         "escorts.nacionalidad",
+         "perfiles.edad",
+         "perfiles.comuna",
+         "perfiles.telefono",
+         "perfiles.altura",
+         "perfiles.medidas",
+         "perfiles.descripcion",
+         "perfiles.foto_principal",
+         "perfiles.foto_secundaria_1",
+         "perfiles.foto_secundaria_2",
+         "regiones.nombre as descripcion_region",
+         "comuna.nombre as descripcion_comuna" )
+        ->join("perfiles","perfiles.id_escort","=","escorts.id")
+        ->join("regiones","regiones.id","=","perfiles.region")
+        ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+        ->WHERE("escorts.id", "=", $id)
+        ->first();
+        
+       //obtener las fotos de la escort
+       $sql_foto_escort = DB::table("escort_fotos")
+       ->select("escort_fotos.id","escort_fotos.url_fotos")
+       ->WHERE("escort_fotos.id_escort", "=", $id)
+       ->get();
+
+      //dd($escort_photos);
           
-          return view('escort.perfilpublico_escort',compact('id'));
+          return view('escort.perfilpublico_escort',compact('data','sql_foto_escort'));
       }
 
 

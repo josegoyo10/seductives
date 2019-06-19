@@ -210,6 +210,8 @@
       <script src='{{ url("js/idangerous.swiper.min.js") }}'></script>
       <script src='{{ url("js/jquery.mixitup.js") }}'></script>
       <script src='{{ url("js/jquery.viewportchecker.min.js") }}'></script>
+      <script src='{{ url("js/jquery.viewport.js") }}'></script>
+     
       <!--script src='{{ url("js/filters.js") }}'></script!-->
       <script src='{{ url("js/global.js") }}'></script>
       <script  src='{{ url("assets/dist/js/tooltipster.bundle.min.js") }}'></script>

@@ -2,7 +2,7 @@
 		<div class="container-fluid custom-container">
 			<div class="row no_row row-header">
 				<div class="brand-be">
-					<a href="index.html">   
+					<a href="{{ route('inicio') }}">   
 				    	<img style="height:65px;width:100%;margin:-13px;" src ='{{ url("images/logo_header_seductives.jpg") }}' alt="logo2">
 						<!--img class="logo-c active be_logo img-responsive"  src="images/logo_seductives.jpg" alt="logo"!-->
 						<!--img class="logo-c be_logo" src="img/logo-green.png" alt="logo2"!-->
