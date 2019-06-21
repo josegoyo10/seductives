@@ -1,6 +1,7 @@
 @extends('admin.layout')
-
 <link rel="stylesheet" href='{{ url("adminlte/bower_components/select2/dist/css/select2.min.css") }}'>
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.css'>
 
 @section('content')
 <!-- Content Header (Page header) -->
@@ -269,8 +270,9 @@
                      <strong> Perfil Actualizado Exitosamente...!!</strong>
                   </div>
                   <form class="form-horizontal" id="frm_dataEscort" method="POST">
-                      <input type="hidden"   id="escort_id"  name="escort_id" value="{{ $data->id}}" />
-                      <input type="hidden" id="perfil_id"  name="perfil_id"  value="{{ $data->id_perfil}}" />
+                     @csrf
+                     <input type="hidden"   id="escort_id"  name="escort_id" value="{{ $data->id}}" />
+                     <input type="hidden" id="perfil_id"  name="perfil_id"  value="{{ $data->id_perfil}}" />
                      <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">Nombre</label>
                         <div class="col-sm-10">
@@ -286,8 +288,8 @@
                      <div class="form-group">
                         <label for="inputEmail" class="col-sm-2 control-label">Télefono</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control item" id="telefono_escort" name="telefono_escort" 
-                        placeholder="Phone Number"  data-inputmask="'mask': '+56 9 99 99 99 99 '" value="{{$data->telefono}}">
+                           <input type="text" class="form-control item" id="telefono_escort" name="telefono_escort" 
+                              placeholder="Phone Number"  data-inputmask="'mask': '+56 9 99 99 99 99 '" value="{{$data->telefono}}">
                         </div>
                      </div>
                      <div class="form-group">
@@ -296,7 +298,6 @@
                            <textarea class="form-control" id="comentario_escort" name="comentario_escort" >{{ $data->comentario_escort }}</textarea>
                         </div>
                      </div>
-
                      <div class="form-group">
                         <label for="inputExperience" class="col-sm-2 control-label">Descripción Servicio</label>
                         <div class="col-sm-10">
@@ -306,27 +307,52 @@
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Altura</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control" id="altura_escort" maxlength="4" name="altura_escort" value="{{$data->altura}}" >
+                           <input type="text" class="form-control" id="altura_escort" name="altura_escort"
+                              name="altura_escort" value="{{$data->altura}}" >
                         </div>
                      </div>
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Medidas</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control" id="medida_escort" name="medida_escort" maxlength="7" value="{{$data->medidas}}" >
+                           <input type="text" class="form-control" id="medida_escort" name="medida_escort" 
+                              value="{{$data->medidas}}" >
                         </div>
                      </div>
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Horario</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control" id="horario_escort" name="horario_escort" value="{{ $data->horario }}" >
-                        </div>
-                     </div>
+                              <div class="bootstrap-timepicker">
+                                 <div class="input-group">
+                                    <input type="text" class="form-control timepicker">
+
+                                       <div class="input-group-addon">
+                                          <i class="fa fa-clock-o"></i>
+                                       </div>
+                                 </div>
+                             
+                              </div>
+                           </div>
+                       </div>
                      <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Atención</label>
+                        <div class="col-sm-10">
+                           <select class="form-control" 
+                              data-placeholder="Seleccione"
+                              style="width: 100%;" name="atencion_escort">
+                              <option  value="0">Seleccione</option>
+                              <option  value="Depto Propio">Depto Propio</option>
+                              <option  value="Domicilio">Domicilio</option>
+                              <option  value="Hoteles">Hoteles</option>
+                           </select>
+                        
+                        </div>
+                     </div> 
+                     <!-- <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Dias de Atención</label>
                         <div class="col-sm-10">
                            <select class="form-control select2" multiple="multiple" 
-                             data-placeholder="Seleccione"
-                                    style="width: 100%;" name="dias_atencion[]">
+                              data-placeholder="Seleccione"
+                              style="width: 100%;" name="dias_atencion[]">
                               <option  value="Lunes.">Lunes</option>
                               <option  value="Martes.">Martes</option>
                               <option  value="Miercoles.">Miercoles</option>
@@ -335,20 +361,42 @@
                               <option  value="Sabado.">Sabado</option>
                               <option  value="Domingo.">Domingo</option>
                            </select>
-                           <!--input type="text" class="form-control" id="atencion_escort" name="atencion_escort" value="{{ $data->atencion }}" !-->
+                        
+                        </div>
+                     </div> -->
+                     <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Región</label>
+                        <div class="col-sm-10">
+                           <select name="region_escort" id="region_escort" class="form-control">
+                              <option value="">Seleccione una Region</option>
+                              @foreach ($regiones as $region)
+                              <option value="{{$region->id}}" 
+                              {{ $data->region == $region->id ? 'selected' : '' }}
+                              >{{ $region->nombre }}</option>
+                              @endforeach
+                           </select>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Comuna</label>
+                        <div class="col-sm-10">
+                           <select name="comuna_escort" id="comuna_escort" class="form-control">
+                              <option value="{{$sql_desc_comuna->id}}"  selected >{{ $sql_desc_comuna->nombre }}
+                              </option>
+                           </select>
                         </div>
                      </div>
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Precio</label>
                         <div class="col-sm-10">
                            <input type="text" class="form-control" id="precio_escort" 
-                           name="precio_escort" value="{{ $data->precio }}" maxlength="10"
-                           data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: left;" >
+                              name="precio_escort" value="{{ $data->precio }}" maxlength="10"
+                              data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: left;" >
                         </div>
                      </div>
                      <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                           <button type="submit" class="btn btn-primary">Actualizar</button>
+                           <button type="submit" class="btn btn-primary" id="btn_actualizar">Actualizar</button>
                         </div>
                      </div>
                   </form>
@@ -366,25 +414,90 @@
 <!-- /.content -->
 </div>
 @stop
-
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script src='{{url("adminlte/bower_components/select2/dist/js/select2.full.min.js") }}'></script>
+<!-- bootstrap time picker -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js'></script>
 <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-
-
 <script>
- $j=jQuery.noConflict();
-
-  $j(document).ready(function () {
-    // Initialize InputMask
+   $j=jQuery.noConflict();
+   
+    $j(document).ready(function () {
+      // Initialize InputMask
+      
+       $j("#telefono_escort").inputmask('9999-999-9999');
+       $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
+       $j('.select2').select2();
+       $j("#precio_escort").inputmask({ alias : "pesos" })
+       $j('#altura_escort').inputmask('9,99' );
+       $j('#medida_escort').inputmask('99-99-99');
     
-     $j("#telefono_escort").inputmask('9999-999-9999');
-     $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
-     $j('.select2').select2();
-     $j("#precio_escort").inputmask({ alias : "pesos" })
-
-  
-
-   });
-
+        //actualizar informacion de la escort
+       $('#btn_actualizar').on('click', function(e) {
+              e.preventDefault();
+   
+               var data = $("#frm_dataEscort").serialize();
+              $.ajax({
+                  type: "post",
+                  url: "/admin/updateEscort_info",
+                  data: data,
+                  dataType: "json",
+                  success: function(data) {
+                      //console.log('success');
+                      if(data.success == 1) {
+                          $('#ajax-alert').html('Perfil Actualizado Exitosamente').show().delay(3000).fadeOut();
+                      }
+                  },
+                  error: function(error) {
+                      console.log('error');
+                  }
+                });
+   
+             });
+   
+                //actualizar combo de regiones y comuna
+           //para refrescar el combo de factores reporte 5
+        $('select[name="region_escort"]').on('change', function() {
+              var stateID = $(this).val();
+              $('select[name="comuna_escort"]').empty();
+           //   alert('stateid:'+ stateID);
+   
+            if(stateID) {
+                  $.ajax({
+                     // url: '/admin/updatecomuna/'+stateID,
+                     url: '/admin/actualizarcomuna/'+stateID,
+                      type: "GET",
+                      dataType: "json",
+                      success:function(data) {
+   
+                       $.each(data.comuna, function(i, comuna){
+                          //do something
+                          //console.log(comuna.nombre);
+                          $('select[name="comuna_escort"]').append('<option value="'+ comuna.id +'">'+ comuna.nombre+'</option>');
+                       });
+   
+   
+                       //   $('select[name="comuna_escort"]').empty();
+                       if(data == ""){
+                              $('select[name="comuna_escort"]').append('<option value="0">'+'«« No hay Comunas »»'+'</option>');
+                               
+                            }
+                       
+                        },
+                        
+                        fail: function(jqXHR, textStatus, errorThrown){ 
+                        alert('Error: ' + jqXHR.responseText); 
+          
+                       }
+                   });
+                }else{
+                
+                  //$('select[name="factor_id"]').empty();
+                  
+                }
+            });
+   
+   
+    });//fin document on ready
+   
 </script>

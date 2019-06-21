@@ -50,6 +50,7 @@ class HomeController extends Controller
          "perfiles.id_perfil",
          "perfiles.edad",
          "perfiles.comuna",
+         "perfiles.region",
          "perfiles.telefono",
          "perfiles.altura",
          "perfiles.medidas",
@@ -74,10 +75,17 @@ class HomeController extends Controller
        ->WHERE("escort_fotos.id_escort", "=", $sql_escort->id)
        ->get();
 
+       $regiones = Region::all();
+       $comunas   = Comuna::all();
+
+       $sql_desc_comuna = DB::table("comuna")
+       ->SELECT("comuna.id","comuna.nombre")
+       ->WHERE("comuna.id",'=', $data->comuna)->first();
+
      }
 
 
-        return view('admin.dashboard',compact('data','sql_foto_escort'));
+        return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna'));
         
     }
 }

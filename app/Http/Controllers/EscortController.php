@@ -195,6 +195,8 @@ class EscortController extends Controller
         ->WHERE("escorts.id", "=", $id)
         ->first();
         
+       // dd($data->telefono);
+
        //obtener las fotos de la escort
        $sql_foto_escort = DB::table("escort_fotos")
        ->select("escort_fotos.id","escort_fotos.url_fotos")

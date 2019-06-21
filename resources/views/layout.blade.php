@@ -49,7 +49,7 @@
                   <div class="row">
                      <div class="col-md-12">
                         <i class="fa fa-times close-button"></i>
-                        <h3 class="large-popup-title" style="position:relative;top:-20px;">Acceso</h3>
+                        <h3 class="large-popup-title" style="position:relative;top:0px;">Acceso</h3>
                      </div>
                       
                       <form id="login-form" method="post" onsubmit="return LoginUser()" role="form" style="display: block;" class="popup-input-search">
@@ -78,7 +78,8 @@
                            <!--input type="submit" id="btn_login" class="btn btn-primary btn-prime white btn-flat"
                             value="Entrar"/!-->
                             <!--button type="button" id="btn_login" class="btn btn-primary btn-prime white btn-flat">Entrar</button!-->
-                             <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Entrar">
+                             <input type="submit" name="login-submit" id="login-submit" tabindex="4" 
+                             class="btn-login btn color-1 size-2 hover-2" value="Entrar">
                         </div>
                         <br><br>
                         <div class="col-xs-6" style="margin-top:10px;">

@@ -187,11 +187,14 @@ class ClienteController extends Controller
 
             
              $perfil                 = Perfil::where('id_escort', '=', $escort_id )->firstOrFail();
-             $perfil->edad           = Input::get('edad_escort');
              $perfil->region         = Input::get('region_escort');
              $perfil->comuna         = Input::get('comuna_escort');
              $perfil->telefono       = Input::get('telefono_escort');
              $perfil->descripcion    = Input::get('comentario_escort');
+             $perfil->altura         = Input::get('altura_escort');
+             $perfil->medidas        = Input::get('medida_escort');
+             $perfil->horario_escort = Input::get('horario_escort');
+             $perfil->precio_escort  = Input::get('precio_escort'); 
              $perfil->id_estado       = "3" ;
              $perfil->save();
 
