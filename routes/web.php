@@ -40,6 +40,10 @@
            Route::get('actualizarcomuna/{id}', 'ComunaAdminController@updatecomboComuna');
            
            Route::delete('photos/{photo}', 'ClienteController@destroy')->name('admin.photos.destroy');
+           Route::delete('photos/storage/{photo}', 'ClienteController@eliminar')->name('admin.photos.eliminar');
+
+           //actualizar photo perfil de escort
+           Route::post('updatephoto_perfil', 'ClienteController@update_avatar')->name('admin.update.perfil_foto');;
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

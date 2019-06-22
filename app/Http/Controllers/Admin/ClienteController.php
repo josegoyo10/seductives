@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Response;
+use Illuminate\Support\Facades\Storage;
+
 
 class ClienteController extends Controller
 {
@@ -64,6 +66,7 @@ class ClienteController extends Controller
             "escorts.fecha_nacimiento",
             "escorts.comentario_escort",
             "escorts.comentario_aprob_rechazo",
+            "perfiles.foto_principal",
 
             DB::raw('CASE 
 
@@ -76,6 +79,7 @@ class ClienteController extends Controller
             END AS descripcion_estado') 
             )
              ->where('escorts.email','=',$email_usuario_sesion )
+             ->join("perfiles","perfiles.id_escort","=","escorts.id")
             ->orderby('escorts.id')
             ->get();
 
@@ -215,11 +219,13 @@ class ClienteController extends Controller
       public function destroy($url_foto)
       {
         $idEscort = Input::get('id_escort');
-
-        dd($idEscort);
         
-        DB::table('escort_fotos')
-          ->where('id_escort', $id_escort)->delete();
+        //dd($url_foto);
+
+         DB::table('escort_fotos')
+           ->where('id_escort','=', $idEscort)
+           ->Where('url_fotos','=',$url_foto)
+           ->delete();
   
         //   $photoPath = str_replace('storage','public',$url_foto);
         
@@ -229,9 +235,48 @@ class ClienteController extends Controller
       }
       
 
+       //Eliminar Foto Storage
+       public function eliminar($url_foto)
+       {
+         $idEscort = Input::get('escort_id');
+         
+        // dd($idEscort);
+         
+   
+         //   $photoPath = str_replace('storage','public',$url_foto);
+         
+         // Storage::delete($photoPath);
+   
+         return back()->with('flash', 'Foto eliminada');
+       }
 
+     //actualizar foto de Perfil
+     public function update_avatar(Request $request){
 
+       $id_escort = Input::get('escortID');
+      
+      // dd($id_escort);
 
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if($request->hasfile('avatar'))
+        {
+    
+          $file          = request()->file('avatar')->store('public');
+          $url_principal =  Storage::url($file);
+                    
+        }
+        
+        $perfil  = Perfil::where('id_escort', '=', $id_escort )->firstOrFail();
+        $perfil->foto_principal =  $url_principal;
+        $perfil->save();
+       
+        return back()
+            ->with('success','You have successfully upload image.');
+
+  }
 
 
 

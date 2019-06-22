@@ -248,8 +248,8 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src='{{ url("adminlte/img/user2-160x160.jpg") }}' class="user-image" alt="User Image">
-              <span class="hidden-xs"> {{ auth()->user()->name }}</span>
+              <img src='{{ $data->foto_principal }}' class="user-image" alt="User Image">
+              <span class="hidden-xs"> {{ ucfirst(auth()->user()->name) }}</span>
             </a> 
             <ul class="dropdown-menu">
               <!-- User image --> 
@@ -257,7 +257,7 @@
                 <img src='{{ url("adminlte/img/user2-160x160.jpg") }}' class="img-circle" alt="User Image">
 
                 <p>
-                    {{ auth()->user()->name }}
+                    {{ ucfirst(auth()->user()->name) }}
                   <small></small>
                 </p>
               </li>
@@ -279,7 +279,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
                   <a  href="{{ route('logout') }}" 
@@ -311,7 +311,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src='{{ url("adminlte/img/user2-160x160.jpg") }}' class="img-circle" alt="User Image">
+          <img src='{{ $data->foto_principal }}' class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info"> 
           <p>{{ auth()->user()->name }}</p>

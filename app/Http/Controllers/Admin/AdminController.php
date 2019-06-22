@@ -3,6 +3,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Escort;
+use App\Perfil;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -23,6 +26,15 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.layout');
+        $user   = Auth::user(); 
+        $escort = DB::table('escorts')
+           ->where('email','=',$user->email);
+
+        $perfil = Perfil::where('id_escort','=',$escort->id);
+       
+
+        return view('admin.layout',compact('perfil'));
+    
+    
     }
 }

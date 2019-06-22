@@ -6,6 +6,10 @@
 <link rel="stylesheet" href='{{ url("adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css") }}'>
 <!-- Bootstrap time Picker -->
 <link rel="stylesheet" href='{{ url("adminlte/plugins/timepicker/bootstrap-timepicker.min.css") }}'>
+<!-- LightBox -->
+<link rel="stylesheet" href='{{ url("css/lightbox.css") }}'>
+<link rel="stylesheet" href='{{ url("css/styles.css") }}'>
+<link rel="stylesheet" href='{{ url("css/albumize.css") }}'>
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -24,18 +28,26 @@
          <div class="box box-primary">
             <div class="box-body box-profile">
                <img class="profile-user-img img-responsive img-circle" src="{{ $data->foto_principal }}" alt="User profile picture">
-               <h3 class="profile-username text-center"> {{ auth()->user()->name }}</h3>
-               <p class="text-muted text-center">Software Engineer</p>
+               <h3 class="profile-username text-center"> {{ ucfirst(auth()->user()->name) }}</h3>
+               
+               <div class="row justify-content-center">
+                  <form  action ="{{ route('admin.update.perfil_foto') }}" method="POST" enctype="multipart/form-data">
+                     @csrf
+                     <input type="hidden"   id="escortID"  name="escortID" value="{{$data->id}}" />
+                     <div class="form-group text-center">
+                        <input type="file" class="form-control-file" name="avatar" id="avatarFile" 
+                        aria-describedby="fileHelp" style="font-size:13px;">
+                        <small id="fileHelp" class="form-text text-muted">Subir Imagen del Perfil.</small>
+                     </div>
+                     <div class="text-center">
+                       <button type="submit" class="btn btn-primary btn-sm">Subir Imagen</button>
+                    </div>
+                  </form>
+             </div>
                <ul class="list-group list-group-unbordered">
                   <li class="list-group-item">
                      <b>Seguidores</b> <a class="pull-right">1,322</a>
                   </li>
-                  <!-- <li class="list-group-item">
-                     <b>Following</b> <a class="pull-right">543</a>
-                     </li>
-                     <li class="list-group-item">
-                     <b>Friends</b> <a class="pull-right">13,287</a>
-                     </li> -->
                </ul>
                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
             </div>
@@ -74,11 +86,6 @@
                <div class="active tab-pane" id="activity">
                   <!-- Post -->
                   <div class="post">
-                     
-                        @if (session()->has('flash'))
-                        <div class="alert alert-success">{{ session('flash') }}</div>
-                        @endif
-                    
                      <form class="form-horizontal">
                         <div class="form-group">
                            <label for="inputName" class="col-sm-2 control-label">Nombre</label>
@@ -116,6 +123,22 @@
                               <input type="text" class="form-control" id="inputSkills" value="{{$data->altura}}" disabled>
                            </div>
                         </div>
+                        <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Días Disponibles</label>
+                        <div class="col-sm-10">
+                           <select class="form-control" 
+                              data-placeholder="Seleccione"
+                              style="width: 100%;" name="dias_disponible" id="dias_disponible" disabled>
+                              <option  value="0">«« SELECCIONE »»</option>
+                              <option  value="Lunes a Domingo" {!! $data->dias_disponibles == 'Lunes a Domingo' ? 'selected' : '' !!}>Lunes a Domingo</option>
+                              <option  value="Lunes a Viernes" {!! $data->dias_disponibles == 'Lunes a Viernes' ? 'selected' : '' !!}>Lunes a Viernes</option>
+                              <option  value="Lunes a Sabado"  {!! $data->dias_disponibles == 'Lunes a Sabado' ? 'selected' : '' !!}>Lunes a Sabado</option>
+                              <option  value="Viernes a Domingo" {!! $data->dias_disponibles == 'Viernes a Domingo' ? 'selected' : '' !!}>Viernes a Domingo</option>
+                              <option  value="Viernes a Sabado" {!! $data->dias_disponibles == 'Viernes a Sabado' ? 'selected' : '' !!}>Viernes a Sabado</option>
+                              <option  value="Sabado a Domingo" {!! $data->dias_disponibles == 'Sabado a Domingo' ? 'selected' : '' !!}>Sabado a Domingo</option>
+                           </select>
+                        </div>
+                     </div>
                         <div class="form-group">
                            <label for="inputSkills" class="col-sm-2 control-label">Medidas</label>
                            <div class="col-sm-10">
@@ -160,63 +183,110 @@
                      <!-- /.user-block -->
                      <div class="row margin-bottom">
                         <!-- /.col -->
-                        <div class="col-sm-12">
-                           <div class="row">
-                              <form  method="POST" action ="{{ route('admin.photos.destroy',$data->foto_principal) }}">
-                                 {{ method_field('DELETE') }} {{ csrf_field()}}
-                                 <div class="col-sm-3">
-                                    <button class="btn btn-danger btn-xs" style="position:absolute">
-                                    <i class="fa fa-remove"></i>
-                                    </button>
-                                    <a href="{{ $data->foto_principal }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
-                                    <img src="{{ $data->foto_principal }}" class="img-fluid" 
-                                       style="width:120px" >
-                                    </a>
-                                 </div>
-                              </form>
-                              <form  method="POST" action ="{{ route('admin.photos.destroy',$data->foto_secundaria_1) }}">
-                                 {{ method_field('DELETE') }} {{ csrf_field()}}
-                                 <div class="col-sm-3">
-                                    <button class="btn btn-danger btn-xs" style="position:absolute">
-                                    <i class="fa fa-remove"></i>
-                                    </button>
-                                    <a href="{{ $data->foto_secundaria_1 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
-                                    <img src="{{ $data->foto_secundaria_1 }}" class="img-fluid" 
-                                       style="width:120px">
-                                    </a>
-                                 </div>
-                              </form>
-                              <form  method="POST" action ="{{ route('admin.photos.destroy',$data->foto_secundaria_2) }}">
-                                 {{ method_field('DELETE') }} {{ csrf_field()}}
-                                 <div class="col-sm-3">
-                                    <button class="btn btn-danger btn-xs" style="position:absolute">
-                                    <i class="fa fa-remove"></i>
-                                    </button>
-                                    <a href="{{ $data->foto_secundaria_2 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
-                                    <img src="{{ $data->foto_secundaria_2 }}" class="img-fluid"  
-                                       style="width:120px">
-                                    </a>
-                                 </div>
-                              </form>
-                              @if ($sql_foto_escort != '')
-                              <div class="row">
-                              <input type="hidden"   id="id_escort"  name="id_escort" value="{{ $data->id}}" />
-                                 @foreach ($sql_foto_escort as $foto)
-                                 <form  method="POST" action ="{{ route('admin.photos.destroy',$foto->url_fotos) }}">
-                                    {{ method_field('DELETE') }} {{ csrf_field()}}
-                                    <button class="btn btn-danger btn-xs" style="position:absolute">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                    <img src="/uploads_escorts/{{$foto->url_fotos}}" 
-                                       class="img-fluid" style="width:120px" >
-                                 </form>
-                                 @endforeach
+                        <!--div class="col-sm-12"!-->
+                        <div class="row">
+                           @php
+                           $foto_principal       = ltrim($data->foto_principal, '/storage');
+                           $foto_secundaria_1    = ltrim($data->foto_secundaria_1, '/storage');
+                           $foto_secundaria_2    = ltrim($data->foto_secundaria_2, '/storage');
+                           @endphp
+                           <!-- <form  method="POST" action ="{{route('admin.photos.eliminar',$foto_principal) }}">
+                              {{ method_field('DELETE') }} {{ csrf_field()}}
+                              <input type="hidden"   id="escort_id"  name="escort_id" value="{{$data->id}}" />
+                              <div class="col-sm-3">
+                                 <button class="btn btn-danger btn-xs" style="position:absolute">
+                                 <i class="fa fa-remove"></i>
+                                 </button>
+                                 <a href="{{ $data->foto_principal }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
+                                 <img src="{{ $data->foto_principal }}" class="img-fluid" 
+                                    style="width:120px" >
+                                 </a>
                               </div>
-                              @endif 
-                              <!-- /.col -->
+                              </form>
+                              <form  method="POST" action ="{{ route('admin.photos.eliminar',$foto_secundaria_1) }}">
+                              {{ method_field('DELETE') }} {{ csrf_field()}}
+                              <input type="hidden"   id="escort_id"  name="escort_id" value="{{$data->id}}" />
+                              <div class="col-sm-3">
+                                 <button class="btn btn-danger btn-xs" style="position:absolute">
+                                 <i class="fa fa-remove"></i>
+                                 </button>
+                                 <a href="{{ $data->foto_secundaria_1 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
+                                 <img src="{{ $data->foto_secundaria_1 }}" class="img-fluid" 
+                                    style="width:120px">
+                                 </a>
+                              </div>
+                              </form>
+                              <form  method="POST" action ="{{ route('admin.photos.eliminar', $foto_secundaria_2) }}">
+                              {{ method_field('DELETE') }} {{ csrf_field()}}
+                              <input type="hidden"   id="escort_id"  name="escort_id" value="{{$data->id}}" />
+                              <div class="col-sm-3">
+                                 <button class="btn btn-danger btn-xs" style="position:absolute">
+                                 <i class="fa fa-remove"></i>
+                                 </button>
+                                 <a href="{{ $data->foto_secundaria_2 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
+                                 <img src="{{ $data->foto_secundaria_2 }}" class="img-fluid"  
+                                    style="width:120px">
+                                 </a>
+                              </div>
+                              </form> -->
+                           <!-- Header -->
+                           <!-- Photo Grid -->
+                           <div class="row">
+                              @if ($sql_foto_escort != '')
+                              <div class="col-md-11" style="margin-left:15px;">
+                                 <div class="box box-primary">
+                                    <div class="box-body">
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             @foreach ($sql_foto_escort as $foto)
+                                             <form  method="POST" action ="{{ route('admin.photos.destroy',$foto->url_fotos) }}">
+                                                {{ method_field('DELETE') }} {{ csrf_field()}}
+                                                <div class="col-md-2">
+                                                   <button class="btn btn-danger btn-xs" style="position:absolute">
+                                                   <i class="fa fa-remove"></i>
+                                                   </button>
+                                                   <img class="img-responsive" 
+                                                      src="/uploads_escorts/{{$foto->url_fotos}}" style="margin-bottom:10px;" >
+                                                </div>
+                                             </form>
+                                             @endforeach
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              @endif
                            </div>
-                           <!-- /.row -->
+                           <!-- <div class="container">
+                              @foreach ($sql_foto_escort as $foto)
+                                 <div class="row">
+                                    <div class="col-xs-4">
+                                       <div class="thumbnail">
+                                          <img class="img-responsive" src="/uploads_escorts/{{$foto->url_fotos}}" >
+                                       </div>
+                                    </div>
+                              
+                                 </div>
+                              @endforeach
+                              </div> -->
+                           <!-- <div class="col-md-12">
+                              @foreach ($sql_foto_escort as $foto)
+                              <form  method="POST" action ="{{ route('admin.photos.destroy',$foto->url_fotos) }}">
+                                 {{ method_field('DELETE') }} {{ csrf_field()}}
+                                 <input type="hidden"   id="id_escort"  name="id_escort" value="{{ $data->id}}" />
+                                 <button class="btn btn-danger btn-xs" style="position:absolute">
+                                     <i class="fa fa-remove"></i>
+                                 </button>
+                                 <img src="/uploads_escorts/{{$foto->url_fotos}}" 
+                                    class="img-fluid" style="width:120px;" >
+                              </form>
+                              @endforeach
+                              
+                              </div!-->
+                           <!-- /.col -->
                         </div>
+                        <!-- /.row -->
+                        <!--/div!-->
                         <!-- /.col -->
                      </div>
                      <!-- /.row -->
@@ -446,10 +516,10 @@
                      </div>
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Precio</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10" style="text-align:left;">
                            <input type="text" class="form-control" id="precio_escort" 
-                              name="precio_escort" value="{{ $data->precio }}" maxlength="10"
-                              data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits':2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: left;" value="{{ $data->precio }}">
+                              name="precio_escort" value="{{ $data->precio }}" maxlength="10" style="text-align:left;" 
+                              data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits':2, 'digitsOptional': false, 'placeholder': '0'" value="{{ $data->precio }}">
                         </div>
                      </div>
                      <div class="form-group">
@@ -479,50 +549,35 @@
                                        Arrastras tus fotos hasta aqui
                                     </div>
                                     <div class="dropzone-previews"></div>
-                                    <button type="text"   class="btn btn-success"  
+                                    <button type="text"   class="btn btn-primary"  
                                        id="submit">Subir</button>
                                  </form>
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <hr>
-                     <div class="container text-center">
-                        <div class="col-md-8">
-                           <div class="row">
-                              <a href="{{ $data->foto_principal }}" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4">
-                              <img src="{{ $data->foto_principal }}" class="img-fluid" style="width:180px">
-                              </a>
-                              <a href="{{ $data->foto_secundaria_1 }}" data-toggle="lightbox" 
-                                 data-gallery="example-gallery"  class="col-sm-4">
-                              <img src="{{ $data->foto_secundaria_1 }}" class="img-fluid"  style="width:180px">
-                              </a>
-                              <a href="{{ $data->foto_secundaria_2 }}" data-toggle="lightbox" data-gallery="example-gallery"   class="col-sm-4">
-                              <img src="{{ $data->foto_secundaria_2 }}" class="img-fluid"  style="width:180px">
-                              </a>
-                           </div>
-                           @if ($sql_foto_escort != '')
-                           <div class="row" style="padding-top: 8px;">
-                              <div class="col-md-12">
-                                 @foreach ($sql_foto_escort as $foto)
-                                 <a href="/uploads_escorts/{{$foto->url_fotos}}" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" >
-                                 <img src="/uploads_escorts/{{$foto->url_fotos}}" class="img-fluid" style="width:180px">
-                                 </a>
-                                 @endforeach
-                              </div>
-                           </div>
-                           @endif
+                        <hr>
+                        @if ($sql_foto_escort != '') 
+                        <div class="albumize" title="Album title" style="overflow: hidden;">
+                           @foreach ($sql_foto_escort as $foto)
+                           <a href = "/uploads_escorts/{{$foto->url_fotos}}" title="image title"> 
+                           <img src="/uploads_escorts/{{$foto->url_fotos}}" 
+                              style="width:90px;"></img>
+                           </a>
+                           @endforeach
                         </div>
+                        @endif
                      </div>
                   </div>
                </div>
-               <!-- /.tab-content -->
             </div>
-            <!-- /.nav-tabs-custom -->
+            <!-- /.tab-content -->
          </div>
-         <!-- /.col -->
+         <!-- /.nav-tabs-custom -->
       </div>
-      <!-- /.row -->
+      <!-- /.col -->
+   </div>
+   </div>
+   <!-- /.row -->
 </section>
 <!-- /.content -->
 </div>
@@ -532,15 +587,27 @@
 <!-- bootstrap time picker -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js'></script>
 <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+<script src='{{url("js/albumize.js") }}'></script>
+<script src='{{url("js/lightbox.js") }}'></script>
 @section('scripts') 
 {!! Html::script('assets/dist/js/dropzone.js'); !!}
+<!-- LightBox -->
 @endsection
 <script>
    $j=jQuery.noConflict();
    
     $j(document).ready(function () {
       // Initialize InputMask
-      
+     
+         lightbox.option({
+         'resizeDuration': 200,
+         'wrapAround': true
+      })
+   
+      $j('#show-my-albums-button').click(function(){
+         $j.albumize();
+      });
+            
        $j("#telefono_escort").inputmask('9999-999-9999');
        $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
        $j('.select2').select2();
@@ -625,7 +692,7 @@
                 autoProcessQueue: false,
                 uploadMultiple: true,
                 maxFilezise: 10,
-                maxFiles: 2,
+                maxFiles: 8,
             
                 init: function() {
                     var submitBtn = document.querySelector("#submit");
@@ -652,7 +719,6 @@
                     );
                 }
             };
-   
    
    
    
