@@ -1,16 +1,19 @@
 @extends('admin.layout')
 <link rel="stylesheet" href='{{ url("adminlte/bower_components/select2/dist/css/select2.min.css") }}'>
+<!-- daterange picker -->
+<link rel="stylesheet" href='{{ url("adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css") }}'>
+<!-- bootstrap datepicker -->
+<link rel="stylesheet" href='{{ url("adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css") }}'>
 <!-- Bootstrap time Picker -->
-<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.css'>
-
+<link rel="stylesheet" href='{{ url("adminlte/plugins/timepicker/bootstrap-timepicker.min.css") }}'>
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>Perfil del Usuario </h1>
    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Examples</a></li>
-      <li class="active">User profile</li>
+      <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
+      <li><a href="#">Mis Datos</a></li>
+      <li class="active">Actualizar mi Perfil</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -65,11 +68,17 @@
             <ul class="nav nav-tabs">
                <li class="active"><a href="#activity" data-toggle="tab">Mis Datos</a></li>
                <li><a href="#settings" data-toggle="tab">Actualizar Mi Perfil</a></li>
+               <li><a href="#mis_fotos" data-toggle="tab">Actualizar Mis Fotos</a></li>
             </ul>
             <div class="tab-content">
                <div class="active tab-pane" id="activity">
                   <!-- Post -->
                   <div class="post">
+                     
+                        @if (session()->has('flash'))
+                        <div class="alert alert-success">{{ session('flash') }}</div>
+                        @endif
+                    
                      <form class="form-horizontal">
                         <div class="form-group">
                            <label for="inputName" class="col-sm-2 control-label">Nombre</label>
@@ -90,9 +99,15 @@
                            </div>
                         </div>
                         <div class="form-group">
+                           <label for="inputExperience" class="col-sm-2 control-label">Comentario</label>
+                           <div class="col-sm-10">
+                              <textarea class="form-control" id="inputExperience" disabled rows="5" style="resize:none;">{{ $data->comentario_escort }}</textarea>
+                           </div>
+                        </div>
+                        <div class="form-group">
                            <label for="inputExperience" class="col-sm-2 control-label">Descripción Servicio</label>
                            <div class="col-sm-10">
-                              <textarea class="form-control" id="inputExperience" disabled>{{ $data->descripcion_servicio }}</textarea>
+                              <textarea class="form-control" id="inputExperience" disabled rows="5" style="resize:none;">{{ $data->descripcion_servicio }}</textarea>
                            </div>
                         </div>
                         <div class="form-group">
@@ -108,9 +123,15 @@
                            </div>
                         </div>
                         <div class="form-group">
-                           <label for="inputSkills" class="col-sm-2 control-label">Horario</label>
+                           <label for="inputSkills" class="col-sm-2 control-label">Hora Inicio</label>
                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputSkills" value="{{ $data->horario }}" disabled>
+                              <input type="text" class="form-control" id="inputSkills" value="{{ $data->hora_inicio }}" disabled>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label for="inputSkills" class="col-sm-2 control-label">Hora Fin</label>
+                           <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputSkills" value="{{ $data->hora_fin }}" disabled>
                            </div>
                         </div>
                         <div class="form-group">
@@ -141,29 +162,54 @@
                         <!-- /.col -->
                         <div class="col-sm-12">
                            <div class="row">
-                              <div class="col-sm-3">
-                                 <a href="{{ $data->foto_principal }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4">
-                                 <img src="{{ $data->foto_principal }}" class="img-fluid" style="width:120px">
-                                 </a>
-                              </div>
-                              <!-- /.col -->
-                              <div class="col-sm-3">
-                                 <a href="{{ $data->foto_secundaria_1 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4">
-                                 <img src="{{ $data->foto_secundaria_1 }}" class="img-fluid" style="width:120px">
-                                 </a>
-                              </div>
-                              <div class="col-sm-3">
-                                 <a href="{{ $data->foto_secundaria_2 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4">
-                                 <img src="{{ $data->foto_secundaria_2 }}" class="img-fluid" style="width:120px">
-                                 </a>
-                              </div>
+                              <form  method="POST" action ="{{ route('admin.photos.destroy',$data->foto_principal) }}">
+                                 {{ method_field('DELETE') }} {{ csrf_field()}}
+                                 <div class="col-sm-3">
+                                    <button class="btn btn-danger btn-xs" style="position:absolute">
+                                    <i class="fa fa-remove"></i>
+                                    </button>
+                                    <a href="{{ $data->foto_principal }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
+                                    <img src="{{ $data->foto_principal }}" class="img-fluid" 
+                                       style="width:120px" >
+                                    </a>
+                                 </div>
+                              </form>
+                              <form  method="POST" action ="{{ route('admin.photos.destroy',$data->foto_secundaria_1) }}">
+                                 {{ method_field('DELETE') }} {{ csrf_field()}}
+                                 <div class="col-sm-3">
+                                    <button class="btn btn-danger btn-xs" style="position:absolute">
+                                    <i class="fa fa-remove"></i>
+                                    </button>
+                                    <a href="{{ $data->foto_secundaria_1 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
+                                    <img src="{{ $data->foto_secundaria_1 }}" class="img-fluid" 
+                                       style="width:120px">
+                                    </a>
+                                 </div>
+                              </form>
+                              <form  method="POST" action ="{{ route('admin.photos.destroy',$data->foto_secundaria_2) }}">
+                                 {{ method_field('DELETE') }} {{ csrf_field()}}
+                                 <div class="col-sm-3">
+                                    <button class="btn btn-danger btn-xs" style="position:absolute">
+                                    <i class="fa fa-remove"></i>
+                                    </button>
+                                    <a href="{{ $data->foto_secundaria_2 }}" class="img-responsive" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" title="Eliminar Foto">
+                                    <img src="{{ $data->foto_secundaria_2 }}" class="img-fluid"  
+                                       style="width:120px">
+                                    </a>
+                                 </div>
+                              </form>
                               @if ($sql_foto_escort != '')
                               <div class="row">
+                              <input type="hidden"   id="id_escort"  name="id_escort" value="{{ $data->id}}" />
                                  @foreach ($sql_foto_escort as $foto)
-                                 <a href="/uploads_escorts/{{$foto->url_fotos}}" 
-                                    data-toggle="lightbox" data-gallery="example-gallery" >
-                                 <img src="/uploads_escorts/{{$foto->url_fotos}}" class="img-fluid" style="width:120px">
-                                 </a>
+                                 <form  method="POST" action ="{{ route('admin.photos.destroy',$foto->url_fotos) }}">
+                                    {{ method_field('DELETE') }} {{ csrf_field()}}
+                                    <button class="btn btn-danger btn-xs" style="position:absolute">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                    <img src="/uploads_escorts/{{$foto->url_fotos}}" 
+                                       class="img-fluid" style="width:120px" >
+                                 </form>
                                  @endforeach
                               </div>
                               @endif 
@@ -295,13 +341,13 @@
                      <div class="form-group">
                         <label for="inputExperience" class="col-sm-2 control-label">Comentario</label>
                         <div class="col-sm-10">
-                           <textarea class="form-control" id="comentario_escort" name="comentario_escort" >{{ $data->comentario_escort }}</textarea>
+                           <textarea class="form-control" id="comentario_escort" name="comentario_escort" rows="5" style="resize:none;" >{{ $data->comentario_escort }}</textarea>
                         </div>
                      </div>
                      <div class="form-group">
                         <label for="inputExperience" class="col-sm-2 control-label">Descripción Servicio</label>
                         <div class="col-sm-10">
-                           <textarea class="form-control" id="descripcion_servicio_escort" name="descripcion_servicio_escort"  >{{ $data->descripcion_servicio }}</textarea>
+                           <textarea class="form-control" id="descripcion_servicio_escort" name="descripcion_servicio_escort" rows="5" style="resize:none;">{{ $data->descripcion_servicio }}</textarea>
                         </div>
                      </div>
                      <div class="form-group">
@@ -319,51 +365,63 @@
                         </div>
                      </div>
                      <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Horario</label>
-                        <div class="col-sm-10">
+                        <label for="inputSkills" class="col-sm-2 control-label">Hora Inicio</label>
+                        <div class="row">
+                           <div class="col-sm-5">
                               <div class="bootstrap-timepicker">
                                  <div class="input-group">
-                                    <input type="text" class="form-control timepicker">
-
-                                       <div class="input-group-addon">
-                                          <i class="fa fa-clock-o"></i>
-                                       </div>
+                                    <input type="text" class="form-control timepicker" id="horario_ini_escort" name="horario_ini_escort" value="{{$data->hora_inicio}}"> 
+                                    <div class="input-group-addon">
+                                       <i class="fa fa-clock-o"></i>
+                                    </div>
                                  </div>
-                             
                               </div>
                            </div>
-                       </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Hora Fin</label>
+                        <div class="row">
+                           <div class="col-sm-5">
+                              <div class="bootstrap-timepicker">
+                                 <div class="input-group">
+                                    <input type="text" class="form-control timepicker" id="horario_fin_escort" name="horario_fin_escort" value="{{$data->hora_fin}}">
+                                    <div class="input-group-addon">
+                                       <i class="fa fa-clock-o"></i>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Atención</label>
                         <div class="col-sm-10">
                            <select class="form-control" 
-                              data-placeholder="Seleccione"
-                              style="width: 100%;" name="atencion_escort">
-                              <option  value="0">Seleccione</option>
-                              <option  value="Depto Propio">Depto Propio</option>
-                              <option  value="Domicilio">Domicilio</option>
-                              <option  value="Hoteles">Hoteles</option>
+                              style="width: 100%;" name="atencion_escort" id="atencion_escort">
+                              <option  value="0">«« SELECCIONE »»</option>
+                              <option  value="Depto Propio" {!! $data->atencion == 'Depto Propio' ? 'selected' : '' !!}>Depto Propio</option>
+                              <option  value="Domicilio"    {!! $data->atencion == 'Domicilio' ? 'selected' : '' !!}>Domicilio</option>
+                              <option  value="Hoteles"      {!! $data->atencion == 'Hoteles' ? 'selected' : '' !!}>Hoteles</option>
                            </select>
-                        
                         </div>
-                     </div> 
-                     <!-- <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Dias de Atención</label>
+                     </div>
+                     <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Días Disponibles</label>
                         <div class="col-sm-10">
-                           <select class="form-control select2" multiple="multiple" 
+                           <select class="form-control" 
                               data-placeholder="Seleccione"
-                              style="width: 100%;" name="dias_atencion[]">
-                              <option  value="Lunes.">Lunes</option>
-                              <option  value="Martes.">Martes</option>
-                              <option  value="Miercoles.">Miercoles</option>
-                              <option  value="Jueves.">Jueves</option>
-                              <option  value="Viernes.">Viernes</option>
-                              <option  value="Sabado.">Sabado</option>
-                              <option  value="Domingo.">Domingo</option>
+                              style="width: 100%;" name="dias_disponible" id="dias_disponible">
+                              <option  value="0">«« SELECCIONE »»</option>
+                              <option  value="Lunes a Domingo" {!! $data->dias_disponibles == 'Lunes a Domingo' ? 'selected' : '' !!}>Lunes a Domingo</option>
+                              <option  value="Lunes a Viernes" {!! $data->dias_disponibles == 'Lunes a Viernes' ? 'selected' : '' !!}>Lunes a Viernes</option>
+                              <option  value="Lunes a Sabado"  {!! $data->dias_disponibles == 'Lunes a Sabado' ? 'selected' : '' !!}>Lunes a Sabado</option>
+                              <option  value="Viernes a Domingo" {!! $data->dias_disponibles == 'Viernes a Domingo' ? 'selected' : '' !!}>Viernes a Domingo</option>
+                              <option  value="Viernes a Sabado" {!! $data->dias_disponibles == 'Viernes a Sabado' ? 'selected' : '' !!}>Viernes a Sabado</option>
+                              <option  value="Sabado a Domingo" {!! $data->dias_disponibles == 'Sabado a Domingo' ? 'selected' : '' !!}>Sabado a Domingo</option>
                            </select>
-                        
                         </div>
-                     </div> -->
+                     </div>
                      <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Región</label>
                         <div class="col-sm-10">
@@ -391,7 +449,7 @@
                         <div class="col-sm-10">
                            <input type="text" class="form-control" id="precio_escort" 
                               name="precio_escort" value="{{ $data->precio }}" maxlength="10"
-                              data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: left;" >
+                              data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits':2, 'digitsOptional': false, 'placeholder': '0'" style="text-align: left;" value="{{ $data->precio }}">
                         </div>
                      </div>
                      <div class="form-group">
@@ -402,14 +460,69 @@
                   </form>
                </div>
                <!-- /.tab-pane -->
+               <div class="tab-pane" id="mis_fotos">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-md-8">
+                           <div class="panel panel-primary">
+                              <div class="panel-heading">
+                                 Mis Fotos
+                              </div>
+                              <div class="panel-body">
+                                 <form class="dropzone" id="my-dropzone" 
+                                    action=" {{route('files.store')}}"  
+                                    enctype="multipart/form-data" method="POST" onsubmit="return subirFotos()">
+                                    @csrf
+                                    <input type="hidden" id="id_escort"  name="id_escort"  value="{{ $data->id}}" />
+                                    <input type="hidden" id="id_perfil"  name="id_perfil"  value="{{ $data->id_perfil}}" />
+                                    <div class="dz-message" style="height:200px;">
+                                       Arrastras tus fotos hasta aqui
+                                    </div>
+                                    <div class="dropzone-previews"></div>
+                                    <button type="text"   class="btn btn-success"  
+                                       id="submit">Subir</button>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="container text-center">
+                        <div class="col-md-8">
+                           <div class="row">
+                              <a href="{{ $data->foto_principal }}" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4">
+                              <img src="{{ $data->foto_principal }}" class="img-fluid" style="width:180px">
+                              </a>
+                              <a href="{{ $data->foto_secundaria_1 }}" data-toggle="lightbox" 
+                                 data-gallery="example-gallery"  class="col-sm-4">
+                              <img src="{{ $data->foto_secundaria_1 }}" class="img-fluid"  style="width:180px">
+                              </a>
+                              <a href="{{ $data->foto_secundaria_2 }}" data-toggle="lightbox" data-gallery="example-gallery"   class="col-sm-4">
+                              <img src="{{ $data->foto_secundaria_2 }}" class="img-fluid"  style="width:180px">
+                              </a>
+                           </div>
+                           @if ($sql_foto_escort != '')
+                           <div class="row" style="padding-top: 8px;">
+                              <div class="col-md-12">
+                                 @foreach ($sql_foto_escort as $foto)
+                                 <a href="/uploads_escorts/{{$foto->url_fotos}}" data-toggle="lightbox" data-gallery="example-gallery"  class="col-sm-4" >
+                                 <img src="/uploads_escorts/{{$foto->url_fotos}}" class="img-fluid" style="width:180px">
+                                 </a>
+                                 @endforeach
+                              </div>
+                           </div>
+                           @endif
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- /.tab-content -->
             </div>
-            <!-- /.tab-content -->
+            <!-- /.nav-tabs-custom -->
          </div>
-         <!-- /.nav-tabs-custom -->
+         <!-- /.col -->
       </div>
-      <!-- /.col -->
-   </div>
-   <!-- /.row -->
+      <!-- /.row -->
 </section>
 <!-- /.content -->
 </div>
@@ -419,6 +532,9 @@
 <!-- bootstrap time picker -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js'></script>
 <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+@section('scripts') 
+{!! Html::script('assets/dist/js/dropzone.js'); !!}
+@endsection
 <script>
    $j=jQuery.noConflict();
    
@@ -432,6 +548,11 @@
        $j('#altura_escort').inputmask('9,99' );
        $j('#medida_escort').inputmask('99-99-99');
     
+         //Timepicker
+         $j('.timepicker').timepicker({
+            showInputs: false
+         })
+   
         //actualizar informacion de la escort
        $('#btn_actualizar').on('click', function(e) {
               e.preventDefault();
@@ -446,6 +567,7 @@
                       //console.log('success');
                       if(data.success == 1) {
                           $('#ajax-alert').html('Perfil Actualizado Exitosamente').show().delay(3000).fadeOut();
+                          location.reload();
                       }
                   },
                   error: function(error) {
@@ -457,7 +579,7 @@
    
                 //actualizar combo de regiones y comuna
            //para refrescar el combo de factores reporte 5
-        $('select[name="region_escort"]').on('change', function() {
+           $('select[name="region_escort"]').on('change', function() {
               var stateID = $(this).val();
               $('select[name="comuna_escort"]').empty();
            //   alert('stateid:'+ stateID);
@@ -496,6 +618,45 @@
                   
                 }
             });
+   
+   
+         //subir fotos 
+         Dropzone.options.myDropzone = {
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                maxFilezise: 10,
+                maxFiles: 2,
+            
+                init: function() {
+                    var submitBtn = document.querySelector("#submit");
+                    myDropzone = this;
+                    
+                    submitBtn.addEventListener("click", function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+   
+                    });
+                    this.on("addedfile", function(file) {
+                       // alert("file uploaded");
+   
+                    });
+                    
+                    this.on("complete", function(file) {
+                       location.reload(true);
+                        myDropzone.removeFile(file);
+                    });
+     
+                    this.on("success", 
+                        myDropzone.processQueue.bind(myDropzone)
+                    );
+                }
+            };
+   
+   
+   
+   
+   
    
    
     });//fin document on ready

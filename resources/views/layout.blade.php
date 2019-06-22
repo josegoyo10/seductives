@@ -51,9 +51,8 @@
                         <i class="fa fa-times close-button"></i>
                         <h3 class="large-popup-title" style="position:relative;top:0px;">Acceso</h3>
                      </div>
-                      
                       <form id="login-form" method="post" onsubmit="return LoginUser()" role="form" style="display: block;" class="popup-input-search">
-
+                        @csrf
                         <div class="col-md-5">
                            <input  class="form-control @error('email') is-invalid @enderror" name="email" 
                              type="email" required="" placeholder="Email" value="{{old('email') }}" required autofocus>

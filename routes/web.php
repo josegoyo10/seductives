@@ -39,7 +39,7 @@
 
            Route::get('actualizarcomuna/{id}', 'ComunaAdminController@updatecomboComuna');
            
-
+           Route::delete('photos/{photo}', 'ClienteController@destroy')->name('admin.photos.destroy');
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

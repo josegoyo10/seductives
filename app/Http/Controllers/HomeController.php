@@ -56,7 +56,9 @@ class HomeController extends Controller
          "perfiles.medidas",
          "perfiles.atencion",
          "perfiles.precio",
-         "perfiles.horario",
+         "perfiles.hora_inicio",
+         "perfiles.hora_fin",
+         "perfiles.dias_disponibles",
          "perfiles.descripcion as descripcion_servicio",
          "perfiles.foto_principal",
          "perfiles.foto_secundaria_1",
@@ -69,6 +71,8 @@ class HomeController extends Controller
         ->WHERE("escorts.id", "=", $sql_escort->id)
         ->first();
         
+         //dd($data);
+
        //obtener las fotos de la escort
        $sql_foto_escort = DB::table("escort_fotos")
        ->select("escort_fotos.id","escort_fotos.url_fotos")

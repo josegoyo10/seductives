@@ -24,13 +24,15 @@ class CreatePerfilesTable extends Migration
             $table->string('region')->nullable();
             $table->string('comuna')->nullable();
             $table->string('descripcion')->nullable();
+            $table->string('comentario_escort')->nullable();
             $table->integer('edad')->nullable();
             $table->string('altura')->nullable();
             $table->string('medidas')->nullable();
-            $table->string('horario')->nullable();
+            $table->string('hora_inicio')->nullable();
+            $table->string('hora_fin')->nullable();
             $table->string('atencion')->nullable();
             $table->string('telefono')->nullable();
-            $table->decimal('precio',11,2)->nullable();
+            $table->decimal('precio',7,2)->nullable();
             $table->timestamp('fecha_registro')->nullable();
             $table->integer('id_estado')->nullable();
             $table->timestamps();

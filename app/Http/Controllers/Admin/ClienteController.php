@@ -119,7 +119,6 @@ class ClienteController extends Controller
              "perfiles.edad",
              "perfiles.telefono",
              "perfiles.foto_principal",
-             "perfiles.foto_principal",
              "perfiles.foto_secundaria_1",
              "perfiles.foto_secundaria_2",
              "perfiles.altura",
@@ -186,16 +185,20 @@ class ClienteController extends Controller
             $escorts->save();
 
             
-             $perfil                 = Perfil::where('id_escort', '=', $escort_id )->firstOrFail();
-             $perfil->region         = Input::get('region_escort');
-             $perfil->comuna         = Input::get('comuna_escort');
-             $perfil->telefono       = Input::get('telefono_escort');
-             $perfil->descripcion    = Input::get('comentario_escort');
-             $perfil->altura         = Input::get('altura_escort');
-             $perfil->medidas        = Input::get('medida_escort');
-             $perfil->horario_escort = Input::get('horario_escort');
-             $perfil->precio_escort  = Input::get('precio_escort'); 
-             $perfil->id_estado       = "3" ;
+             $perfil                    = Perfil::where('id_escort', '=', $escort_id )->firstOrFail();
+             $perfil->region            = Input::get('region_escort');
+             $perfil->comuna            = Input::get('comuna_escort');
+             $perfil->telefono          = Input::get('telefono_escort');
+             $perfil->descripcion       = Input::get('descripcion_servicio_escort');
+             $perfil->comentario_escort = Input::get('comentario_escort');
+             $perfil->altura            = Input::get('altura_escort');
+             $perfil->medidas           = Input::get('medida_escort');
+             $perfil->hora_inicio       = Input::get('horario_ini_escort');
+             $perfil->hora_fin          = Input::get('horario_fin_escort');
+             $perfil->atencion          = Input::get('atencion_escort');
+             $perfil->dias_disponibles  = Input::get('dias_disponible');
+             $perfil->precio            = Input::get('precio_escort'); 
+             $perfil->id_estado         = "3" ;
              $perfil->save();
 
 
@@ -205,8 +208,31 @@ class ClienteController extends Controller
                      return "0";
                     }
 
-         
-
        }
+
+
+      //Eliminar Foto
+      public function destroy($url_foto)
+      {
+        $idEscort = Input::get('id_escort');
+
+        dd($idEscort);
+        
+        DB::table('escort_fotos')
+          ->where('id_escort', $id_escort)->delete();
+  
+        //   $photoPath = str_replace('storage','public',$url_foto);
+        
+        // Storage::delete($photoPath);
+  
+        return back()->with('flash', 'Foto eliminada');
+      }
+      
+
+
+
+
+
+
 
 }
