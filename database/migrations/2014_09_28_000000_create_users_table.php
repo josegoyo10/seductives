@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('id_estado')->nullable();
             $table->integer('id_tipo_usuario')->nullable();
             $table->rememberToken();
+            $table->string('foto_principal');
             $table->timestamps();
         });
     }

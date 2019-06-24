@@ -23,8 +23,10 @@ class ClienteController extends Controller
         {
            
           $user = Auth::user(); 
-          // dd($user);
-            
+        // dd($user);
+          $data = DB::table("users")
+          ->WHERE("users.email",'=', $user->email)->first();
+              
             if (auth()->user()->hasRole('Admin')) {
 
                //  $clientes = Escort::orderBy('id', 'ASC')->get();
@@ -102,14 +104,18 @@ class ClienteController extends Controller
                }
           
 
-             return view('admin.clientes.index', compact('clientes'));
+             return view('admin.clientes.index', compact('clientes','data'));
        
         
         }
 
         public function getInfoCliente($id) {
          
-           
+          $user = Auth::user(); 
+          // dd($user);
+          $data = DB::table("users")
+          ->WHERE("users.email",'=',  $user->email)->first();
+
            $regiones = Region::all();
            $comunas   = Comuna::all();
 
@@ -145,7 +151,7 @@ class ClienteController extends Controller
           ->SELECT("comuna.id","comuna.nombre")
           ->WHERE("comuna.id",'=', $query->comuna)->first();
 
-           return view('admin.clientes.show', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna'));
+           return view('admin.clientes.show', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data'));
 
        }
 

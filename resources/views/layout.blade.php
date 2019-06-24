@@ -14,6 +14,7 @@
       <link rel="stylesheet" href='{{url("css/jquery-ui.css") }}'>
       <link rel="stylesheet" href='{{url("css/stylesheet.css")}}'>
       <link rel="stylesheet" href='{{url("css/magnific.css")}}'>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.2/css/lightgallery.css" />
       <!--Fontawesome CDN-->
       <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"!-->
       <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"!-->
@@ -215,6 +216,9 @@
       <!--script src='{{ url("js/filters.js") }}'></script!-->
       <script src='{{ url("js/global.js") }}'></script>
       <script  src='{{ url("assets/dist/js/tooltipster.bundle.min.js") }}'></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.2/js/lightgallery.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+      <script src='{{ url("js/lightgallery-all.js") }}'></script>
 
       @stack('scripts')
       <script>
@@ -242,7 +246,7 @@
                              //location.reload();
                              console.log(data); 
                              console.log('login request sent !');
-                             // console.log('status: ' +data.status);
+                              console.log('status: ' +data.status);
                              //  console.log('status: ' +data.user);
                              // console.log('message: ' +data.message);
                              window.location = "/admin";
@@ -300,9 +304,6 @@
             //     });
             //  }); 
 
-
-
-         
              //registrar usuario.
              $('body').on('click', '#submitForm', function(){
                var registerForm = $("#register");
@@ -338,12 +339,14 @@
                               
                            }
                            if(data.success) {
+                             
                               $('#success-msg').removeClass('hide');
+                              $('.modal-backdrop').remove();
                               setInterval(function(){ 
                                     $('#SignUp').modal('hide');
                                     $('#success-msg').addClass('hide');
                                     $('#exampleModal').addClass('hide');
-                              }, 4000);
+                              }, 3000);
                            }
                         },
                      });

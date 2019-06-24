@@ -11,6 +11,8 @@
 </ol>
 @endsection
 @section('content')
+
+
   @if (auth()->user()->hasRole('Usuario Basico'))
   
   <div class="container-fluid">
@@ -115,7 +117,7 @@
             </div>
             <!-- /.box-body -->
          </div>
-         <!-- /.box -->
+       
 
 
   @endif

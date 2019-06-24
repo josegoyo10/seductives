@@ -64,7 +64,7 @@
 
 
  // Authentication Routes...
-    Route::post('/login/user', 'CustomLoginController@loginUser');
+    //Route::post('/login/user', 'CustomLoginController@loginUser');
 
  
 

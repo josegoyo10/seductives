@@ -30,8 +30,12 @@ class PagesController extends Controller
 						 "perfiles.telefono",
 						 "perfiles.altura",
 						 "perfiles.medidas",
-						 "perfiles.foto_principal")
+						 "perfiles.foto_principal",
+						 "regiones.nombre as descripcion_region",
+						 "comuna.nombre as descripcion_comuna" )
 						->join("perfiles","perfiles.id_escort","=","escorts.id")
+						->join("regiones","regiones.id","=","perfiles.region")
+						->join("comuna", "comuna.id", "=", "perfiles.comuna")
 						->where("escorts.id_estado",'=','3')
 						->orderby('escorts.id')
 				    ->get();

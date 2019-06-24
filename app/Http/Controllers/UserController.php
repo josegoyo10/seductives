@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Response;
+use App\Role;
 use App\Escort;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,7 @@ class UserController extends Controller
                  $escort = Escort::where(['email' =>  $request->get('email')])
                                  ->Where(['id_estado' =>  "3"])
                                  ->count();
-                 //dd($escort);
+                
 
                   //EL USUARIO ES UNA ESCORTS Y ESTA APROBADO
                  if ($escort == 1) {
@@ -47,7 +48,11 @@ class UserController extends Controller
                             'password' => Hash::make($request->get('password'))
 
                          ]);
-                 
+                        
+                         $role = Role::where('name','=', 'Escort')->first();
+                         //dd($role);
+                         $user->assignRole($role->id);
+                       
 
                     }else {
 
@@ -62,6 +67,10 @@ class UserController extends Controller
                             'password' => Hash::make($request->get('password'))
 
                          ]);
+
+                         $role = Role::where('name','=', 'USUARIO REGISTRADO')->first();
+                         //dd($role);
+                         $user->assignRole($role->id);
 
                     }
 

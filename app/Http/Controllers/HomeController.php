@@ -32,21 +32,23 @@ class HomeController extends Controller
     {
         //return viesw('home');
         $user = Auth::user();
-       // dd($user->id_tipo_usuario);
+      //dd($user);
         
      if ($user->id_tipo_usuario == 1) {
+
+         $vista = "Escort";
        
-        $sql_escort = DB::table("escorts")
+         $sql_escort = DB::table("escorts")
         ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email")
         ->WHERE("escorts.email", "=", $user->email)
         ->first();
 
-        //dd($sql_escort);
+       //dd($sql_escort);
 
         $data = DB::table("escorts")
-        ->select("escorts.id","escorts.nombres","escorts.apellidos",
-         "escorts.nacionalidad",
-         "escorts.comentario_escort",
+         ->select("escorts.id","escorts.nombres","escorts.apellidos",
+          "escorts.nacionalidad",
+          "escorts.comentario_escort",
          "perfiles.id_perfil",
          "perfiles.edad",
          "perfiles.comuna",
@@ -71,7 +73,7 @@ class HomeController extends Controller
         ->WHERE("escorts.id", "=", $sql_escort->id)
         ->first();
         
-         //dd($data);
+    //      //dd($data);
 
        //obtener las fotos de la escort
        $sql_foto_escort = DB::table("escort_fotos")
@@ -86,10 +88,116 @@ class HomeController extends Controller
        ->SELECT("comuna.id","comuna.nombre")
        ->WHERE("comuna.id",'=', $data->comuna)->first();
 
-     }
+     } else if($user->id_tipo_usuario == 2) {
 
+        $vista = "Usuario Basico";
+     
+       //dd($vista);
 
-        return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna'));
+        $data = DB::table("users")
+        ->WHERE("users.email",'=',  $user->email)->first();
+
+        $clientes =  DB::table("escorts")
+        ->select("escorts.id",
+          "escorts.nombres",
+          "escorts.apellidos",
+          "escorts.email",
+          "escorts.nacionalidad",
+          "perfiles.id_perfil",
+          "perfiles.edad",
+          "perfiles.comuna",
+          "perfiles.region",
+          "perfiles.telefono",
+          "perfiles.altura",
+          "perfiles.medidas",
+          "perfiles.atencion",
+          "perfiles.precio",
+          "perfiles.hora_inicio",
+          "perfiles.hora_fin",
+          "perfiles.dias_disponibles",
+          "perfiles.descripcion as descripcion_servicio",
+          "perfiles.foto_principal",
+          "perfiles.foto_secundaria_1",
+          "perfiles.foto_secundaria_2",
+          "regiones.nombre as descripcion_region",
+          "comuna.nombre as descripcion_comuna" )
+        ->join("perfiles","perfiles.id_escort","=","escorts.id")
+        ->join("regiones","regiones.id","=","perfiles.region")
+        ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+        ->where("escorts.id_estado",'=','3')
+        ->orderby('escorts.id')
+        ->get();
+
+      
+
+           //obtener las fotos de la escort
+         $sql_foto_escort = DB::table("escort_fotos")
+         ->select("escort_fotos.id","escort_fotos.url_fotos")
+         ->get();
+
+        // dd($sql_foto_escort);
+
+         $regiones = Region::all();
+         $comunas   = Comuna::all();
+
+       $sql_desc_comuna = DB::table("comuna")
+       ->SELECT("comuna.id","comuna.nombre");
+
+ 
+
+      }elseif ($user->id_tipo_usuario == 3) {
+
+        $vista = "Administrador";
+
+        $user = Auth::user(); 
+        // dd($user);
+        $data = DB::table("users")
+        ->WHERE("users.email",'=',  $user->email)->first();
+            
+            if (auth()->user()->hasRole('Admin')) {
+
+               //  $clientes = Escort::orderBy('id', 'ASC')->get();
+                $clientes =   $query = DB::table("escorts")
+                ->select("escorts.id","escorts.rut","escorts.nombres",
+                    "escorts.apellidos",
+                    "escorts.email",
+                    "escorts.nacionalidad",
+                    "escorts.id_estado",
+                    "escorts.fecha_nacimiento",
+                    "escorts.comentario_escort",
+                    "escorts.comentario_aprob_rechazo",
+              
+                DB::raw('CASE 
+
+                WHEN escorts.id_estado = 1 THEN "PENDIENTE"
+        
+                WHEN escorts.id_estado = 2 THEN "RECHAZADO" 
+        
+                ELSE "APROBADO" 
+        
+                END AS descripcion_estado') 
+                )
+                ->orderby('escorts.id')
+                ->get();
+
+                   //obtener las fotos de la escort
+                        $sql_foto_escort = DB::table("escort_fotos")
+                        ->select("escort_fotos.id","escort_fotos.url_fotos")
+                        ->get();
+
+                        // dd($sql_foto_escort);
+
+                        $regiones = Region::all();
+                        $comunas   = Comuna::all();
+
+                    $sql_desc_comuna = DB::table("comuna")
+                    ->SELECT("comuna.id","comuna.nombre");
+            }
+
+      }
+    
+  
+       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes'));
         
     }
 }

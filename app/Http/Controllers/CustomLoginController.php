@@ -13,7 +13,10 @@ class CustomLoginController extends Controller
     // do login Auth
     public function loginUser(Request $request)
     {
-    	$email	       = $request->email;
+	
+	    
+	
+		$email	       = $request->email;
     	$password      = $request->password;
     	$rememberToken = $request->remember;
 

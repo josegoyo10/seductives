@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Escort;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +31,12 @@ class RegistroController extends Controller
 								'email'                  => $request->get('email'),
 								'id_tipo_usuario'        => $request->get('id_tipo_usuario'),
 								'password'               => Hash::make($request->get('password'))
-							]);
+              ]);
+              
+       //Buscar si el usuario ingresado existe en la tabla escort.//En caso que exista se le asigna el rol escort
+       //si no es un usuario visitante.
+       
+
      //     return User::create([
      //        'name' => $data['name'],
      //        'last_name' => $data['last_name'],

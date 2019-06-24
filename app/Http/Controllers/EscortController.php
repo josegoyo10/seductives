@@ -36,6 +36,58 @@ class EscortController extends Controller
           //     'photos' => 'required',
           //     'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
           // ]);
+          request()->validate([
+
+            'run' => 'required|min:2|max:50',
+
+            'nombres' => 'required|numeric',
+            
+            'apellidos' => 'required|numeric', 
+
+            'email' => 'required|email|unique:users',
+
+            'fecha_nacimiento' => 'required',                
+
+            'nacionalidad' => 'required',
+
+            'sexo' => 'required',
+
+            'telefono' => 'required|numeric', 
+
+            'photo_principal'    => 'dimensions:min-width=250,min_height=200',
+            'photo_secundaria_1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo_secundaria_2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ], [
+
+           'run.required' => 'El run es requerido',
+          
+           'nombres.required' => 'El nombre es requerido',
+          
+           'apellidos.required' => 'El apellido es requerido',
+
+           'email.required' => 'El email es requerido',
+           
+           'fecha_nacimiento.required' => 'Fecha de Nacimiento es requerido',
+
+           'nacionalidad.required' => 'La Nacionalidad es requerido',
+
+           'sexo.required' => 'El sexo es requerido',
+
+           'telefono.required' => 'El telefono es requerido',
+          
+           'photo_principal.required' => 'La Foto principal debe tener estas dimensiones ',
+
+           'photo_secundaria_1.required' => 'La Foto secundaria 1 es requerida',
+
+           'photo_secundaria_2.required' => 'La Foto secundaria 2 es requerida',
+
+        ]);
+
+
+
+
+
 
           if($request->hasfile('photo_principal'))
           {

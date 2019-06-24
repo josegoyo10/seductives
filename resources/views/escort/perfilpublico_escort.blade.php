@@ -1,65 +1,57 @@
 @extends('layout')
 <link rel="stylesheet" href='{{ url("adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css") }}'>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css'>
+
 @section('content')
 <div id="content-block">
    <div class="container custom-container be-detail-container">
       <div class="row">
          <div class="col-md-9 col-md-push-3">
             <div class="be-large-post">
-               <div class="info-block">
-                  <div class="be-large-post-align">
-                     <span><i class="fa fa-thumbs-o-up"></i> 253</span>
-                     <span><i class="fa fa-eye"></i> 753</span>
-                     <span><i class="fa fa-comment-o"></i> 50</span>
+                  <div class="info-block">
+                     <div class="be-large-post-align">
+                        <span><i class="fa fa-thumbs-o-up"></i> 253</span>
+                        <span><i class="fa fa-eye"></i> 753</span>
+                        <span><i class="fa fa-comment-o"></i> 50</span>
+                     </div>
                   </div>
-               </div>
+           
+
                <div class="blog-content popup-gallery be-large-post-align">
                   <h3 class="be-post-title to">{{ $data->edad }} años,
                       {{ $data->telefono }} <i class="fa fa-whatsapp" style="color:green;"></i>
                   </h3>
                   <span class="be-text-tags">
-                  <a href="blog-detail-2.html" class="be-post-tag">Interactiob design</a>, 
+                  <!-- <a href="blog-detail-2.html" class="be-post-tag">Interactiob design</a>, 
                   <a href="blog-detail-2.html" class="be-post-tag">UI/UX</a>,  
-                  <a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
+                  <a href="blog-detail-2.html" class="be-post-tag">Web Design</a> -->
                   </span>
-                  <div class="clear"></div>
-                  <div class="post-text">
-                     <p>Fusce dolor libero, efficitur et lobortis at, faucibus nec nunc. Proin fermentum turpis eget nisi facilisis lobortis. Praesent malesuada facilisis maximus. Donec sed lobortis tortor. Ut nec lacinia sapien, sit amet dapibus magna. Vestibulum nunc ex, tempus et volutpat nec, convallis ut massa. Sed ultricies luctus ipsum in placerat.
-                     <p>Mauris ultrices pharetra lectus sit amet commodo. Fusce ac sagittis magna. Nulla sed ligula sed dui tristique convallis non sit amet dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                     
-                     <div class="image-block">
-                        <a class="popup-a" href="{{ $data->foto_principal }}"
-                         data-toggle="lightbox" data-gallery="example-gallery"> 
-                        <img src='{{ $data->foto_principal }}' alt="" class="img-fluid" style="width:320px">
-                        </a>
-                        <div class="image-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudin diam tincidunt sed. Duis rhoncus nunc in lobortis lacinia.</div>
-                     </div>
-                     <a class="popup-a" href="{{ $data->foto_secundaria_1 }}" data-toggle="lightbox" data-gallery="example-gallery"> 
-                     <img src='{{ $data->foto_secundaria_1 }}' alt="" class="img-fluid" style="width:320px">
-                     </a>								
-                     <p>Mauris sodales tellus vel felis dapibus, sit amet porta nibh egestas. Sed dignissim tellus quis sapien sagittis cursus. Cras porttitor auctor sapien, eu tempus nunc placerat nec. Donec metus tortor, dignissim at vehicula ac, lacinia vel massa. Quisque mollis dui lacus, et fermentum erat euismod in. Integer sit amet augue ligula.</p>
-                     <div class="image-block">
-                        <a class="popup-a" href="{{ $data->foto_secundaria_2 }}" data-toggle="lightbox" data-gallery="example-gallery"> 
-                        <img src='{{ $data->foto_secundaria_2 }}' alt="" class="img-fluid" style="width:320px">
-                        </a>	
-                        <div class="image-text">Integer blandit velit nec purus convallis ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In blandit porttitor urna, eu ultrices enim volutpat ut.</div>
-                     </div>
-                  </div>
-               </div>
-               <div class="be-large-post-align">
-                  <h3 class="letf-menu-article">
-                     Tags
-                  </h3>
-                  <div class="tags_block clearfix">
-                     <ul>
-                        <li><a href="blog-detail-2.html">photoshop</a></li>
-                        <li><a href="blog-detail-2.html">national geographic</a></li>
-                        <li><a href="blog-detail-2.html">nature</a></li>
-                        <li><a href="blog-detail-2.html">responsive web design</a></li>
-                        <li><a href="blog-detail-2.html">animals</a></li>
-                        <li><a href="blog-detail-2.html">digital photography</a></li>
-                     </ul>
-                  </div>
+                   <div class="clear"></div>
+                     <div class="post-text">
+                     <div class="be-large-post-slider type-wide">
+									<div class="swiper-container thumbnails-preview" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="1">
+						                <div class="swiper-wrapper">
+					                    	<div class="swiper-slide active" data-val="0">
+					                    		 <img class="img-responsive img-full" src="{{ $data->foto_principal }}" alt="" style="width:100%">
+					                    		
+					                    	</div>
+					                    	<div class="swiper-slide" data-val="1">
+					                    		 <img class="img-responsive img-full" src="{{ $data->foto_secundaria_1 }}" alt="">
+					                    		 <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>			                    		 
+					                    	</div>
+					                    	<div class="swiper-slide" data-val="2">
+					                    		 <img class="img-responsive img-full" src="{{ $data->foto_secundaria_2 }}"alt="">
+					                    		
+					                    	</div>
+					                   
+					                    </div>
+						                <div class="pagination hidden"></div>
+						                <div class="swiper-arrow-left type-2"></div>
+						                <div class="swiper-arrow-right type-2"></div>
+						            </div>
+								</div>
+                
+                    </div>
                </div>
             </div>
             <div class="row">
@@ -492,20 +484,30 @@
 </div>
 <!-- SCRIPTS	 -->
 @endsection 
+
 <script src='{{ url("js/jquery-2.1.4.min.js") }}'></script>
-<script src='{{ url("js/jquery-ui.min.js") }}'></script>
+<script src='{{ url("js/jquery-ui.min.js") }}'></script> 
+<script src='{{ url("js/viewer.js") }}'></script>
 <script src='{{ url("js/bootstrap.min.js") }}'></script>
 <script src='{{ url("js/idangerous.swiper.min.js") }}'></script>
 <script src='{{ url("js/jquery.mixitup.js") }}'></script>
-<script src='{{ url("js/jquery.viewportchecker.min.js") }}'></script>
-<!-- <script src='{{ url("js/filters.js") }}'></script>
-<script src='{{ url("js/global.js") }}'></script> -->
+<script src='{{ url("js/jquery.viewportchecker.min.js") }}'></script> 
+<!-- <script src='{{ url("js/filters.js") }}'></script!-->
+<!--script src='{{ url("js/global.js") }}'></script!-->
 <script  src='{{ url("assets/dist/js/tooltipster.bundle.min.js") }}'></script>
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js'></script!-->
+
+
 
 <script>
-   $(document).ready(function() {
-      jQuery.noConflict();
-   
+   $( document ).ready(function() {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+         event.preventDefault();
+         $(this).ekkoLightbox();
+      });
+     // alert('foto');
+
+         
+
    });
-   
 </script>

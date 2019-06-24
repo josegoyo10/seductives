@@ -26,14 +26,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $user   = Auth::user(); 
-        $escort = DB::table('escorts')
-           ->where('email','=',$user->email);
+        $user   = Auth::user();
 
-        $perfil = Perfil::where('id_escort','=',$escort->id);
+
+        $escort = DB::table('escorts')
+                  ->where('email','=',$user->email);
+
+      
+       // $data = Perfil::where('id_escort','=',$escort->id);
+        
+        //dd($data->foto_principal);
        
 
-        return view('admin.layout',compact('perfil'));
+        return view('admin.layout',compact('data'));
     
     
     }
