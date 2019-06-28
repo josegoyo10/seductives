@@ -25,6 +25,8 @@
       Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => 'auth'],
                 function () {
            //rutas de administración
+           
+
           Route::get('clientes', 'ClienteController@index')->name('admin.clientes.index');
           Route::get('showInfoCliente/{id}', 'ClienteController@getInfoCliente')->name('admin.clientes.info');
           Route::get('updateestado_escort', 'ClienteController@updateEstadoescort')->name('admin.clientes.updateEstado');            
@@ -43,7 +45,13 @@
            Route::delete('photos/storage/{photo}', 'ClienteController@eliminar')->name('admin.photos.eliminar');
 
            //actualizar photo perfil de escort
-           Route::post('updatephoto_perfil', 'ClienteController@update_avatar')->name('admin.update.perfil_foto');;
+           Route::post('updatephoto_perfil', 'ClienteController@update_avatar')->name('admin.update.perfil_foto');
+
+           //mostrar a el usuario registrado el perfil de la escort
+           Route::get('escort_perfil_register/{id}','EscortRegisterController@getPerfilRegister')->name('escort.perfil_register');
+
+
+           Route::resource('comments', 'CommentController');
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

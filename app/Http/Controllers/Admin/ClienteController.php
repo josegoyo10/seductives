@@ -23,7 +23,7 @@ class ClienteController extends Controller
         {
            
           $user = Auth::user(); 
-        // dd($user);
+        // dd($user->id_tipo_usuario);
           $data = DB::table("users")
           ->WHERE("users.email",'=', $user->email)->first();
               
@@ -69,6 +69,8 @@ class ClienteController extends Controller
             "escorts.comentario_escort",
             "escorts.comentario_aprob_rechazo",
             "perfiles.foto_principal",
+            "regiones.nombre as descripcion_region",
+            "comuna.nombre as descripcion_comuna",
 
             DB::raw('CASE 
 
@@ -82,31 +84,43 @@ class ClienteController extends Controller
             )
              ->where('escorts.email','=',$email_usuario_sesion )
              ->join("perfiles","perfiles.id_escort","=","escorts.id")
+             ->join("regiones","regiones.id","=","perfiles.region")
+             ->join("comuna", "comuna.id", "=", "perfiles.comuna")
             ->orderby('escorts.id')
             ->get();
 
-          } elseif (auth()->user()->hasRole('Usuario Basico') AND ($user->id_tipo_usuario == 2)) {
-
+          } elseif (auth()->user()->hasRole('USUARIO REGISTRADO') AND ($user->id_tipo_usuario == 2)) {
+                
+                
                     $clientes =  DB::table("escorts")
-                    ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
-                     "escorts.nacionalidad",
-                     "perfiles.edad",
-                     "perfiles.comuna",
-                     "perfiles.telefono",
-                     "perfiles.altura",
-                     "perfiles.medidas",
-                     "perfiles.foto_principal")
+                    ->select("escorts.id",
+                      "escorts.nombres",
+                      "escorts.apellidos",
+                      "escorts.email",
+                      "escorts.rut",
+                      "escorts.fecha_nacimiento",
+                      "escorts.nacionalidad",
+                      "perfiles.edad",
+                      "perfiles.comuna",
+                      "perfiles.telefono",
+                      "perfiles.altura",
+                      "perfiles.medidas",
+                      "perfiles.foto_principal",
+                      "estados.descripcion_estado",
+                      "regiones.nombre as descripcion_region",
+                      "comuna.nombre as descripcion_comuna")
                     ->join("perfiles","perfiles.id_escort","=","escorts.id")
+                    ->join("estados","estados.id","=","escorts.id_estado")
+                    ->join("regiones","regiones.id","=","perfiles.region")
+                    ->join("comuna", "comuna.id", "=", "perfiles.comuna")
                     ->where("escorts.id_estado",'=','3')
                     ->orderby('escorts.id')
                     ->get();
 
                }
-          
 
              return view('admin.clientes.index', compact('clientes','data'));
        
-        
         }
 
         public function getInfoCliente($id) {
@@ -134,10 +148,12 @@ class ClienteController extends Controller
              "perfiles.altura",
              "perfiles.medidas",
              "escorts.comentario_escort",
-             "escorts.comentario_aprob_rechazo"
-            )
+             "escorts.comentario_aprob_rechazo",
+             "regiones.nombre as descripcion_region",
+             "comuna.nombre as descripcion_comuna" )
             ->join("perfiles","perfiles.id_escort","=","escorts.id")
-           
+            ->join("regiones","regiones.id","=","perfiles.region")
+            ->join("comuna", "comuna.id", "=", "perfiles.comuna")
             ->WHERE("escorts.id",'=',$id)
             ->orderby('escorts.id')
             ->first();

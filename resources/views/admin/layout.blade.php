@@ -33,7 +33,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{ url('admin') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -247,7 +247,7 @@
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="#btn-id" role="button" aria-haspopup="true" aria-expanded="false">
                 @if($data->foto_principal != '')
                     <img src='{{ $data->foto_principal }}' class="user-image"  alt="User Image">
                 @else
@@ -272,7 +272,7 @@
               </li>
               <!-- Menu Body -->
               <li class="user-body">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
                   </div>
@@ -282,7 +282,7 @@
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
                   </div>
-                </div>
+                </div> -->
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
@@ -317,18 +317,18 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          @if($data->foto_principal != '')
-             <img src='{{ $data->foto_principal }}' class="img-circle" alt="User Image">
-         @else
-         <img src= '{{ url("adminlte/img/user4-128x128.jpg") }}' class="img-circle" alt="User Image">
-         @endif 
-        </div>
-        <div class="pull-left info"> 
-          <p>{{ auth()->user()->name }}</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> En Linea</a>
-        </div>
+        <div class="user-panel">
+          <div class="pull-left image">
+                @if($data->foto_principal != '')
+                  <img src='{{ $data->foto_principal }}' class="img-circle" alt="User Image">
+              @else
+              <img src='{{ url("adminlte/img/user2-160x160.jpg") }}' class="img-circle" alt="User Image">
+              @endif 
+          </div>
+         <div class="pull-left info"> 
+            <p>{{ auth()->user()->name }}</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> En Linea</a>
+          </div>
       </div>
       <!-- SIDEBAR MENU-->
         @include('admin.partials.nav')
@@ -586,12 +586,28 @@
                }
             })
       })
+       
+      $(document).ready(function(){
+             $(document).on('click', '.dropdown-menu-button', function (e) {
+                   e.stopPropagation()
+            });
+      });
 
 
       $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
                 $(this).ekkoLightbox();
             });
+
+         //subir foto del Perfil escort.
+     
+        //  $('input[type=file]').on('change', function() { 
+        //        // select the form and submit
+        //        alert("A file has been selected.");
+        //   });
+
+
+
       </script>
 </body>
 </html>

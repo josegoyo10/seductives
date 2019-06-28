@@ -134,7 +134,7 @@
                      </div>
                      " data-placement="bottom">
                      <!--{{ url($row->foto_principal) }}!-->
-                     <img src= "#" 
+                     <img src="#" 
                         alt="omg"  class="be-img-block">
                      <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                   </a>

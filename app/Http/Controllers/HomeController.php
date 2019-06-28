@@ -6,6 +6,8 @@ use App\Perfil;
 use App\Escort_Fotos;
 use App\Region;
 use App\Comuna;
+use App\Comment;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +35,7 @@ class HomeController extends Controller
         //return viesw('home');
         $user = Auth::user();
       //dd($user);
-        
+      $ldate = date('d-m-Y H:i:s');
      if ($user->id_tipo_usuario == 1) {
 
          $vista = "Escort";
@@ -42,6 +44,7 @@ class HomeController extends Controller
         ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email")
         ->WHERE("escorts.email", "=", $user->email)
         ->first();
+        
 
        //dd($sql_escort);
 
@@ -75,6 +78,8 @@ class HomeController extends Controller
         
     //      //dd($data);
 
+       $usuario =  User::find($sql_escort->id);
+
        //obtener las fotos de la escort
        $sql_foto_escort = DB::table("escort_fotos")
        ->select("escort_fotos.id","escort_fotos.url_fotos")
@@ -83,6 +88,8 @@ class HomeController extends Controller
 
        $regiones = Region::all();
        $comunas   = Comuna::all();
+
+       $count = Comment::where(['escort_id' => $sql_escort->id ])->count();
 
        $sql_desc_comuna = DB::table("comuna")
        ->SELECT("comuna.id","comuna.nombre")
@@ -143,12 +150,12 @@ class HomeController extends Controller
        $sql_desc_comuna = DB::table("comuna")
        ->SELECT("comuna.id","comuna.nombre");
 
- 
+       $count = Comment::where(['user_id' => $data->id ])->count();
 
       }elseif ($user->id_tipo_usuario == 3) {
 
         $vista = "Administrador";
-
+        $count = 0;
         $user = Auth::user(); 
         // dd($user);
         $data = DB::table("users")
@@ -197,7 +204,7 @@ class HomeController extends Controller
       }
     
   
-       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes'));
+       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario'));
         
     }
 }

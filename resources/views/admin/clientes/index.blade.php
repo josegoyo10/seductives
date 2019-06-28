@@ -1,19 +1,38 @@
 @extends('admin.layout')
-@section('header')
 
-<h1>
-   Todos los Clientes
-   <small>Control panel</small>
-</h1>
-<ol class="breadcrumb">
-   <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-   <li class="active">Clientes</li>
-</ol>
-@endsection
-@section('content')
+   @section('header')
+  
+   @if (auth()->user()->hasRole('Admin'))
+         <h1>
+            Todos las Clientes
+            <small>Control panel</small>
+         </h1>
+         <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">Clientes</li>
+         </ol>
+    @endif
+   @endsection
+
+   @section('css')
+      <link rel="stylesheet" href="{{url('css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="{{url('css/icon.css') }}">
+      <link rel="stylesheet" href='{{url("css/loader.css") }}'>
+      <link rel="stylesheet" href='{{url("css/idangerous.swiper.css") }}'>
+      <link rel="stylesheet" href='{{url("css/jquery-ui.css") }}'>
+      <link rel="stylesheet" href='{{url("css/stylesheet.css")}}'>
+      <link rel="stylesheet" href='{{url("css/magnific.css")}}'>
+
+	  <!-- DataTables -->
+  <link rel="stylesheet" href='{{url("adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css")}}'>
+
+   @endsection
+
+   @section('content')
 
 
-  @if (auth()->user()->hasRole('Usuario Basico'))
+  @if (auth()->user()->hasRole('USUARIO REGISTRADO'))
   
   <div class="container-fluid">
     
@@ -23,13 +42,13 @@
               <div class="row">
                 <div class="form-group">
               <!--div class="be-post"!-->
-                        <a  class="be-img-block red-tooltip" id="modalEscort" data-show="tip" style="cursor:pointer"
-                        data-target="#exampleModalCenter" data-id="{{ $row->id }}" 
+                        <a href="escort_perfil_register/{{$row->id }}" class="be-img-block red-tooltip escort" id="modalEscort" data-show="tip" style="cursor:pointer"
+                        data-target="#exampleModalCenter" data-show="tip" style="cursor:pointer" data-id="{{ $row->id }}" 
                         data-toggle="modal"
                         data-original-title="<div class='row'>
                                                 <div class='col-md-12'>
                                                    <div class='form-group'>
-                                                      <p class='text-align:left;' style='font-size: 12px;'>
+                                                      <p class='text-align:left;' style='font-size: 11px;'>
                                           <i class='fa fa-user-circle'></i> {{ $row->nombres}}
                                           </p>
                                                    </div>
@@ -38,8 +57,8 @@
                                        <div class='row'>
                                        <div class='col-md-12'>
                                           <div class='form-group'>
-                                             <p class='text-align:left;'  style='font-size: 12px;'>
-                                                <i class='fab fa-whatsapp'></i> {{ $row->telefono}}
+                                             <p class='text-align:left;'  style='font-size: 11px;'>
+                                             <i class='fa fa-whatsapp'></i> {{ trim($row->telefono) }}
                                              </p>
                                           </div>
                                           </div>
@@ -47,15 +66,15 @@
                                                 <div class='row'>
                                        <div class='col-md-12'>
                                              <div class='form-group'>
-                                             <p class='text-align:left;' style='font-size: 12px;'>
-                                                <i class='fa fa-map-marker'></i> {{ $row->comuna}}
+                                             <p class='text-align:left;' style='font-size: 11px;'>
+                                             <i class='fa fa-map-marker'></i> {{ $row->descripcion_comuna}}
                                              </p>
                                              </div>
                                                    </div>
                                                 </div>
                                              " data-placement="bottom">
-                         
-                           <img src= "{{ url($row->foto_principal) }}" 
+                                    <!--{{ url($row->foto_principal) }} !-->
+                           <img src= "#" 
                         alt="omg" style="width:130px; heigth:117px;margin:0 auto;" class="centrar">
                            <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                         </a>
@@ -128,14 +147,20 @@
 <script>
      $(document).ready(function(){
 
-         $("body").tooltip({
-            selector:'[data-show=tip]',
-            animated: 'fade',
-            html: true
-            
-            
-         });
+            $('.escort').click(function(event){
+                     event.stopPropagation();
+               });
 
-   });
+
+               $("body").tooltip({
+                  selector:'[data-show=tip]',
+                  animated: 'fade',
+                  html: true
+                  
+                  
+               });
+
+
+      });
 
 </script>

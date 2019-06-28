@@ -54,7 +54,7 @@
                     </div>
                </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                <div class="col-md-4">
                   <div class="be-post">
                      <a href="blog-detail-2.html" class="be-img-block">
@@ -121,12 +121,12 @@
                      </div>
                   </div>
                </div>
-            </div>
+            </div> -->
             <div class="be-comment-block">
-               <h1 class="comments-title">Comments (3)</h1>
-               <p class="about-comment-block">
-                  You must <a href="blog-detail-2.html" class="be-signup-link">SIGN UP</a>
-                  to join the conversation.
+               <h1 class="comments-title">Comentarios (3)</h1>
+               <p class="about-comment-block" style="color:#222835;">
+                  Debes estar logueado <a href="blog-detail-2.html" class="be-signup-link">Accesar</a>
+                 para unirte a la conversación
                </p>
                <div class="be-comment">
                   <div class="be-img-comment">	
