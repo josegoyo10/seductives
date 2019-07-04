@@ -16,6 +16,9 @@ class Escort extends Model
         return $this->hasMany(Escort_Fotos::Class);
     }
 
-
+    public function likes()
+    {
+      return $this->hasMany(Like::class);
+    }
 
 }

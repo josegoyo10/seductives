@@ -31,6 +31,7 @@ class CreatePerfilesTable extends Migration
             $table->string('hora_inicio')->nullable();
             $table->string('hora_fin')->nullable();
             $table->string('atencion')->nullable();
+            $table->string('dias_disponibles')->nullable();
             $table->string('telefono')->nullable();
             $table->decimal('precio',7,2)->nullable();
             $table->timestamp('fecha_registro')->nullable();

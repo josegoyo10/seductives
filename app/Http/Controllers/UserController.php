@@ -34,10 +34,14 @@ class UserController extends Controller
                  $escort = Escort::where(['email' =>  $request->get('email')])
                                  ->Where(['id_estado' =>  "3"])
                                  ->count();
-                
-
+                 
+                 $escort_aprob = Escort::where(['email' =>  $request->get('email')])
+                                 ->Where(['id_estado' =>  "1"])
+                                 ->count(); 
+                //dd($escort_aprob);             
+                 
                   //EL USUARIO ES UNA ESCORTS Y ESTA APROBADO
-                 if ($escort == 1) {
+                 if (($escort == 1) && ($escort_aprob == 0)) {
 
                         $user = User::create([
                             'name' => $request->get('name'),
@@ -53,6 +57,10 @@ class UserController extends Controller
                          //dd($role);
                          $user->assignRole($role->id);
                        
+
+                    }elseif ($escort_aprob == 1) {
+
+                        return Response::json(['errors' =>'NO AUTORIZADA']);
 
                     }else {
 
@@ -72,13 +80,15 @@ class UserController extends Controller
                          //dd($role);
                          $user->assignRole($role->id);
 
-                    }
-
+                       }
+                
 
 
              return Response::json(['success' => '1']);
 
         }
+         
+
 
         return Response::json(['errors' => $validator->errors()]);
  

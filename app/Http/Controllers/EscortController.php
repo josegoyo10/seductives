@@ -38,11 +38,11 @@ class EscortController extends Controller
           // ]);
           request()->validate([
 
-            'run' => 'required|min:2|max:50',
+            'rut' => 'required|min:2|max:50',
 
-            'nombres' => 'required|numeric',
+            'nombres' => 'required|string',
             
-            'apellidos' => 'required|numeric', 
+            'apellidos' => 'required|string', 
 
             'email' => 'required|email|unique:users',
 
@@ -52,7 +52,7 @@ class EscortController extends Controller
 
             'sexo' => 'required',
 
-            'telefono' => 'required|numeric', 
+            'telefono' => 'required|string', 
 
             'photo_principal'    => 'dimensions:min-width=250,min_height=200',
             'photo_secundaria_1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -151,7 +151,6 @@ class EscortController extends Controller
            $perfil->altura            = $request->altura;
            $perfil->edad              = $request->edad_cliente;
            $perfil->medidas           = $request->medidas;
-           $perfil->horario           = $request->horario;
            $perfil->atencion          = $request->atencion;
            $perfil->telefono          = $request->telefono;
            $perfil->precio            = $request->precio;

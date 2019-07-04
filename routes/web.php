@@ -52,6 +52,8 @@
 
 
            Route::resource('comments', 'CommentController');
+
+           Route::post('like','LikeController@LikeEscort')->name('like');
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

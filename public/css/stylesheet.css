@@ -1456,6 +1456,15 @@ a.social-btn:hover { opacity: 0.6; color: #fff; }
     margin-bottom: 10px; 
 }
 
+.fa {
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .fa:hover {
+    color: red;
+
+  }
 .be-largepost-iframe { margin-bottom: 50px !important; padding-left: 0; }
 
 .be-comment-block { margin-bottom: 50px !important; border: 1px solid #edeff2; border-radius: 2px; padding: 50px 70px; }

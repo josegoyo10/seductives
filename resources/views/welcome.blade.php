@@ -134,7 +134,7 @@
                      </div>
                      " data-placement="bottom">
                      <!--{{ url($row->foto_principal) }}!-->
-                     <img src="#" 
+                     <img src="{{ url($row->foto_principal) }}" 
                         alt="omg"  class="be-img-block">
                      <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                   </a>
@@ -146,16 +146,16 @@
                   <a href="blog-detail-2.html" class="be-post-tag">Web Design</a> -->
                   </span>
                   <!-- Generated markup by the plugin -->
-                  <!--div class="author-post">
-                     // <img src="img/a1.png" alt="" class="ava-author">
+                  <div class="author-post">
+                      <img src="img/a1.png" alt="" class="ava-author">
                      
-                     // <span>by <a href="page1.html">Hoang Nguyen</a></span>
-                     // </div!-->
-                  <!--div class="info-block" style="width:10px;">
+                     <span>{{ $row->nombres}}</span>
+                      </div>
+                  <!-- <div class="info-block" style="width:10px;">
                      <span><i class="fa fa-thumbs-o-up"></i> 360</span>
                      <span><i class="fa fa-eye"></i> 789</span>
                      <span><i class="fa fa-comment-o"></i> 20</span>
-                     </div!-->
+                     </div> -->
                </div>
             </div>
             @endforeach

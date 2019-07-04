@@ -8,6 +8,7 @@ use App\Escort;
 use App\Perfil;
 use App\Region;
 use App\Comuna;
+use App\Like;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
@@ -26,11 +27,13 @@ class ClienteController extends Controller
         // dd($user->id_tipo_usuario);
           $data = DB::table("users")
           ->WHERE("users.email",'=', $user->email)->first();
-              
+          
+         
+
             if (auth()->user()->hasRole('Admin')) {
 
                //  $clientes = Escort::orderBy('id', 'ASC')->get();
-                $clientes =   $query = DB::table("escorts")
+                $clientes =   DB::table("escorts")
                 ->select("escorts.id","escorts.rut","escorts.nombres",
                     "escorts.apellidos",
                     "escorts.email",
@@ -58,7 +61,7 @@ class ClienteController extends Controller
 
              $email_usuario_sesion = auth()->user()->email;
 
-            $clientes =   $query = DB::table("escorts")
+            $clientes =  DB::table("escorts")
             ->select("escorts.id","escorts.rut",
             "escorts.nombres",
             "escorts.apellidos",
@@ -119,7 +122,7 @@ class ClienteController extends Controller
 
                }
 
-             return view('admin.clientes.index', compact('clientes','data'));
+             return view('admin.clientes.index', compact('clientes','data','likes'));
        
         }
 

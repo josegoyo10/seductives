@@ -57,12 +57,12 @@
                         <div class="col-md-5">
                            <input  class="form-control @error('email') is-invalid @enderror" name="email" 
                              type="email" required="" placeholder="Email" value="{{old('email') }}" required autofocus>
-                              <span class="invalid-feedback" role="alert" 
-                                 style="display: none;color:#fff;" id="error_mail">
+                             <span class="invalid-feedback" role="alert" 
+                                 style="display: none;color:#fff;color:#f21317;" id="error_mail">
                                      <strong></strong>
-                              </span>
-                              
+                             </span>
                         </div>
+                        
                         <div class="col-md-5">
                            <input  type="password" required="" placeholder="Contraseña"
                               class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -87,6 +87,8 @@
                            <a href="#" class="link-large-popup" data-toggle="modal" 
                               data-target="#exampleModal" id="btn_registro" style="color:#FFF;">Registrarse</a>
                        </div>
+                       <br>
+                       
                      </form>
                   </div>
                </div>
@@ -124,6 +126,16 @@
                                     <span aria-hidden="true">×</span>
                                     </button>
                                     <strong> Su registro ha sido Exitoso...!!</strong>
+                                 </div>
+                              </div>
+                              <div id="warning-msg" class="hide">
+                                 <div class="alert alert-warning alert-dismissible fade in" role="alert" style="background:#f58a42;color:#0d0d0d">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong><span id="msg">Disculpe usted no ha sido aprobada por los momentos por el personal de seductives,
+                                    usted recibira un email indicandole el estatus del ingreso del sistema a la brevedad...</span>
+                                    </strong>
                                  </div>
                               </div>
                               <form method="POST" id="register">
@@ -175,7 +187,7 @@
                                  </div>
                                  <div class="modal-footer">
                                     <div class="col-md-12 text-center">
-                                       <button type="button" id="submitForm" class="btn btn-primary btn-prime white btn-flat">Registrar</button>
+                                       <button type="button" id="submitForm" class="btn-login btn color-1 size-2 hover-2" style="color:#FFF;">Registrar</button>
                                     </div>
                                  </div>
                               </form>
@@ -223,7 +235,7 @@
       @stack('scripts')
       <script>
 
-            function LoginUser()
+                   function LoginUser()
                  {
 
                   // alert('prueba');
@@ -243,6 +255,7 @@
                          cache: false,
                          success: function (data)
                          {
+                            
                              //location.reload();
                              console.log(data); 
                              console.log('login request sent !');
@@ -256,7 +269,11 @@
                             $('#error_mail').html(data.responseJSON.errors.email[0]).show();
                           //  console.log(data.responseJSON.errors.email[0]);
                             // console.log(data);
-                            // alert('Fail to run Login..');
+                            $('#name').val('');
+                            $('#last_name').val('');
+                            $('#email').val('');
+                            $('#password').val('');
+                            $('#password_confirmation').val('');
                          }
                      });
                      return false;
@@ -304,7 +321,7 @@
             //     });
             //  }); 
 
-             //registrar usuario.
+             //registrar usuario .
              $('body').on('click', '#submitForm', function(){
                var registerForm = $("#register");
                var formData = registerForm.serialize();
@@ -318,36 +335,58 @@
                         type:'POST',
                         data:formData,
                         success:function(data) {
+                         alert('data.errors:' + data.errors );
                            console.log(data);
                            if(data.errors) {
-                              if(data.errors.name){
-                                    $( '#name-error' ).html( data.errors.name[0] );
+
+                              if(data.errors == "NO AUTORIZADA"){
+                                    //$('#warning-msg').removeClass('hide');
+                                    //$('#exampleModal').delay(15000).fadeOut('slow');
+                                    //$('.modal-backdrop').remove();
+                                       $('#name, #last_name,#email, #password, #password-confirm').val('');
+                                       $('.modal-backdrop').remove();
+                                       alert('Disculpe usted no ha sido aprobada por los momentos por el personal de seductives, usted recibira un email indicandole el estatus del ingreso del sistema a la brevedad...');
+                                    
+                                    // setTimeout(function() {
+                                    //    $('#exampleModal').fadeOut('slow');
+                                       
+                                    //    $('#warning-msg').addClass('hide');
+                                    //    }, 5000 );
+                                    location.reload();
+                                      // return false;
+                              }else {  
+
+                                       if(data.errors.name){
+                                             $('#name-error' ).html( data.errors.name[0] );
+                                       }
+                                    
+                                       if(data.errors.last_name){
+                                             $( '#last_name-error' ).html( data.errors.last_name[0] );
+                                       }
+                  
+                                       if(data.errors.email){
+                                             $( '#email-error' ).html( data.errors.email[0] );
+                                       }
+                  
+                  
+                                       if(data.errors.password){
+                                             $( '#password-error' ).html( data.errors.password[0] );
+                                       }
+
                               }
-                             
-                              if(data.errors.last_name){
-                                    $( '#last_name-error' ).html( data.errors.last_name[0] );
-                              }
-         
-                              if(data.errors.email){
-                                    $( '#email-error' ).html( data.errors.email[0] );
-                              }
-         
-         
-                              if(data.errors.password){
-                                    $( '#password-error' ).html( data.errors.password[0] );
-                              }
-                              
+                               
                            }
                            if(data.success) {
                              
                               $('#success-msg').removeClass('hide');
                               $('.modal-backdrop').remove();
-                              setInterval(function(){ 
-                                    $('#SignUp').modal('hide');
-                                    $('#success-msg').addClass('hide');
-                                    $('#exampleModal').addClass('hide');
-                              }, 3000);
-                           }
+                              location.reload();
+                              // setInterval(function(){ 
+                              //       $('#SignUp').modal('hide');
+                              //       $('#success-msg').addClass('hide');
+                              //       $('#exampleModal').addClass('hide');
+                              // }, 3000);
+                           } 
                         },
                      });
                   });

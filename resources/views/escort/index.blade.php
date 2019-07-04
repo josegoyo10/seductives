@@ -144,7 +144,7 @@
                                                 <div class='col-md-4'>
                                                    <div class='form-group'>
                                                       <label for="rut" class="col-form-label">Run (*):</label>
-                                                      <input type="text" class="form-control" id="rut" name="rut" maxlength="13" value="{{ old('rut') }}">
+                                                      <input type="text" class="form-control" id="rut" name="rut" value="{{ old('rut') }}">
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                    </div>
                                                 </div>
@@ -366,8 +366,8 @@
                     email: true
                  },
                   telefono: {
-                    required: true,
-                    digits: true
+                    required: true
+                   
                  },
                    fecha_nacimiento: {
                       required: true,

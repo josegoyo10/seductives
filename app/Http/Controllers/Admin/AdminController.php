@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Escort;
 use App\Perfil;
+use App\Likes;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -32,7 +33,6 @@ class AdminController extends Controller
         $escort = DB::table('escorts')
                   ->where('email','=',$user->email);
 
-      
        // $data = Perfil::where('id_escort','=',$escort->id);
         
         //dd($data->foto_principal);

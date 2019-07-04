@@ -8,6 +8,7 @@ use App\Region;
 use App\Comuna;
 use App\Comment;
 use App\User;
+use App\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,16 @@ class HomeController extends Controller
         $user = Auth::user();
       //dd($user);
       $ldate = date('d-m-Y H:i:s');
+
+      $likes = Like::select(['likes_count.*'])
+                       ->groupBy('id')
+                       ->count();
+      
+      $seen = Like::select(['seen.*'])
+                       ->groupBy('id')
+                       ->count();
+    
+
      if ($user->id_tipo_usuario == 1) {
 
          $vista = "Escort";
@@ -204,7 +215,7 @@ class HomeController extends Controller
       }
     
   
-       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario'));
+       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes','seen'));
         
     }
 }
