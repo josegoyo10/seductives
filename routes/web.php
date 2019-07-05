@@ -52,7 +52,8 @@
 
 
            Route::resource('comments', 'CommentController');
-
+             
+           Route::get('getLikes','LikeController@getAllLikeEscort')->name('getlike');
            Route::post('like','LikeController@LikeEscort')->name('like');
       }); 
 

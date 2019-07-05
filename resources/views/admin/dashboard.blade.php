@@ -31,7 +31,7 @@
                <img  id="upfile1"  class="profile-user-img img-responsive img-circle" src="{{ $data->foto_principal  }}" 
                   alt="User profile picture" style="cursor:pointer" onmouseover="this.src='images/upload.png'" 
                   onmouseout="this.src='{{$data->foto_principal}}'"/>
-               <h3 class="profile-username text-center"> {{ ucfirst(auth()->user()->name) }}</h3>
+               <h3 class="profile-username text-center"> {{ ucfirst(auth()->user()->name) }}xxx</h3>
                <div class="row justify-content-center">
                   <form  id="frmUpload" action ="{{ route('admin.update.perfil_foto') }}" method="POST" enctype="multipart/form-data">
                      @csrf

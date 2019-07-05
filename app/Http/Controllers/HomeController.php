@@ -38,9 +38,13 @@ class HomeController extends Controller
       //dd($user);
       $ldate = date('d-m-Y H:i:s');
 
-      $likes = Like::select(['likes_count.*'])
+      $likes_user = Like::select(['likes_count.*'])
                        ->groupBy('id')
                        ->count();
+
+      // $dislike_user = Like::select(['dislike_count.*'])
+      //                  ->groupBy('id')
+      //                  ->count();
       
       $seen = Like::select(['seen.*'])
                        ->groupBy('id')
@@ -215,7 +219,7 @@ class HomeController extends Controller
       }
     
   
-       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes','seen'));
+       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen'));
         
     }
 }

@@ -48,7 +48,7 @@
                   " data-placement="bottom">
                   <!--"{{ url($row->foto_principal) }}!-->
                   <img src= "{{ url($row->foto_principal) }}" 
-                     alt="omg" style="width:130px; heigth:117px;margin:0 auto;" class="centrar">
+                     alt="omg" class="img-fluid" style="width:217px;height:240px"  >
                   <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                </a>
                <p class="be-post-title">{{ $row->nombres}}</p>
@@ -58,7 +58,10 @@
                </div>
                <div class="info-block">
                   <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-up" data-ID="{{$row->id}}"></i>
-                    <span id="like_{{$row->id}}-bs3">{{ $likes }}</span>
+                    <span id="like_{{$row->id}}-bs3">{{($likes_user) }}</span>
+                  </span>
+                  <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-down" data-ID="{{$row->id}}"></i>
+                    <span id="like_{{$row->id}}-bs3"></span>
                   </span>
                   <span><i class="fa fa-eye"></i> {{($seen) }}</span>
                   <span><i class="fa fa-comment-o"></i> 20</span>
@@ -84,19 +87,62 @@
                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   }
             });
+             
+              var idEscortarray = new Array();
+
+               $('.fa-thumbs-o-up').each(function(){
+                     idEscortarray.push($(this).attr('data-ID'));
+               
+                  });
+
+                  $.ajax({
+                         type: "get",
+                         url: "admin/getLikes",
+                         data: {
+                           arreglo:idEscortarray
+                         },
+                         dataType: 'JSON',
+                         cache: false,
+                         success: function (data)
+                         {
+                           console.log(data);
+                    
+                           $.each(data, function(index) {
+                              
+                              console.log(data[index].cont);
+                               console.log(data[index].escortId);
+                          
+
+                              $('#like_'+data[index].escortId+'-bs3').html(data[index].cont);
+                            
+                        });
+                       
+                            
+                         }, 
+                         error: function (e){
+                           console.log(e.responseText);
+                         
+                         }
+                     });
+
+                     //location.reload();
+
+
+
+
 
                $('.fa-thumbs-o-up').click(function(){ 
-                      $(this).toggleClass("fa-thumbs-down");
-                      var estado_icon = '';
-                      $('.fa-thumbs-o-up').toggleClass('active');
-                      var act = $('.fa-thumbs-o-up').hasClass("active");
+                     //  $(this).toggleClass("fa-thumbs-down");
+                     //  var estado_icon = '';
+                     //  $('.fa-thumbs-o-up').toggleClass('active');
+                     //  var act = $('.fa-thumbs-o-up').hasClass("active");
                      
 
-                      if(act){
-                        estado_icon = 0;
-                     }else{
-                        estado_icon = 1;
-                     }
+                     //  if(act){
+                     //    estado_icon = 0;
+                     // }else{
+                     //    estado_icon = 1;
+                     // }
 
                      // if ($(this).toggleClass("fa-thumbs-down")) {
                      //    alert("dedo abajo");
@@ -112,7 +158,6 @@
 
                       var data = {
                          id:id_like,
-                         estado: estado_icon
                      };
 
                       $.ajax({
@@ -122,8 +167,9 @@
                          cache: false,
                          success: function (data)
                          {
+                           location.reload();
                            $('#like_'+id_like+'-bs3').html(data);
-                             //location.reload();
+                           
                              console.log(data); 
                             
                          }, 

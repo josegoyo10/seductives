@@ -1,7 +1,5 @@
 <ul class="sidebar-menu" data-widget="tree">
    <li class="header">Navegación</li>
-   
-   
    <li class="active"><a href="#"><i class="fa fa-home"></i><span>Inicio</span></a></li>
 
    <li class="treeview">
@@ -23,7 +21,6 @@
              <li>
                  <a href="{{ route('admin.clientes.index') }}"><i class="fa fa-pencil"></i> Ver Mi Perfil</a>
               </li>
-            
             @else
               <li>
                  <a href="{{ route('admin.clientes.index') }}"><i class="fa fa-pencil"></i> Ver Escorts</a>
@@ -31,7 +28,6 @@
 
             @endif
           @endif
-
 
       </ul>
    </li>

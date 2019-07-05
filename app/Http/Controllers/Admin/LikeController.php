@@ -11,48 +11,66 @@ use Illuminate\Support\Facades\Auth;
 class LikeController extends Controller
 {
     //
+    public function getAllLikeEscort() {
+
+       $arregloId = Input::get('arreglo');
+     
+       foreach($arregloId as $value) {
+        
+          
+          $cont = Like::where(['escort_id' => $value])->count();
+         // dd( $cont);
+          $data_array[] = array(
+            'cont' => $cont,
+            'escortId' => $value
+            );
+       }
+    // dd($data_array);
+   
+       return response()->json($data_array);
+        //dd($arregloId);
+    }
+
+
+
     public function LikeEscort(Request $request) {
-        $user = Auth::user(); 
-        $id_like_user = Input::get('id');
-        $estado       = Input::get('estado');
+        $user           = Auth::user(); 
+        $id_like_user   = Input::get('id');
+        //$estado       = Input::get('estado');
         $valor_like = 0;
+
         //Realizo un contador de likes que le haya dado el usuario logueado a la escort
-        $cont = Like::where(['user_id' => $user->id,'escort_id' => $id_like_user])->count();
+        //$cont = Like::where(['user_id' => $user->id,'escort_id' => $id_like_user])->count();
+        $cont = Like::where(['escort_id' => $id_like_user])->count();
         
         // Realizo otro contador para validar si ya la escort le han dado likes a esa foto
-        $existe_like = Like::where(['user_id' => $user->id,'escort_foto_id' => $id_like_user])->count();
-      //dd($estado);
+        $existe_like = Like::where(['user_id' => $user->id,'escort_id' => $id_like_user])->count();
 
-        if ((!$existe_like) && ($estado == 1)) {
+        //validar si esa foto ya tiene un like
+
+     //dd($existe_like);
+
+        if ((!$existe_like)) {
             Like::create([
                 'user_id' => Auth::id(),
                 'escort_id' =>  $id_like_user,
                 'escort_foto_id' => 1,
                 'likes_count' => 1,
+                'dislike_count' => 0,
                 'seen' => 1
 
             ]);
             $valor_like = 1;
         } else {
-            if (($estado == '1') && ($cont > 0)) {
-
-                    $valor_like = 1;
+           
                     $update_like =  Like::findOrFail($id_like_user);
-                    $update_like->likes_count = $valor_like;
+                    $update_like->likes_count = $cont + 1;
                     $update_like->save();
-
-             } else if ($estado == '0') {
-               
-               
-                $valor_like = $cont - 1;
-                $update_like =  Like::findOrFail($id_like_user);
-                $update_like->likes_count = $valor_like;
-                $update_like->save();
-               
-               
-
-               }
-           } 
+                   
+                    $valor_like = Like::where(['escort_id' => $id_like_user])->count();
+           }
+           
+           
 
             return  $valor_like;
       }
