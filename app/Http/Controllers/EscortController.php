@@ -225,7 +225,6 @@ class EscortController extends Controller
       //
       public function getPerfilEscort($id) {
 
-                   
         $data = DB::table("escorts")
         ->select("escorts.id","escorts.nombres","escorts.apellidos",
          "escorts.nacionalidad",
@@ -239,8 +238,10 @@ class EscortController extends Controller
          "perfiles.foto_secundaria_1",
          "perfiles.foto_secundaria_2",
          "regiones.nombre as descripcion_region",
-         "comuna.nombre as descripcion_comuna" )
+         "comuna.nombre as descripcion_comuna",
+         "escort_video.desc_video" )
         ->join("perfiles","perfiles.id_escort","=","escorts.id")
+        ->join("escort_video","escort_video.escort_id","=","escorts.id")
         ->join("regiones","regiones.id","=","perfiles.region")
         ->join("comuna", "comuna.id", "=", "perfiles.comuna")
         ->WHERE("escorts.id", "=", $id)
@@ -256,7 +257,7 @@ class EscortController extends Controller
 
       //dd($escort_photos);
           
-          return view('escort.perfilpublico_escort',compact('data','sql_foto_escort'));
+          return view('escort.perfilpublico_escort',compact('data','sql_foto_escort','ruta_video'));
       }
 
 

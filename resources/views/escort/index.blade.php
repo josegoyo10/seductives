@@ -6,7 +6,6 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <link rel="shortcut icon" href="img/favicon.png">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="/css/icon.css">
       <link rel="stylesheet" href="/css/bootstrap.min.css">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
       <link rel="stylesheet" href="/css/icon.css">
@@ -15,7 +14,7 @@
       <link rel="stylesheet" href="/css/jquery-ui.css">
       <link rel="stylesheet" href="/css/stylesheet.css">
       <!--Fontawesome CDN-->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+      <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
       <link rel="stylesheet"
          href='{{ url("assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css") }}'>
       <!-- Select2 -->
@@ -91,8 +90,10 @@
                <div class="header-menu-block"></div>
                <div class="login-header-block">
                   <div class="login_block">
-                     <a  href="{{ route('inicio') }}" class="btn btn-primary btn-sm"
-                       >Inicio</a>
+                     <a  href="{{ route('inicio') }}" 
+                        class=""
+                       >Inicio
+                    </a>
                   </div>
                </div>
             </div>
@@ -560,7 +561,7 @@
            //para refrescar el combo de factores reporte 5
          $('select[name="regiones"]').on('change', function() {
               var stateID = $(this).val();
-              $('select[name="comuna_escort"]').empty();
+              $('select[name="comunas"]').empty();
            //   alert('stateid:'+ stateID);
          
                  if(stateID) {

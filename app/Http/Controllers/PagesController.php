@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Escort;
 use App\Perfil;
 use App\Escort_Fotos;
+use App\News;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 
 class PagesController extends Controller
 {
@@ -22,6 +23,15 @@ class PagesController extends Controller
 		//podemos reusar con una sola linea
        
 		//$posts = Post::published()->paginate(1);
+
+		$noticias = DB::table("news")
+					->select("news.escort_id","news.descripcion","news.created_at","perfiles.foto_principal")
+					->join("perfiles","perfiles.id_escort","=","news.escort_id")
+					->get();
+
+		$today = Carbon::today()->toDateString();
+	
+	
 		$data = DB::table("escorts")
 						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 						 "escorts.nacionalidad",
@@ -41,7 +51,7 @@ class PagesController extends Controller
 				    ->get();
 
 
-    	return view('welcome', compact('data'));
+    	return view('welcome', compact('data','noticias','today'));
 
 
 	}

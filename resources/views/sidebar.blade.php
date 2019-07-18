@@ -1,13 +1,25 @@
 <div class="col-md-2 left-feild">
    <div class="be-vidget">
       <h3 class="letf-menu-article">Novedades</h3>
+     
       <div class="creative_filds_block">
-         <div class="ul">
-            <a  data-filter=".category-1" class="filter">Graphic Design		</a>
-            <a data-filter=".category-2" class="filter">Photography			</a>
-            <a data-filter=".category-3" class="filter">Interaction Design	</a>
-            <a data-filter=".category-4" class="filter">Art Direction		</a>
-            <a data-filter=".category-5" class="filter">Illustration		</a>
+         <div class="ticker1">
+            <div class="innerWrap be-user-statistic">
+                   @foreach($noticias as $news)
+                    
+                    @if (\Carbon\Carbon::parse($news->created_at)->format('Y-m-d') == $today)
+                  
+                           <div class="demo" >
+                              <img src="{{ $news->foto_principal}}" class="img-circle" 
+                              style="float: left; margin: 0px 5px 25px 0px;width:35px;">
+                              <p class="parrafo"><strong>{{ ($news->descripcion)}}</strong>
+                              
+                              </p>
+                           </div>
+                       @endif
+                   @endforeach 
+             
+            </div>
          </div>
       </div>
    </div>
@@ -80,3 +92,29 @@
       </div>
    </div>
 </div>
+@push('scripts')
+<!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<script src='{{ url("js/jquery.easy-ticker.js") }}'></script> 
+@endpush('scripts')
+<script>
+   $( document ).ready(function() {
+       $('.ticker1, .ticker2').easyTicker({
+             direction: 'up',
+             easing: 'swing',
+             speed: 'slow',
+             interval: 2000,
+             height: 'auto',
+             visible: 0,
+             mousePause: 1,
+             controls: {
+                up: '',
+                down: '',
+                toggle: '',
+                playText: 'Play',
+                stopText: 'Stop'
+             }
+       });
+   
+   });
+</script>

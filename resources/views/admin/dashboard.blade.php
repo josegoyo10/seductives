@@ -31,7 +31,7 @@
                <img  id="upfile1"  class="profile-user-img img-responsive img-circle" src="{{ $data->foto_principal  }}" 
                   alt="User profile picture" style="cursor:pointer" onmouseover="this.src='images/upload.png'" 
                   onmouseout="this.src='{{$data->foto_principal}}'"/>
-               <h3 class="profile-username text-center"> {{ ucfirst(auth()->user()->name) }}xxx</h3>
+               <h3 class="profile-username text-center"> {{ ucfirst(auth()->user()->name) }}</h3>
                <div class="row justify-content-center">
                   <form  id="frmUpload" action ="{{ route('admin.update.perfil_foto') }}" method="POST" enctype="multipart/form-data">
                      @csrf
@@ -79,116 +79,111 @@
          <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                <li class="active"><a href="#activity" data-toggle="tab">Actividad</a></li>
-               <li><a href="#settings"    data-toggle="tab">Actualizar Mi Perfil</a></li>
-               <li><a href="#mis_fotos"   data-toggle="tab">Actualizar Mis Fotos</a></li>
+               <li><a href="#settings"     data-toggle="tab">Actualizar Mi Perfil</a></li>
+               <li><a href="#mis_fotos"    data-toggle="tab">Actualizar Mis Fotos</a></li>
                <li><a href="#galleryfotos" data-toggle="tab">Galeria de Fotos</a></li>
+               <li><a href="#uploadNews"   data-toggle="tab">Agregar Mis Noticias</a></li>
             </ul>
-
             <!--Tab Principal !-->
             <div class="tab-content">
                <div class="active tab-pane" id="activity">
                   <!-- Post -->
                   <div class="post">
-                    <p class="comment-text"><strong>Comentarios:  </strong> 
-                           <i class="fa fa-comments bg-yellow"></i>
-                           <span class="label label-success">{{$count}}</span>
-                    </p>
-                  <ul>
-
-                     <!-- timeline time label -->
-
-                     <!-- timeline item -->
-                     <li>
-                     <!-- <i class="fa fa-comments bg-yellow"></i> -->
-
-                     @include('admin.escort_register.commentsDisplay', ['comments' => $usuario->comments, 
-                     'escort_id' => $data->id])
-                
-                       <h4>Añadir Comentario:</h4>
-                        <form method="POST" action="{{ route('comments.store' ) }}">
-                            @csrf
-                            <div class="form-group">
-                                <textarea class="form-control" name="body" rows="3"></textarea>
-                                <input type="hidden" name="escort_id" value="{{ $data->id }}" />
-                            </div>
-                            <div class="form-group"> 
-                                <input type="submit" class="btn color-1"  style="padding-top:10px"
-                                 value="Añadir Comentario" />
-                            </div>
-                        </form>
-                        <!-- <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                           <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                           <div class="timeline-body">
-                              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                              weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                              jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                              quora plaxo ideeli hulu weebly balihoo...
-                           </div>
-                           <div class="timeline-footer">
-                              <a class="btn btn-primary btn-xs">Responder</a>
-                              <a class="btn btn-danger btn-xs">Borrar</a>
-                           </div>
-                        </div> -->
-                     </li>
-                     <!-- END timeline item -->
-                     <!-- timeline item -->
-                     <!-- <li>
-                        <i class="fa fa-user bg-aqua"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-                           <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
-                           </h3>
-                        </div>
-                     </li> -->
-                     <!-- END timeline item -->
-                     <!-- timeline item -->
-                     <!-- <li>
+                     <p class="comment-text"><strong>Comentarios:  </strong> 
                         <i class="fa fa-comments bg-yellow"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-                           <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                           <div class="timeline-body">
-                              Take me to your leader!
-                              Switzerland is small and neutral!
-                              We are more like Germany, ambitious and misunderstood!
+                        <span class="label label-success">{{$count}}</span>
+                     </p>
+                     <ul>
+                        <!-- timeline time label -->
+                        <!-- timeline item -->
+                        <li>
+                           <!-- <i class="fa fa-comments bg-yellow"></i> -->
+                           @include('admin.escort_register.commentsDisplay', ['comments' => $usuario->comments, 
+                           'escort_id' => $data->id])
+                           <h4>Añadir Comentario:</h4>
+                           <form method="POST" action="{{ route('comments.store' ) }}">
+                              @csrf
+                              <div class="form-group">
+                                 <textarea class="form-control" name="body" rows="3"></textarea>
+                                 <input type="hidden" name="escort_id" value="{{ $data->id }}" />
+                              </div>
+                              <div class="form-group"> 
+                                 <input type="submit" class="btn color-1"  style="padding-top:10px"
+                                    value="Añadir Comentario" />
+                              </div>
+                           </form>
+                           <!-- <div class="timeline-item">
+                              <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                              <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                              <div class="timeline-body">
+                                 Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                 weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                 jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                 quora plaxo ideeli hulu weebly balihoo...
+                              </div>
+                              <div class="timeline-footer">
+                                 <a class="btn btn-primary btn-xs">Responder</a>
+                                 <a class="btn btn-danger btn-xs">Borrar</a>
+                              </div>
+                              </div> -->
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        <!-- <li>
+                           <i class="fa fa-user bg-aqua"></i>
+                           <div class="timeline-item">
+                              <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                              <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                              </h3>
                            </div>
-                           <div class="timeline-footer">
-                              <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                           </li> -->
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        <!-- <li>
+                           <i class="fa fa-comments bg-yellow"></i>
+                           <div class="timeline-item">
+                              <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                              <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                              <div class="timeline-body">
+                                 Take me to your leader!
+                                 Switzerland is small and neutral!
+                                 We are more like Germany, ambitious and misunderstood!
+                              </div>
+                              <div class="timeline-footer">
+                                 <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                              </div>
                            </div>
-                        </div>
-                     </li> -->
-                     <!-- END timeline item -->
-                     <!-- timeline time label -->
-                     <!-- <li class="time-label">
-                        <span class="bg-green">
-                        3 Jan. 2014
-                        </span>
-                     </li> -->
-                     <!-- /.timeline-label -->
-                     <!-- timeline item -->
-                     <!-- <li>
-                        <i class="fa fa-camera bg-purple"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                           <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                           <div class="timeline-body">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
+                           </li> -->
+                        <!-- END timeline item -->
+                        <!-- timeline time label -->
+                        <!-- <li class="time-label">
+                           <span class="bg-green">
+                           3 Jan. 2014
+                           </span>
+                           </li> -->
+                        <!-- /.timeline-label -->
+                        <!-- timeline item -->
+                        <!-- <li>
+                           <i class="fa fa-camera bg-purple"></i>
+                           <div class="timeline-item">
+                              <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                              <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                              <div class="timeline-body">
+                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
+                              </div>
                            </div>
-                        </div>
-                     </li> -->
-                     <!-- END timeline item -->
-                     <li>
-                        <i class="fa fa-clock-o bg-gray"></i>
-                     </li>
-                  </ul>
+                           </li> -->
+                        <!-- END timeline item -->
+                        <li>
+                           <i class="fa fa-clock-o bg-gray"></i>
+                        </li>
+                     </ul>
                   </div>
-               
-               </div><!--fin tab numero 1 !-->
- 
+               </div>
+               <!--fin tab numero 1 !-->
                <!-- /.tab-pane -->
                <div class="tab-pane" id="timeline">
                   <!-- The timeline -->
@@ -273,7 +268,22 @@
                      </li>
                   </ul>
                </div>
-
+               @if ($errors->any())
+               <div class="alert alert-danger">
+                  <ul>
+                     @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                     @endforeach
+                  </ul>
+               </div>
+               @endif
+               @if (\Session::has('success'))
+               <div class="alert alert-success">
+                  <ul>
+                     <li>{!! \Session::get('success') !!}</li>
+                  </ul>
+               </div>
+               @endif
                <!-- /.tab-pane --><!--Actualizar mi Perfil !-->
                <div class="tab-pane" id="settings">
                   <div class="alert alert-success alert-dismissible fade in" role="alert" id="ajax-alert" style="display:none;">
@@ -431,47 +441,43 @@
                         </div>
                      </div>
                   </form>
-
                   <div class="row margin-bottom">
-                        <!-- /.col -->
-                        <!--div class="col-sm-12"!-->
+                     <!-- /.col -->
+                     <!--div class="col-sm-12"!-->
+                     <div class="row">
+                        @php
+                        $foto_principal       = ltrim($data->foto_principal, '/storage');
+                        $foto_secundaria_1    = ltrim($data->foto_secundaria_1, '/storage');
+                        $foto_secundaria_2    = ltrim($data->foto_secundaria_2, '/storage');
+                        @endphp
                         <div class="row">
-                           @php
-                           $foto_principal       = ltrim($data->foto_principal, '/storage');
-                           $foto_secundaria_1    = ltrim($data->foto_secundaria_1, '/storage');
-                           $foto_secundaria_2    = ltrim($data->foto_secundaria_2, '/storage');
-                           @endphp
-                           <div class="row">
-                              @if ($sql_foto_escort != '')
-                              <div class="col-md-11" style="margin-left:15px;">
-                                 <div class="box box-primary">
-                                    <div class="box-body">
-                                       <div class="row">
-                                          <div class="col-md-12">
-                                             @foreach ($sql_foto_escort as $foto)
-                                             <form  method="POST" action ="{{ route('admin.photos.destroy',$foto->url_fotos) }}">
-                                                {{ method_field('DELETE') }} {{ csrf_field()}}
-                                                <div class="col-md-2">
-                                                   <button class="btn btn-danger btn-xs" style="position:absolute">
-                                                   <i class="fa fa-remove"></i>
-                                                   </button>
-                                                   <img class="img-responsive" 
-                                                      src="/uploads_escorts/{{$foto->url_fotos}}" style="margin-bottom:10px;" >
-                                                </div>
-                                             </form>
-                                             @endforeach
-                                          </div>
+                           @if ($sql_foto_escort != '')
+                           <div class="col-md-11" style="margin-left:15px;">
+                              <div class="box box-primary">
+                                 <div class="box-body">
+                                    <div class="row">
+                                       <div class="col-md-12">
+                                          @foreach ($sql_foto_escort as $foto)
+                                          <form  method="POST" action ="{{ route('admin.photos.destroy',$foto->url_fotos) }}">
+                                             {{ method_field('DELETE') }} {{ csrf_field()}}
+                                             <div class="col-md-2">
+                                                <button class="btn btn-danger btn-xs" style="position:absolute">
+                                                <i class="fa fa-remove"></i>
+                                                </button>
+                                                <img class="img-responsive" 
+                                                   src="/uploads_escorts/{{$foto->url_fotos}}" style="margin-bottom:10px;" >
+                                             </div>
+                                          </form>
+                                          @endforeach
                                        </div>
                                     </div>
                                  </div>
                               </div>
-                              @endif
                            </div>
-                       </div>
+                           @endif
+                        </div>
                      </div>
-                       
-
-
+                  </div>
                </div>
                <!-- /.tab-pane -->
                <div class="tab-pane" id="mis_fotos">
@@ -538,7 +544,26 @@
                      </div>
                   </div>
                </div>
+               <!--Tab News !-->
+               <div class="tab-pane" id="uploadNews">
+                  <div>{{{ $errors->first('cantidad_news') }}}</div>
+                  <form class="form-horizontal" action="{{ route('admin.addnews.store') }}" method="POST">
+                     @csrf
+                     <input type="hidden"    id="escort_id"  name="escort_id" value="{{ $data->id}}" />
+                     <input type="hidden"      id="perfil_id"  name="perfil_id"  value="{{ $data->id_perfil}}" />
+                     <div class="form-group">
+                        <label for="inputExperience" class="col-sm-2 control-label">Agregar Noticia:</label>
+                        <div class="col-sm-10">
+                           <textarea class="form-control" id="add_news_escort" name="add_news_escort" rows="5" style="resize:none;"></textarea>
+                        </div>
+                     </div>
+                     <button type="submit"  class="btn btn-primary"  >Subir</button>
+                  </form>
+               </div>
             </div>
+            <!--------UPLOAD VIDEO !-->
+            
+
             <!-- /.tab-content -->
          </div>
          <!-- /.nav-tabs-custom -->
@@ -702,9 +727,6 @@
                 }
             };
            
-           
-           
-     
    
     });//fin document on ready
    

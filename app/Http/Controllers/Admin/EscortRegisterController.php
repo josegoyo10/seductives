@@ -10,6 +10,7 @@ use App\Region;
 use App\Comuna;
 use App\User; 
 use App\Comment;
+use App\Visited_Profile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,25 @@ class EscortRegisterController extends Controller
       
           $usuario =  User::find($id);
 
+
+
+         //insertar en la perfiles visitados.
+         $cont = Visited_Profile::where(['escort_id' => $id])->first();
+        //dd($cont);
+
+         if (($cont == null)) {
+            Visited_Profile::create([
+                'user_id' => Auth::id(),
+                'escort_id' => $id,
+                'seen' => 1
+
+            ]);
+        } else {
+            $update_profile =  Visited_Profile::findOrFail($id);
+            $update_profile->seen =$cont->seen + 1;
+            $update_profile->save();
+
+        }   
 
           $regiones = Region::all();
           $comunas   = Comuna::all();
@@ -71,6 +91,8 @@ class EscortRegisterController extends Controller
           ->WHERE("comuna.id",'=', $query->comuna)->first();
 
           $count = Comment::where(['user_id' => $user->id, 'escort_id' =>$id ])->count();
+
+
          // dd($count);
       
         return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data','usuario','count'));

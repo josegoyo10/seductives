@@ -216,7 +216,13 @@
                <p class="be-text-userblock">
                   {{ $data->descripcion }}
                </p>
+                
+               <div class="title m-b-md">
+                    <video src="{{URL::asset('uploads/videos/'.$data->desc_video)}}" autobuffer autoloop loop controls poster=""></video>
+                </div>
             </div>
+
+
             <a href="blog-detail-2.html" class="be-button-vidget like-btn blue-style"><i class="fa fa-thumbs-o-up"></i>LIKE PROJECT</a>
             <a href="blog-detail-2.html" class="be-button-vidget add-btn grey-style"><i class="fa fa-file-o"></i>ADD TO COLLECTION</a>
            

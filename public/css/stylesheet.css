@@ -3847,3 +3847,26 @@ body .login-user-down:hover {
     height:100%;
   }
   
+  .demo  {
+    border: 1px solid #ccc;
+    margin: 25px 0;
+    padding-top: 5px;
+    position: relative; 
+    overflow: hidden; 
+    display: block;
+    /* background-color:#0d58c8; */
+    background-color: #dfe2e8;
+    border-bottom:1px solid #2e3542;
+    line-height: 1.5em;
+ 
+
+  }
+
+  .parrafo {
+   font-size:10px; 
+   text-align: justify;
+   font-family: "Segoe UI",Arial,sans-serif;
+   color: #686868 !important;
+
+
+  }

@@ -60,10 +60,12 @@
                   <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-up" data-ID="{{$row->id}}"></i>
                     <span id="like_{{$row->id}}-bs3">{{($likes_user) }}</span>
                   </span>
-                  <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-down" data-ID="{{$row->id}}"></i>
+                  <!-- <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-down" data-ID="{{$row->id}}"></i>
                     <span id="like_{{$row->id}}-bs3"></span>
+                  </span> -->
+                  <span><i id="visit_{{$row->id}}" class="fa fa-eye"></i>
+                     <span id="visit_{{$row->id}}-bs3"></span>
                   </span>
-                  <span><i class="fa fa-eye"></i> {{($seen) }}</span>
                   <span><i class="fa fa-comment-o"></i> 20</span>
                </div>
                </span>
@@ -109,11 +111,14 @@
                     
                            $.each(data, function(index) {
                               
-                              console.log(data[index].cont);
-                               console.log(data[index].escortId);
+                              // console.log(data[index].cont);
+                              //  console.log(data[index].escortId);
+                               console.log(data[index].visitado);
+                               //console.log(data[index].visitado.total);
                           
 
                               $('#like_'+data[index].escortId+'-bs3').html(data[index].cont);
+                              $('#visit_'+data[index].escortId+'-bs3').html(data[index].visitado.total == null ? 0 :data[index].visitado.total); 
                             
                         });
                        

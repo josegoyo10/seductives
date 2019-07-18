@@ -55,6 +55,17 @@
              
            Route::get('getLikes','LikeController@getAllLikeEscort')->name('getlike');
            Route::post('like','LikeController@LikeEscort')->name('like');
+
+           Route::post('addnews_escort', 'NewsController@store')->name('admin.addnews.store');
+
+           //cargar video
+           Route::get('video', 'VideoController@index')->name('admin.clientes.video');
+           //subir
+           Route::POST('uploadvideo', 'VideoController@upload_video')->name('admin.clientes.upload.video');
+
+           //Eliminar Video
+           Route::POST('deletevideo', 'VideoController@delete_video')->name('admin.clientes.delete.video');
+
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

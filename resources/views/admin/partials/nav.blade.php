@@ -19,7 +19,11 @@
            @if (Auth::user()->id_tipo_usuario == 1)
 
              <li>
-                 <a href="{{ route('admin.clientes.index') }}"><i class="fa fa-pencil"></i> Ver Mi Perfil</a>
+                 <a href="{{ url('admin') }}"><i class="fa fa-pencil"></i> Ver Mi Perfil</a>
+              </li>
+
+              <li>
+                 <a href="{{ route('admin.clientes.video') }}"><i class="fa fa-file-video-o"></i> Subir Video</a>
               </li>
             @else
               <li>

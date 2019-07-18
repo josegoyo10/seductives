@@ -7,6 +7,7 @@ use App\Like;
 use Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LikeController extends Controller
 {
@@ -19,12 +20,23 @@ class LikeController extends Controller
         
           
           $cont = Like::where(['escort_id' => $value])->count();
-         // dd( $cont);
+
+
+          $seen = DB::table('visited_profile')
+             ->select(DB::raw('
+              SUM(seen) as total'))
+                  ->where("escort_id", "=", $value)
+                          ->groupBy('escort_id')
+                          ->first();
+
+         
           $data_array[] = array(
             'cont' => $cont,
-            'escortId' => $value
+            'escortId' => $value,
+            'visitado' =>  ($seen == null ? 0: $seen)
             );
        }
+      // dd($data_array);
     // dd($data_array);
    
        return response()->json($data_array);
@@ -56,8 +68,7 @@ class LikeController extends Controller
                 'escort_id' =>  $id_like_user,
                 'escort_foto_id' => 1,
                 'likes_count' => 1,
-                'dislike_count' => 0,
-                'seen' => 1
+                'dislike_count' => 0
 
             ]);
             $valor_like = 1;

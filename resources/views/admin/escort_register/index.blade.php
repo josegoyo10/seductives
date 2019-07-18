@@ -15,7 +15,7 @@
 <!-- MAIN CONTENT -->
 <div id="content-block">
    <div class="container custom-container be-detail-container">
-      <a href="{{ URL::previous() }}" class="btn color-1" style="">Regresar</a>
+      <a href="{{ URL::previous() }}" class="btn-login btn color-1 size-3 hover-2" style="">Regresar</a>
       <div class="row">
          <div class="col-md-9 col-md-push-3" style="border: 1px solid #d8d6d6;border-radius: 10px 30px;">
             <div class="be-large-post">
@@ -146,8 +146,6 @@
 							value="Añadir Comentario" />
                         </div>
                     </form>
-
-
             </div>
          </div>
          <div class="col-md-3 col-md-pull-9 left-feild">
@@ -181,9 +179,11 @@
                   {{ $query->descripcion_servicio }}
                </p>
             </div>
-            <a href="blog-detail-2.html" class="be-button-vidget like-btn blue-style"><i class="fa fa-thumbs-o-up"></i>LIKE PROJECT</a>
-            <a href="blog-detail-2.html" class="be-button-vidget add-btn grey-style"><i class="fa fa-file-o"></i>ADD TO COLLECTION</a>
-            <h3 class="letf-menu-article text-center">Recent Works</h3>
+            <a href="blog-detail-2.html" class="be-button-vidget like-btn blue-style">
+               <i class="fa fa-thumbs-o-up"></i>Sigueme
+            </a>
+            <!--a href="blog-detail-2.html" class="be-button-vidget add-btn grey-style"><i class="fa fa-file-o"></i>ADD TO COLLECTION</a!-->
+            <h3 class="letf-menu-article text-center">Ultimas Fotos</h3>
             <div  class="swiper-container" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="1">
                <div class="swiper-wrapper">
                   <div class="swiper-slide">

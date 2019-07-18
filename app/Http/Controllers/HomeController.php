@@ -46,9 +46,11 @@ class HomeController extends Controller
       //                  ->groupBy('id')
       //                  ->count();
       
-      $seen = Like::select(['seen.*'])
+     $seen = Like::select(['seen.*'])
                        ->groupBy('id')
                        ->count();
+           
+       
     
 
      if ($user->id_tipo_usuario == 1) {
