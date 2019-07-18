@@ -64,10 +64,12 @@ class VideoController extends Controller
                $escort = DB::table('escorts')
                ->where('email','=',$user->email)->first();
 
+               $count = Video::where(['escort_id' => $escort->id])->count();
+
               // dd($escort);
 
                $rules=[
-                           'video'  =>'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|max:100040|required'];
+                      'video'  =>'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|max:100040|required'];
                $validator = Validator($data,$rules);
 
              if ($validator->fails()){
@@ -76,6 +78,14 @@ class VideoController extends Controller
                              ->withErrors($validator)
                              ->withInput();
                   }else{
+                       if ($count > 0) {
+                        return redirect()
+                        ->back()
+                        ->withErrors((array('video' => "Disculpe solo puede subir máximo 1 video")))
+                        ->withInput();
+                       } else {
+                    
+                    
                         $video = $data['video'];
                         $input = time().$video->getClientOriginalExtension();
                         
@@ -96,8 +106,9 @@ class VideoController extends Controller
                             // DB::table('escort_video')->insert($user);
 
                             return redirect()->back()->with('success','Subido Exitosamente');
-                    }
-          }
+                       }
+                  }
+          } 
           
 
           public function delete_video(Request $request){ 

@@ -6,23 +6,21 @@
    </div>
    <!-- /.box-header -->
    <!-- form start -->
-
-        @if (Session::has('errors'))
-      <div class="alert alert-danger" role="alert">
-         @if($errors->any())
-         <h4>{{$errors->first()}}</h4>
-         @endif
-      </div>
+   @if (Session::has('errors'))
+   <div class="alert alert-danger" role="alert">
+      @if($errors->any())
+      <h4>{{$errors->first()}}</h4>
       @endif
-      @if (\Session::has('success'))
-      <div class="alert alert-success">
-         <ul>
-            <li>{!! \Session::get('success') !!}</li>
-         </ul>
-      </div>
-      @endif 
+   </div>
+   @endif
+   @if (\Session::has('success'))
+   <div class="alert alert-success">
+      <ul>
+         <li>{!! \Session::get('success') !!}</li>
+      </ul>
+   </div>
+   @endif 
    <form class="form-horizontal" action="{{ URL::to('admin/uploadvideo') }}" method="POST" enctype="multipart/form-data">
- 
       <div class="box-body">
          <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Subir Video:</label>
@@ -53,19 +51,16 @@
          </tr>
          <tr>
             <td>1.</td>
-            
             <td>{{$clientes->desc_video ?? ''}} </td>
-            <td> 
-                <form action="{{ URL::to('admin/deletevideo') }}" method="POST" >
+            <td>
+               <form action="{{ URL::to('admin/deletevideo') }}" method="POST" >
                   <input type="hidden" value="{{ csrf_token() }}" name="_token">
                   <input type="hidden" value="{{ $clientes->id_video ?? '' }}" name="id_video">
                   <input type="hidden" value="{{ $clientes->Id_escort ?? '' }}" name="escort_id">
                   <input type="hidden" value="{{ $clientes->desc_video ?? '' }}" name="descripcion_video">
                   <button type="submit" class="btn btn-danger" >Eliminar</button>
-          
-            </form>
-           </td>
-            
+               </form>
+            </td>
          </tr>
       </table>
    </div>
