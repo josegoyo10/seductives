@@ -66,6 +66,9 @@
            //Eliminar Video
            Route::POST('deletevideo', 'VideoController@delete_video')->name('admin.clientes.delete.video');
 
+
+          //follow escort
+          Route::post('follow_escort','FollowController@addfollow')->name('follow_escort');
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

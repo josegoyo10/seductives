@@ -10,7 +10,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
    @foreach($clientes as $row) 
-   <div class="col-md-3">
+   <div class="col-md-2">
       <div class="row">
          <div class="form-group">
             <div class="be-post">
@@ -48,13 +48,28 @@
                   " data-placement="bottom">
                   <!--"{{ url($row->foto_principal) }}!-->
                   <img src= "{{ url($row->foto_principal) }}" 
-                     alt="omg" class="img-fluid" style="width:217px;height:240px"  >
+                     alt="omg" class="img-fluid img-thumbnail" style="width:137px;height:190px"  >
                   <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                </a>
                <p class="be-post-title">{{ $row->nombres}}</p>
                <div class="author-post">
-                  <img src="img/a1.png" alt="" class="ava-author">
-                  <span>Por Seductives</span>
+                    <a href="#"  id="follow_{{ $row->id }}" data-id = "{{ $row->id }}" data-action="follow"
+                          class="be-user-activity-button be-follow-type">
+                          <i class="fa fa-plus"></i><p style="color:#FFF;">SIGUEME</p>
+                       </a>
+
+                       <a href="#"  id="unfollow_{{ $row->id }}" 
+                          data-id = "{{ $row->id }}" data-action="unfollow"
+                          class="be-user-activity-button be-follow-type" style="display:none;">
+                          <i class="fa fa-check-square"></i><p style="color:#FFF;"> SIGUIENDO</p>
+                       </a>
+
+                       <a href="#"  id="invitationFollow_{{ $row->id }}" 
+                          data-id = "{{ $row->id }}" data-action="pending"
+                          class="be-user-activity-button be-follow-type" style="display:none;">
+                          <i class="fa fa-clock-o"></i><p style="color:#FFF;"> PENDIENTE</p>
+                       </a>
+
                </div>
                <div class="info-block">
                   <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-up" data-ID="{{$row->id}}"></i>
@@ -96,7 +111,8 @@
                      idEscortarray.push($(this).attr('data-ID'));
                
                   });
-
+                
+                var estatus_follower = 0;
                   $.ajax({
                          type: "get",
                          url: "admin/getLikes",
@@ -117,9 +133,20 @@
                                //console.log(data[index].visitado.total);
                           
 
-                              $('#like_'+data[index].escortId+'-bs3').html(data[index].cont);
-                              $('#visit_'+data[index].escortId+'-bs3').html(data[index].visitado.total == null ? 0 :data[index].visitado.total); 
-                            
+                              $('#like_' + data[index].escortId+'-bs3').html(data[index].cont);
+                              $('#visit_'+ data[index].escortId+'-bs3').html(data[index].visitado.total == null ? 0 :data[index].visitado.total); 
+                              
+                              estatus_follower = (data[index].follow_escort.status_invitacion == "null" ? 0 : data[index].follow_escort.status_invitacion);
+
+                              if (estatus_follower == "1" ) {
+                                 $("#follow_" + data[index].escortId).hide(); 
+                                 $("#invitationFollow_" + data[index].escortId).show();
+                                 $("#invitationFollow_" + data[index].escortId).addClass("pending_button");
+                               } 
+
+                              
+                        
+                        
                         });
                        
                             
@@ -189,18 +216,53 @@
 
 
    
-      $('.escort').click(function(event){
-             event.stopPropagation();
-       });
+                  $('.escort').click(function(event){
+                        event.stopPropagation();
+                  });
    
-   
-      $("body").tooltip({
-         selector:'[data-show=tip]',
-         animated: 'fade',
-         html: true
-         
-         
-      });
-   });
-   
+               
+                  $("body").tooltip({
+                     selector:'[data-show=tip]',
+                     animated: 'fade',
+                     html: true
+                     
+                     
+                  });
+
+           //boton seguir
+           $(".be-follow-type").click(function () {
+
+               var id_follower = $(this).attr('data-id');
+               var action  =  $(this).attr('data-action');
+
+               $.ajax({
+                  type: "POST",
+                  url: "admin/follow_escort",
+                  data: {
+                       uid: id_follower,
+                       action:action
+                     
+                      },
+                      success: function (data) {
+                       console.log(data);
+                        if (data == "1")
+                           {
+                              $("#follow_" + id_follower).hide();
+                              $("#unfollow_" + id_follower).show();
+                              $("#unfollow_" + id_follower).addClass("unfollow_button");
+                              location.reload();
+                            
+                           } else if (data == "2") {
+                              $("#unfollow_" + id_follower).hide();
+                              $("#follow_" + id_follower).show();
+                              location.reload();
+                           } 
+           
+                       }
+                  });
+
+               });
+
+
+   });//FIN
 </script>

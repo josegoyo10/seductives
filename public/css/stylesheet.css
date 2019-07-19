@@ -3867,6 +3867,22 @@ body .login-user-down:hover {
    text-align: justify;
    font-family: "Segoe UI",Arial,sans-serif;
    color: #686868 !important;
+}
 
+.unfollow_button {
+    background-color:#5FBA7D;
+}
 
+.unfollow_button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+
+  .pending_button {
+    background-color:#FF5733;
+  }
+
+  .pending_button:hover {
+    background-color: #FF5733; /* Green */
+    color: white;
   }

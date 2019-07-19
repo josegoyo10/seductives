@@ -125,7 +125,7 @@
             <div class="be-comment-block">
                <h1 class="comments-title">Comentarios (3)</h1>
                <p class="about-comment-block" style="color:#222835;">
-                  Debes estar logueado <a href="blog-detail-2.html" class="be-signup-link">Accesar</a>
+                  Debes estar logueado <a href="blog-detail-2.html" class="be-signup-link">Acceder</a>
                  para unirte a la conversación
                </p>
                <div class="be-comment">
@@ -203,10 +203,17 @@
                <div class="be-user-activity-block">
                   <div class="row">
                      <div class="col-lg-6">
-                        <a href="blog-detail-2.html" class="be-user-activity-button be-follow-type"><i class="fa fa-plus"></i>SIGUEME</a>
+                        <a href="blog-detail-2.html" 
+                          class="be-user-activity-button be-follow-type be-signup-link">
+                          <i class="fa fa-plus"></i><p style="color:#FFF;">SIGUEME</p>
+                       </a>
+                       
                      </div>
                      <div class="col-lg-6">
-                        <a href="blog-detail-2.html" class="col-lg-6 be-user-activity-button send-btn be-message-type"><i class="fa fa-envelope-o"></i>MENSAJE</a>
+                        <a href="blog-detail-2.html" 
+                           class="col-lg-6 be-user-activity-button be-follow-type be-signup-link">
+                           <i class="fa fa-envelope-o"></i><p style="color:#FFF;">MENSAJE</p>
+                        </a>
                      </div>
                   </div>
                </div>

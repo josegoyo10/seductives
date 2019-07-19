@@ -28,12 +28,19 @@ class LikeController extends Controller
                   ->where("escort_id", "=", $value)
                           ->groupBy('escort_id')
                           ->first();
+        
 
-         
+          $follow_escort = DB::table("follow_escort")
+                          ->SELECT("follow_escort.status_invitacion")
+                          ->WHERE("follow_escort.receiver_id",'=',  $value)
+                          ->first();
+
+        
           $data_array[] = array(
-            'cont' => $cont,
-            'escortId' => $value,
-            'visitado' =>  ($seen == null ? 0: $seen)
+                'cont' => $cont,
+                'escortId' => $value,
+                'visitado' =>  ($seen == null ? 0: $seen),
+                'follow_escort' => ($follow_escort == null ? 0: $follow_escort)
             );
        }
       // dd($data_array);
