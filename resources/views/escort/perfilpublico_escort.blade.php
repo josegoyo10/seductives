@@ -28,19 +28,24 @@
                   </span>
                    <div class="clear"></div>
                      <div class="post-text">
-                     <div class="be-large-post-slider type-wide">
+                       <div class="be-medium-post-slider type-wide">
 									<div class="swiper-container thumbnails-preview" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="1">
 						                <div class="swiper-wrapper">
 					                    	<div class="swiper-slide active" data-val="0">
-					                    		 <img class="img-responsive img-full" src="{{ $data->foto_principal }}" alt="" style="width:100%">
+					                    		 <img class="img-responsive img-full" 
+                                          src="{{ $data->foto_principal }}" alt="" 
+                                          style="width:95%;padding-left:110px;">
 					                    		
 					                    	</div>
 					                    	<div class="swiper-slide" data-val="1">
-					                    		 <img class="img-responsive img-full" src="{{ $data->foto_secundaria_1 }}" alt="">
+					                    		 <img class="img-responsive img-full" 
+                                          src="{{ $data->foto_secundaria_1 }}" alt=""   
+                                          style="width:95%;padding-left:110px;">
 					                    		 <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>			                    		 
 					                    	</div>
 					                    	<div class="swiper-slide" data-val="2">
-					                    		 <img class="img-responsive img-full" src="{{ $data->foto_secundaria_2 }}"alt="">
+					                    		 <img class="img-responsive img-full" src="{{ $data->foto_secundaria_2 }}" 
+                                          alt=" " style="width:95%;padding-left:110px;">
 					                    		
 					                    	</div>
 					                   
@@ -223,12 +228,14 @@
                <p class="be-text-userblock">
                   {{ $data->descripcion }}
                </p>
-                
-               <div class="title m-b-md">
-                    <video src="{{URL::asset('uploads/videos/'.$data->desc_video)}}" autobuffer autoloop loop controls poster=""></video>
-                </div>
-            </div>
-
+              @if (isset($data->desc_video))   
+                     <div class="title m-b-md">
+                        <video src="{{URL::asset('uploads/videos/'.$data->desc_video)}}" 
+                        style="width=320px; height=240px"  autobuffer autoloop loop controls poster="">
+                      </video>
+                     </div>
+                  </div>
+              @endif
 
             <a href="blog-detail-2.html" class="be-button-vidget like-btn blue-style"><i class="fa fa-thumbs-o-up"></i>LIKE PROJECT</a>
             <a href="blog-detail-2.html" class="be-button-vidget add-btn grey-style"><i class="fa fa-file-o"></i>ADD TO COLLECTION</a>

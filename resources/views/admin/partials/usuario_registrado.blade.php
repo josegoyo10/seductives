@@ -53,12 +53,12 @@
                </a>
                <p class="be-post-title">{{ $row->nombres}}</p>
                <div class="author-post">
-                    <a href="#"  id="follow_{{ $row->id }}" data-id = "{{ $row->id }}" data-action="follow"
+                    <!-- <a href="#"  id="follow_{{ $row->id }}" data-id = "{{ $row->id }}" data-action="follow"
                           class="be-user-activity-button be-follow-type">
                           <i class="fa fa-plus"></i><p style="color:#FFF;">SIGUEME</p>
-                       </a>
+                       </a> -->
 
-                       <a href="#"  id="unfollow_{{ $row->id }}" 
+                       <!-- <a href="#"  id="unfollow_{{ $row->id }}" 
                           data-id = "{{ $row->id }}" data-action="unfollow"
                           class="be-user-activity-button be-follow-type" style="display:none;">
                           <i class="fa fa-check-square"></i><p style="color:#FFF;"> SIGUIENDO</p>
@@ -68,20 +68,26 @@
                           data-id = "{{ $row->id }}" data-action="pending"
                           class="be-user-activity-button be-follow-type" style="display:none;">
                           <i class="fa fa-clock-o"></i><p style="color:#FFF;"> PENDIENTE</p>
-                       </a>
+                       </a> -->
 
                </div>
                <div class="info-block">
                   <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-up" data-ID="{{$row->id}}"></i>
                     <span id="like_{{$row->id}}-bs3">{{($likes_user) }}</span>
                   </span>
+                 
+                  <span><i  id="fa-comment_{{$row->id}}" class="fa fa-comment-o" 
+                    data-ID="{{$row->id}}"></i>
+                      <span id="fa-comment_{{$row->id}}-bs3"></span>
+                  </span>
+
                   <!-- <span><i  id="like_{{$row->id}}"   class="fa fa-thumbs-o-down" data-ID="{{$row->id}}"></i>
                     <span id="like_{{$row->id}}-bs3"></span>
                   </span> -->
-                  <span><i id="visit_{{$row->id}}" class="fa fa-eye"></i>
-                     <span id="visit_{{$row->id}}-bs3"></span>
+                  <span><i id="visit_{{$row->id}}" class="fa fa-eye" style="display:none;"></i>
+                     <span id="visit_{{$row->id}}-bs3"  style="display:none;"></span>
                   </span>
-                  <span><i class="fa fa-comment-o"></i> 20</span>
+                  
                </div>
                </span>
             </div>
@@ -135,7 +141,8 @@
 
                               $('#like_' + data[index].escortId+'-bs3').html(data[index].cont);
                               $('#visit_'+ data[index].escortId+'-bs3').html(data[index].visitado.total == null ? 0 :data[index].visitado.total); 
-                              
+                              $('#fa-comment_' + data[index].escortId+'-bs3').html(data[index].comments_usuario);
+
                               estatus_follower = (data[index].follow_escort.status_invitacion == "null" ? 0 : data[index].follow_escort.status_invitacion);
 
                               if (estatus_follower == "1" ) {
@@ -230,38 +237,38 @@
                   });
 
            //boton seguir
-           $(".be-follow-type").click(function () {
+         //   $(".be-follow-type").click(function () {
 
-               var id_follower = $(this).attr('data-id');
-               var action  =  $(this).attr('data-action');
+         //       var id_follower = $(this).attr('data-id');
+         //       var action  =  $(this).attr('data-action');
 
-               $.ajax({
-                  type: "POST",
-                  url: "admin/follow_escort",
-                  data: {
-                       uid: id_follower,
-                       action:action
+         //       $.ajax({
+         //          type: "POST",
+         //          url: "admin/follow_escort",
+         //          data: {
+         //               uid: id_follower,
+         //               action:action
                      
-                      },
-                      success: function (data) {
-                       console.log(data);
-                        if (data == "1")
-                           {
-                              $("#follow_" + id_follower).hide();
-                              $("#unfollow_" + id_follower).show();
-                              $("#unfollow_" + id_follower).addClass("unfollow_button");
-                              location.reload();
+         //              },
+         //              success: function (data) {
+         //               console.log(data);
+         //                if (data == "1")
+         //                   {
+         //                      $("#follow_" + id_follower).hide();
+         //                      $("#unfollow_" + id_follower).show();
+         //                      $("#unfollow_" + id_follower).addClass("unfollow_button");
+         //                      location.reload();
                             
-                           } else if (data == "2") {
-                              $("#unfollow_" + id_follower).hide();
-                              $("#follow_" + id_follower).show();
-                              location.reload();
-                           } 
+         //                   } else if (data == "2") {
+         //                      $("#unfollow_" + id_follower).hide();
+         //                      $("#follow_" + id_follower).show();
+         //                      location.reload();
+         //                   } 
            
-                       }
-                  });
+         //               }
+         //          });
 
-               });
+         //       });
 
 
    });//FIN

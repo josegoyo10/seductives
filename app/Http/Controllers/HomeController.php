@@ -50,8 +50,9 @@ class HomeController extends Controller
                        ->groupBy('id')
                        ->count();
            
-       
     
+    
+    //    dd($coments_escort);
 
      if ($user->id_tipo_usuario == 1) {
 
@@ -221,7 +222,7 @@ class HomeController extends Controller
       }
     
   
-       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen'));
+       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort'));
         
     }
 }

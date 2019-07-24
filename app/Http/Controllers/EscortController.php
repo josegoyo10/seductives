@@ -241,12 +241,14 @@ class EscortController extends Controller
          "comuna.nombre as descripcion_comuna",
          "escort_video.desc_video" )
         ->join("perfiles","perfiles.id_escort","=","escorts.id")
-        ->join("escort_video","escort_video.escort_id","=","escorts.id")
+        ->leftjoin("escort_video","escort_video.escort_id","=","escorts.id")
         ->join("regiones","regiones.id","=","perfiles.region")
         ->join("comuna", "comuna.id", "=", "perfiles.comuna")
         ->WHERE("escorts.id", "=", $id)
         ->first();
         
+        //dd($data);
+
        // dd($data->telefono);
 
        //obtener las fotos de la escort
@@ -255,7 +257,7 @@ class EscortController extends Controller
        ->WHERE("escort_fotos.id_escort", "=", $id)
        ->get();
 
-      //dd($escort_photos);
+ 
           
           return view('escort.perfilpublico_escort',compact('data','sql_foto_escort','ruta_video'));
       }

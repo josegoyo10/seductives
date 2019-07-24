@@ -11,12 +11,12 @@
       </a>
       <ul class="treeview-menu">
         @if (auth()->user()->hasRole('Admin'))
-              <li class="active"><a href="{{ route('admin.clientes.index') }}">
+              <li class="active"><a href="{{ url('admin') }}">
                     <i class="fa fa-eye"></i> Ver todas las Clientas</a>
               </li>
          @else
 
-           @if (Auth::user()->id_tipo_usuario == 1)
+           @if (Auth::user()->id_tipo_usuario == 1) <!--Escorts !-->
 
              <li>
                  <a href="{{ url('admin') }}"><i class="fa fa-pencil"></i> Ver Mi Perfil</a>
@@ -25,9 +25,16 @@
               <li>
                  <a href="{{ route('admin.clientes.video') }}"><i class="fa fa-file-video-o"></i> Subir Video</a>
               </li>
+             
+             
+              <li>
+                 <a href="{{ route('admin.follow.friendship') }}"><i class="fa fa-user-o"></i> Solicitud de Amistad</a>
+              </li>
+           
+           
             @else
               <li>
-                 <a href="{{ route('admin.clientes.index') }}"><i class="fa fa-pencil"></i> Ver Escorts</a>
+                 <a href="{{ url('admin') }}"><i class="fa fa-pencil"></i> Ver Escorts</a>
               </li>
 
             @endif

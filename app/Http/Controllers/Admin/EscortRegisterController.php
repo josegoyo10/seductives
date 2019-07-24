@@ -71,20 +71,31 @@ class EscortRegisterController extends Controller
             "escorts.comentario_escort",
             "escorts.comentario_aprob_rechazo",
             "regiones.nombre as descripcion_region",
-            "comuna.nombre as descripcion_comuna")
+            "comuna.nombre as descripcion_comuna",
+            "follow_escort.status_invitacion")
            ->join("perfiles","perfiles.id_escort","=","escorts.id")
            ->join("regiones","regiones.id","=","perfiles.region")
-          ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+           ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+           ->leftjoin("follow_escort", "follow_escort.receiver_id", "=", "escorts.id")
            ->WHERE("escorts.id",'=',$id)
            ->orderby('escorts.id')
            ->first();
           
-          // dd($query);
+         //dd($query);
+
+         $sql_follow_escort = DB::table("follow_escort")
+            ->SELECT("follow_escort.status_invitacion")
+            ->WHERE("follow_escort.sender_id",'=',$user->id)
+            ->Where("follow_escort.receiver_id",'=',$id)
+            ->first(); 
+        
+      //dd($sql_follow_escort);
 
          $sql_foto_escort = DB::table("escort_fotos")
              ->SELECT("escorts.id","escort_fotos.url_fotos")
              ->JOIN("escorts","escorts.id",'=',"escort_fotos.id_escort")
-             ->WHERE("escorts.id",'=',$id)->get();
+             ->WHERE("escorts.id",'=',$id)
+             ->get();
 
           $sql_desc_comuna = DB::table("comuna")
           ->SELECT("comuna.id","comuna.nombre")
@@ -93,9 +104,9 @@ class EscortRegisterController extends Controller
           $count = Comment::where(['user_id' => $user->id, 'escort_id' =>$id ])->count();
 
 
-         // dd($count);
+      //dd($count);
       
-        return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data','usuario','count'));
+        return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data','usuario','count','sql_follow_escort'));
     }
 
 

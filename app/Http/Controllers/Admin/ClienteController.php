@@ -94,7 +94,7 @@ class ClienteController extends Controller
 
           } elseif (auth()->user()->hasRole('USUARIO REGISTRADO') AND ($user->id_tipo_usuario == 2)) {
                 
-                
+            
                     $clientes =  DB::table("escorts")
                     ->select("escorts.id",
                       "escorts.nombres",
@@ -120,6 +120,9 @@ class ClienteController extends Controller
                     ->orderby('escorts.id')
                     ->get();
 
+                    // dd($clientes);
+
+                  
                }
 
              return view('admin.clientes.index', compact('clientes','data','likes'));
@@ -299,7 +302,7 @@ class ClienteController extends Controller
         $perfil->save();
        
         return back()
-            ->with('success','You have successfully upload image.');
+            ->with('success','La imagen fue subida exitosamente.');
 
   }
 

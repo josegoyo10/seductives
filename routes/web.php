@@ -68,7 +68,12 @@
 
 
           //follow escort
-          Route::post('follow_escort','FollowController@addfollow')->name('follow_escort');
+          Route::get('/follow/escort','FollowController@addfollow')->name('admin.follow.escort');
+           
+          //ruta nav bar solicitud amistad
+          Route::get('/solicitud/friendship','FollowController@friendship')->name('admin.follow.friendship');
+
+          Route::POST('confirmfriendship', 'FollowController@confirmfriendship')->name('admin.follow.confirm.friendship');
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');

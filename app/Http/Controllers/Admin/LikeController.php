@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Like;
+use App\Comment;
 use Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +18,10 @@ class LikeController extends Controller
        $arregloId = Input::get('arreglo');
      
        foreach($arregloId as $value) {
-        
-          
-          $cont = Like::where(['escort_id' => $value])->count();
 
+        $cont = Like::where(['escort_id' => $value])->count();
+        
+        $comments_user = Comment::where(['escort_id' => $value])->count();
 
           $seen = DB::table('visited_profile')
              ->select(DB::raw('
@@ -40,7 +41,8 @@ class LikeController extends Controller
                 'cont' => $cont,
                 'escortId' => $value,
                 'visitado' =>  ($seen == null ? 0: $seen),
-                'follow_escort' => ($follow_escort == null ? 0: $follow_escort)
+                'follow_escort' => ($follow_escort == null ? 0: $follow_escort),
+                'comments_usuario' => ($comments_user == null ? 0 : $comments_user)
             );
        }
       // dd($data_array);
