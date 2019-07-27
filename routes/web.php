@@ -74,9 +74,18 @@
           Route::get('/solicitud/friendship','FollowController@friendship')->name('admin.follow.friendship');
 
           Route::POST('confirmfriendship', 'FollowController@confirmfriendship')->name('admin.follow.confirm.friendship');
+
+          //borrar comentario
+          Route::GET('/delete/comments', 'CommentController@deleteComentario')->name('admin.delete.comments');
+
+          //Calificar Escort nav bar.
+          Route::GET('calificar/escort', 'EscortRegisterController@qualifyEscort')->name('admin.calificar.escort');
+
+          //rating escort
+        //  Route::post('/rating/new', 'DetailController@setrating');
       }); 
 
-      Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna');
+      Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna')->name('setrating');
     // Route::get('/admin', 'AdminController@index')->name('layout');
     // Route::get('admin', function() {
 

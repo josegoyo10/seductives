@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Comment;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -21,4 +24,18 @@ class CommentController extends Controller
    
         return back();
     }
+
+
+        public function deleteComentario(Request $request) {
+
+            $id_follower    =  Input::get('uid');
+
+            DB::table('comments')
+                ->where('id','=', $id_follower)
+                ->delete();
+                 
+                $count = Comment::count();
+
+               return $count;
+            }
 }

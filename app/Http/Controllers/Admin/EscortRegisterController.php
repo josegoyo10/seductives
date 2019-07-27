@@ -101,16 +101,27 @@ class EscortRegisterController extends Controller
           ->SELECT("comuna.id","comuna.nombre")
           ->WHERE("comuna.id",'=', $query->comuna)->first();
 
-          $count = Comment::where(['user_id' => $user->id, 'escort_id' =>$id ])->count();
-
+          //$count = Comment::where(['user_id' => $user->id, 'escort_id' =>$id ])->count();
+         
+          $count = Comment::count();
+          $comentarios =  Comment::all();
 
       //dd($count);
       
-        return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data','usuario','count','sql_follow_escort'));
+        return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data','usuario','count','sql_follow_escort','comentarios'));
     }
 
 
+     //calificar escort
+    public function qualifyEscort () {
 
+          $user = Auth::user(); 
+   
+          $data = DB::table("users")
+          ->WHERE("users.email",'=', $user->email)->first();
+
+        return view('admin.escort_register.calificar',compact('data'));
+    }
 
 
 

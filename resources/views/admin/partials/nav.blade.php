@@ -37,6 +37,10 @@
                  <a href="{{ url('admin') }}"><i class="fa fa-pencil"></i> Ver Escorts</a>
               </li>
 
+              <li>
+                 <a href="{{ route('admin.calificar.escort') }}"><i class="fa fa-gratipay"></i> Calificar Escort</a>
+              </li>
+
             @endif
           @endif
 

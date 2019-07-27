@@ -128,7 +128,9 @@
               @if ($sql_follow_escort != null)
                   @if ($sql_follow_escort->status_invitacion == 2)         
                         <h1 class="comments-title">Comentarios ({!! $count !!})</h1>
-                     @include('admin.escort_register.commentsDisplay', ['comments' => $usuario->comments, 'escort_id' => $query->id])
+                  
+
+                     @include('admin.escort_register.commentsDisplay', ['comments' => $comentarios, 'escort_id' => $query->id])
                            <h4>Añadir Comentario:</h4>
                            <form method="POST" action="{{ route('comments.store' ) }}">
                               @csrf
@@ -325,17 +327,8 @@
 </div>
 @endsection
 <!-- SCRIPTS	 -->
-<!--script src='{{ url("adminlte/bower_components/jquery/dist/jquery.min.js") }}'></script!-->
-<script src="/js/jquery-2.1.4.min.js"></script>
-<!-- <script src='{{ url("js/bootstrap.min.js") }}'></script>
-   <script src='{{ url("js/idangerous.swiper.min.js") }}'></script>
-   <script src='{{ url("js/isotope.pkgd.min.js") }}'></script>
-   <script src='{{ url("js/jquery.viewportchecker.min.js") }}'></script>
-   <script src='{{ url("js/magnific.js") }}'></script>
-   <script src='{{ url("js/global.js") }}'></script>
-   
-   <script src='{{ url("adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js") }}'></script>
-   <script src ='{{ url("adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")}}'></script> -->
+<script src="{{asset('js/jquery-2.1.4.min.js')}}"></script>
+
 <script>
    $(document).ready(function(){
    

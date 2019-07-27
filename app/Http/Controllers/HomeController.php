@@ -109,6 +109,8 @@ class HomeController extends Controller
 
        $count = Comment::where(['escort_id' => $sql_escort->id ])->count();
 
+       $comentarios =  Comment::all();
+
        $sql_desc_comuna = DB::table("comuna")
        ->SELECT("comuna.id","comuna.nombre")
        ->WHERE("comuna.id",'=', $data->comuna)->first();
@@ -217,12 +219,14 @@ class HomeController extends Controller
 
                     $sql_desc_comuna = DB::table("comuna")
                     ->SELECT("comuna.id","comuna.nombre");
+
+                    $comentarios =  Comment::all();
             }
 
       }
     
   
-       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort'));
+       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort','comentarios'));
         
     }
 }

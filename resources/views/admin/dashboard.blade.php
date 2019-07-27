@@ -91,14 +91,16 @@
                   <div class="post">
                      <p class="comment-text"><strong>Comentarios:  </strong> 
                         <i class="fa fa-comments bg-yellow"></i>
-                        <span class="label label-success">{{$count}}</span>
+                        <span class="label label-success" id="comentarioCount">{{$count}}</span>
                      </p>
                      <ul>
-                        <!-- timeline time label -->
-                        <!-- timeline item -->
                         <li>
-                           <!-- <i class="fa fa-comments bg-yellow"></i> -->
-                           @include('admin.escort_register.commentsDisplay', ['comments' => $usuario->comments, 
+                           <div class="alert alert-success" id="divMsjEliminar" style="display:none;">
+                              <p>
+                                 Comentario eliminado
+                              </p>
+                           </div>
+                           @include('admin.escort_register.commentsDisplay', ['comments' => $comentarios, 
                            'escort_id' => $data->id])
                            <h4>Añadir Comentario:</h4>
                            <form method="POST" action="{{ route('comments.store' ) }}">
@@ -177,9 +179,6 @@
                            </div>
                            </li> -->
                         <!-- END timeline item -->
-                        <li>
-                           <i class="fa fa-clock-o bg-gray"></i>
-                        </li>
                      </ul>
                   </div>
                </div>
@@ -562,8 +561,6 @@
                </div>
             </div>
             <!--------UPLOAD VIDEO !-->
-            
-
             <!-- /.tab-content -->
          </div>
          <!-- /.nav-tabs-custom -->
