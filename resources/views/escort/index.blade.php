@@ -32,77 +32,59 @@
          display: inline;
          } */
          #image_preview{
-               border: 1px solid #ccc;
-               padding: 10px;
+         border: 1px solid #ccc;
+         padding: 10px;
          }
          #image_preview img{
-               width: 200px;
-               padding: 5px;
+         width: 200px;
+         padding: 5px;
          }
-      
-      .error{
-            color: red;
+         .error{
+         color: red;
          }
-      label,
-      input
-       {
+         label,
+         input
+         {
          border: 0;
          margin-bottom: 3px;
          display: block;
          width: 100%;
-      }
-      .common_box_body {
+         }
+         .common_box_body {
          padding: 15px;
          border: 12px solid #28BAA2;
          border-color: #28BAA2;
          border-radius: 15px;
          margin-top: 10px;
          background: #d4edda;
-      }
-
-
+         }
       </style>
    <body>
-      <!-- THE LOADER -->
-      <div class="be-loader">
-         <div class="spinner">
-            <img src="img/logo-loader.png"  alt="">
-            <p class="circle">
-               <span class="ouro">
-               <span class="left"><span class="anim"></span></span>
-               <span class="right"><span class="anim"></span></span>
-               </span>
-            </p>
-         </div>
-      </div>
       <!-- THE HEADER -->
       <header>
          <div class="container-fluid custom-container">
             <div class="row no_row row-header">
                <div class="brand-be">
                   <a href="{{ route('inicio') }}">
-                  <img class=" be_logo logo-c active"  src="images/logo_header_seductives.jpg" style="display: block;max-width:20%;height: auto;" alt="logo" >
-                  <img class="logo-c be_logo" src="img/logo-green.png" alt="logo" >
-                  <img  class="logo-c be_logo" src="img/logo-orang.png" alt="logo" >
-                  <img class="logo-c be_logo" src="img/logo-red.png" alt="logo">
+                  <img class=" be_logo logo-c active"  src="images/img/FinalMini.png" style="position:absolute;left:0px; top:0px;max-width:12%" alt="logo" >
                   </a>
                </div>
                <div class="header-menu-block"></div>
-               <div class="login-header-block">
+               <!-- <div class="login-header-block">
                   <div class="login_block">
                      <a  href="{{ route('inicio') }}" 
                         class=""
-                       >Inicio
-                    </a>
+                        >Inicio
+                     </a>
                   </div>
-               </div>
+               </div> -->
             </div>
          </div>
       </header>
       <!-- MAIN CONTENT -->
       <div id="content-block">
          <div class="container be-detail-container">
-            <h3 class="content-title">Formulario de Registro</h3>
+            <h3 class="content-title" style="padding-top:23px;">Formulario de Inscripcion</h3>
             <div class="blog-wrapper blog-list blog-fullwith">
                <div class="row">
                   <div class="col-xs-12 col-md-10 col-md-offset-1">
@@ -113,9 +95,11 @@
                               <div class="post-date">
                                  <i class="fa fa-clock-o"></i> {{ $fecha }}
                               </div>
-                              <div class="author-post">
-                                 <img src="img/a1.png" alt="" class="ava-author">
-                                 <span>by <a href="blog-detail-2.html">Seductives</a></span>
+                              <div class="row">
+                                 <div class="col-md-2">
+                                    <img src="images/img/sedchico.png" alt="" class="img-responsive pull-left" 
+                                       style="position:absolute;left:550px; top:-45px;">
+                                 </div>
                               </div>
                            </div>
                            <div class="row">
@@ -168,6 +152,12 @@
                                              <div class="row">
                                                 <div class='col-md-4'>
                                                    <div class='form-group'>
+                                                      <label>Apodo (*):</label>
+                                                      <input type="text"  name="apodo_escort" class="form-control" id="apodo_escort">
+                                                   </div>
+                                                </div>
+                                                <div class='col-md-4'>
+                                                   <div class='form-group'>
                                                       <label for="apellidos" class="col-form-label">Email(*):</label>
                                                       <input type="text" class="form-control" id="email" name="email"  maxlength="50" value="{{ old('email') }}">
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
@@ -176,15 +166,19 @@
                                                 <div class='col-md-4'>
                                                    <div class='form-group'>
                                                       <label>Fecha de Nacimiento (*):</label>
-                                                       <div class="input-group date">
+                                                      <div class="input-group date">
                                                          <div class="input-group-addon">
                                                             <i class="fa fa-calendar"></i>
                                                          </div>
                                                          <input type="text"  name="fecha_nacimiento" class="form-control" id="datepicker">
                                                       </div>
-                                                    
                                                    </div>
                                                 </div>
+                                             </div>
+                                             <br>
+                                             <!-- <h5>PERFIL ESCORT</h5>
+                                                <hr style="background-color: #fff;border-top: 2px dotted #8c8b8b;"> -->
+                                             <div class='row'>
                                                 <div class='col-md-4'>
                                                    <div class="form-group">
                                                       <label for="exampleFormControlSelect1">Nacionalidad (*):</label>
@@ -200,12 +194,7 @@
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                    </div>
                                                 </div>
-                                             </div>
-                                             <br>
-                                             <!-- <h5>PERFIL ESCORT</h5>
-                                                <hr style="background-color: #fff;border-top: 2px dotted #8c8b8b;"> -->
-                                             <div class='row'>
-                                                <div class='col-md-8'>
+                                                <div class='col-md-5'>
                                                    <div class='form-group'>
                                                       <label for="exampleFormControlSelect1">Region (*):</label>
                                                       <select id="regiones" class="form-control" name="regiones">
@@ -217,14 +206,15 @@
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                    </div>
                                                 </div>
-                                                <div class='col-md-4'>
+                                                <div class='col-md-3'>
                                                    <div class='form-group'>
                                                       <label for="nombres" class="col-form-label">Comuna (*):</label>
                                                       <select id="comunas" class="form-control" name="comunas"></select>
                                                    </div>
                                                    <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                 </div>
-                                             </div><br>
+                                             </div>
+                                             <br>
                                              <div class='row'>
                                                 <div class='col-md-4'>
                                                    <div class='form-group'>
@@ -245,8 +235,8 @@
                                                       </select>
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                       <!--span class="text-danger">
-                                                      <strong id="sexo-error"></strong>
-                                                      </span!-->
+                                                         <strong id="sexo-error"></strong>
+                                                         </span!-->
                                                    </div>
                                                 </div>
                                                 <div class='col-md-4'>
@@ -272,6 +262,7 @@
                                                 <div class="col-md-4">
                                                    <div class="form-group">
                                                       <label for="exampleFormControlFile1">Subir Foto Principal (*):</label>
+                                                      <p style="color:red;font-size:10px;">Dimensiones 200px ancho x 150px altura </p>
                                                       <input type="file" class="form-control-file" name="photo_principal" id="photo_principal">
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                    </div>
@@ -280,6 +271,7 @@
                                                 <div class="col-md-4">
                                                    <div class="form-group">
                                                       <label for="exampleFormControlFile1">Subir Foto Secundaria 1 (*):</label>
+                                                      <p style="color:red;font-size:10px;">Dimensiones 600px ancho x 450px altura </p>
                                                       <input type="file" class="form-control-file" name="photo_secundaria_1" id="photo_secundaria_1">
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                    </div>
@@ -288,6 +280,7 @@
                                                 <div class="col-md-4">
                                                    <div class="form-group">
                                                       <label for="exampleFormControlFile1">Subir Foto Secundaria 2:</label>
+                                                      <p style="color:red;font-size:10px;">Dimensiones 600px ancho x 450px altura </p>
                                                       <input type="file" class="form-control-file" name="photo_secundaria_2" id="photo_secundaria_2">
                                                       <!--span style="color:red;font-size:12px;">El campo es requerido </span!-->
                                                    </div>
@@ -297,7 +290,7 @@
                                              <br>
                                              <div class="row">
                                                 <div class="col-md-12 text-center">
-                                                   <button type="submit" class="btn-login btn color-1 size-2 hover-2"
+                                                   <button type="submit" class="btn-login btn color-1 size-2" style="background-color:black;"
                                                       >Ingresar Registro</button>
                                                 </div>
                                              </div>
@@ -347,20 +340,21 @@
       <script>
          $(document).ready(function () {
          
-         
-         
-         $('#frmRegistro').validate({ // initialize the plugin
+           $('#frmRegistro').validate({ // initialize the plugin
          rules: {
                  
                 rut : {
                   required: true
-
+         
                 },
                   nombres: {
                     required: true
                  },
                   apellidos: {
                     required: true
+                 },
+                 apodo_escort: {
+                  required: true
                  },
                 email: {
                     required: true,
@@ -410,6 +404,7 @@
                   rut: "Ingresa un run valido",
                   nombres: "El campo nombres es requerido",
                   apellidos: "El campo apellidos es requerido",
+                  apodo_escort: "El campo escort es requerido",
                   email: {
                          required: "El campo email es requerido",
                          email: "Ingrese un email valido.",
@@ -427,9 +422,9 @@
                  photo_principal : "La foto principal es requerido",
                  photo_secundaria_1 : "La foto secundaria es requerido",
                  photo_secundaria_2 : "La foto secundaria es requerido"
-
+         
                }
-
+         
          });
            
            //Date picker

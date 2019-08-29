@@ -3,6 +3,7 @@
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>Seductives | Administración</title>
       <!-- Tell the browser to be responsive to screen width -->
@@ -22,22 +23,23 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
       <!-- DataTables -->
       <link rel="stylesheet" href='{{ url("adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css") }}'>
-      <!--Image Lighbox !-->
-      <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
-      @yield('css')
+     
+           @yield('css')
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
       <div class="wrapper">
          <header class="main-header" style="max-height:30px;">
             <!-- Logo -->
-            <a href="{{ url('admin') }}" class="logo">
+            <a href="{{ url('admin') }}" class="logo" style="background-color:#000000">
                <!-- mini logo for sidebar mini 50x50 pixels -->
                <span class="logo-mini"><b>A</b>LT</span>
                <!-- logo for regular state and mobile devices -->
-               <span class="logo-lg"><b>{{ config('app.name') }} </b></span>
+               <span class="logo-lg">
+                  <img src="{{ url('images/img/sedchico.png') }}"  alt="">
+               </span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
+            <nav class="navbar navbar-static-top" style="background-color:#000000">
                <!-- Sidebar toggle button-->
                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                <span class="sr-only">Toggle navigation</span>
@@ -149,16 +151,7 @@
                                     <i class="fa fa-users text-red"></i> 5 new members joined
                                     </a>
                                  </li>
-                                 <li>
-                                    <a href="#">
-                                    <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="#">
-                                    <i class="fa fa-user text-red"></i> You changed your username
-                                    </a>
-                                 </li>
+                            
                               </ul>
                            </li>
                            <li class="footer"><a href="#">View all</a></li>
@@ -250,7 +243,7 @@
                      <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="#btn-id" role="button" aria-haspopup="true" aria-expanded="false">
                         @if($data->foto_principal != '')
-                        <img src='{{ $data->foto_principal }}' class="user-image"  alt="User Image">
+                        <img src="{{ url('uploads/escort_fotos/'.$data->foto_principal) }}" class="user-image"  alt="User Image">
                         @else
                         <img src= '{{ url("adminlte/img/user2-160x160.jpg") }}' class="user-image"  alt="User Image">
                         @endif 
@@ -258,9 +251,9 @@
                         </a> 
                         <ul class="dropdown-menu">
                            <!-- User image --> 
-                           <li class="user-header">
+                           <li class="user-header" style="background-color:#000000">
                               @if($data->foto_principal != '')
-                              <img src='{{ $data->foto_principal }}' class="img-circle" alt="User Image">
+                              <img src="{{ url('uploads/escort_fotos/'.$data->foto_principal) }}" class="img-circle" alt="User Image">
                               @else
                               <img src= '{{ url("adminlte/img/user2-160x160.jpg") }}' class="img-circle" alt="User Image">
                               @endif  
@@ -287,13 +280,13 @@
                            <!-- Menu Footer-->
                            <li class="user-footer">
                               <div class="pull-left">
-                                 <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                 <a href="#" class="btn btn-default btn-flat" style="background-color:#000000;color:#FFFF;">Perfil</a>
                               </div>
                               <div class="pull-right">
                                  <a  href="{{ route('logout') }}" 
                                     class="btn btn-default btn-flat"
                                     onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">Salir
+                                    document.getElementById('logout-form').submit(); "  style="background-color:#000000;color:#FFFF;">Salir
                                  </a>
                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -318,8 +311,8 @@
                <div class="user-panel">
                   <div class="pull-left image">
                      @if($data->foto_principal != '')
-                     <img src='{{ $data->foto_principal }}' class="img-circle" alt="User Image">
-                     @else
+                     <img src="{{ url('uploads/escort_fotos/'.$data->foto_principal) }}" class="img-circle" alt="User Image">
+                     @else  
                      <img src='{{ url("adminlte/img/user2-160x160.jpg") }}' class="img-circle" alt="User Image">
                      @endif 
                   </div>
@@ -528,6 +521,7 @@
       <!-- ./wrapper -->
       <!-- jQuery 3 -->
       <script src='{{ url("adminlte/bower_components/jquery/dist/jquery.min.js") }}'></script>
+      
       <!-- Bootstrap 3.3.7 -->
       <script src='{{ url("adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js") }}'></script>
       <!-- AdminLTE App -->
@@ -536,7 +530,7 @@
       <script src='{{ url("adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js") }}'></script>
       <script src='{{ url("adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js") }}'></script>
       <!--boostrap lightbox !-->
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js'></script>
+      <script src='{{url("js/ekko-lightbox.js") }}'></script>
       @yield('scripts')
       <script>
          $(function () {
@@ -554,16 +548,18 @@
          })
           
          $(document).ready(function(){
+             
                 $(document).on('click', '.dropdown-menu-button', function (e) {
                       e.stopPropagation()
                });
+        
+         
+         
+               $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                        event.preventDefault();
+                        $(this).ekkoLightbox();
+                     });
          });
-         
-         
-         $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                   event.preventDefault();
-                   $(this).ekkoLightbox();
-               });
          
             //subir foto del Perfil escort.
          

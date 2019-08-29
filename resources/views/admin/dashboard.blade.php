@@ -27,10 +27,11 @@
       <div class="col-md-3">
          <!-- Profile Image -->
          <div class="box box-primary">
-            <div class="box-body box-profile">
-               <img  id="upfile1"  class="profile-user-img img-responsive img-circle" src="{{ $data->foto_principal  }}" 
+            <div class="box-body box-profile"> 
+               <img  id="upfile1"  class="profile-user-img img-responsive img-circle" src= "{{ url('uploads/escort_fotos/'.$data->foto_principal) }}"  
                   alt="User profile picture" style="cursor:pointer" onmouseover="this.src='images/upload.png'" 
-                  onmouseout="this.src='{{$data->foto_principal}}'"/>
+                  onmouseout="this.src = '{{ url('uploads/escort_fotos/'.$data->foto_principal) }}'"/>
+   
                <h3 class="profile-username text-center"> {{ ucfirst(auth()->user()->name) }}</h3>
                <div class="row justify-content-center">
                   <form  id="frmUpload" action ="{{ route('admin.update.perfil_foto') }}" method="POST" enctype="multipart/form-data">
@@ -283,14 +284,16 @@
                   </ul>
                </div>
                @endif
-               <!-- /.tab-pane --><!--Actualizar mi Perfil !-->
-               <div class="tab-pane" id="settings">
-                  <div class="alert alert-success alert-dismissible fade in" role="alert" id="ajax-alert" style="display:none;">
+
+               <div class="alert alert-success alert-dismissible fade in" role="alert" id="ajax-alert" style="display:none;">
                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                      <span aria-hidden="true">×</span>
                      </button>
                      <strong> Perfil Actualizado Exitosamente...!!</strong>
                   </div>
+               <!-- /.tab-pane --><!--Actualizar mi Perfil !-->
+               <div class="tab-pane" id="settings">
+                  
                   <form class="form-horizontal" id="frm_dataEscort" method="POST">
                      @csrf
                      <input type="hidden"   id="escort_id"  name="escort_id" value="{{ $data->id}}" />
@@ -408,7 +411,7 @@
                         <label for="inputSkills" class="col-sm-2 control-label">Región</label>
                         <div class="col-sm-10">
                            <select name="region_escort" id="region_escort" class="form-control">
-                              <option value="">Seleccione una Region</option>
+                              <option value="">«« SELECCIONE UNA REGION »»</option>
                               @foreach ($regiones as $region)
                               <option value="{{$region->id}}" 
                               {{ $data->region == $region->id ? 'selected' : '' }}
@@ -426,14 +429,133 @@
                            </select>
                         </div>
                      </div>
-                     <div class="form-group">
+                     <!-- <div class="form-group">
                         <label for="inputSkills" class="col-sm-2 control-label">Precio</label>
                         <div class="col-sm-10" style="text-align:left;">
                            <input type="text" class="form-control" id="precio_escort" 
                               name="precio_escort" value="{{ $data->precio }}" maxlength="10" style="text-align:left;" 
                               data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits':2, 'digitsOptional': false, 'placeholder': '0'" value="{{ $data->precio }}">
                         </div>
+                     </div> -->
+                      <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Precio</label>
+                        <div class="col-sm-10" style="text-align:left;">
+                           <input type="text" class="form-control" id="precio_escort" 
+                              name="precio_escort" value="{{ $data->precio }}" maxlength="10" style="text-align:left;" 
+                               value="{{ $data->precio }}">
+                        </div>
                      </div>
+
+                     <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">Categorias</label>
+                         <div class="col-sm-10">
+                           <select name="categoria_escort" id="categoria_escort" class="form-control">
+                            <option value="">«« SELECCIONE UNA CATEGORIA »»</option>
+                              @foreach ($categorias as $categoria)
+                              <option value="{{$categoria->id}}" 
+                              {{ $data->categoria_escort == $categoria->id ? 'selected' : '' }}
+                              >{{ $categoria->nombre }}</option>
+                              @endforeach
+                           </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inputSkills" class="col-sm-2 control-label">Color de Piel</label>
+                          <div class="col-sm-10">
+                             <select class="form-control" 
+                              data-placeholder="Seleccione"
+                              style="width: 100%;" name="color_piel" id="color_piel">
+                              <option  value="0">«« SELECCIONE »»</option>
+                              <option  value="Triguena" {!! $data->color_piel == 'Triguena' ? 'selected' : '' !!}>Trigueña</option>
+                              <option  value="Blanca" {!! $data->color_piel == 'Blanca' ? 'selected' : '' !!}>Blanca</option>
+                              <option  value="Morena"  {!! $data->color_piel == 'Morena' ? 'selected' : '' !!}>Morena</option>
+                              <option  value="Negra" {!! $data->color_piel == 'Negra' ? 'selected' : '' !!}>Negra</option>
+     
+                           </select>
+                          </div>
+                       </div>
+
+                       <div class="form-group">
+                          <label for="inputSkills" class="col-sm-2 control-label">Color de Cabello</label>
+                          <div class="col-sm-10">
+                             <select class="form-control" 
+                              data-placeholder="Seleccione"
+                              style="width: 100%;" name="color_cabello" id="color_cabello">
+                              <option  value="0">«« SELECCIONE »»</option>
+                              <option  value="Negro" {!! $data->color_cabello == 'Negro' ? 'selected' : '' !!}>Negro</option>
+                              <option  value="Rubia" {!! $data->color_cabello == 'Rubia' ? 'selected' : '' !!}>Rubia</option>
+                              <option  value="Peliroja"  {!! $data->color_cabello == 'Peliroja' ? 'selected' : '' !!}>Peliroja</option>
+                              <option  value="Castano" {!! $data->color_cabello == 'Castano' ? 'selected' : '' !!}>Castaño</option>
+     
+                           </select>
+                          </div>
+                       </div>
+
+                       <div class="form-group">
+                          <label for="inputSkills" class="col-sm-2 control-label">Caracteristicas Fisicas</label>
+                          <div class="col-sm-10">
+                             <select class="form-control" 
+                              data-placeholder="Seleccione"
+                              style="width: 100%;" name="caracteristica_fisicas" id="caracteristica_fisicas">
+                              <option  value="0">«« SELECCIONE »»</option>
+                              <option  value="Delgada" {!! $data->caracteristica_fisicas == 'Delgada' ? 'selected' : '' !!}>Delgada</option>
+                              <option  value="Normal" {!! $data->caracteristica_fisicas == 'Normal' ? 'selected' : '' !!}>Normal</option>
+                              <option  value="Rellena"  {!! $data->caracteristica_fisicas == 'Rellena' ? 'selected' : '' !!}>Rellena</option>
+                              <option  value="Tetona" {!! $data->caracteristica_fisicas == 'Tetona' ? 'selected' : '' !!}>Tetona</option>
+                              <option  value="Culona" {!! $data->caracteristica_fisicas == 'Culona' ? 'selected' : '' !!}>Culona</option>
+     
+                           </select>
+                          </div>
+                       </div>
+
+                     @if (!empty($data_tipoServicios))
+                           @foreach ($data_tipoServicios as $object)
+                              @php
+                                 $servicios_escort[] = $object->id_tipo_servicio;
+                                 
+                           @endphp
+                       
+                         @endforeach
+
+                         @else
+                          @php
+                            $servicios_escort[] = array("0");
+                         @endphp
+                     @endif
+                      
+            
+              
+                       <div class="form-group">
+                          <label for="inputSkills" class="col-sm-2 control-label">Tipo de Servicios</label>
+                             <div class="col-sm-10">
+                                 @if (!empty($servicios_escort))
+                               
+                                       @foreach ($tipo_servicios as $value)
+                                       
+                                       <label class="checkbox-inline">
+                                             <input type="checkbox" value="{{$value->id}}" 
+                                             name="tipo_servicios[]" 
+                                          {{ in_array($value->id, $servicios_escort) ?  'checked' : '' }}
+                                          >{!! ucwords($value->nombre_servicio) !!}
+                                       </label>
+                                 
+                                       @endforeach
+                                   @else
+                                      @foreach ($tipo_servicios as $value)
+                                       
+                                       <label class="checkbox-inline">
+                                             <input type="checkbox" value="{{$value->id}}" 
+                                             name="tipo_servicios[]" 
+                                              >{!! ucwords($value->nombre_servicio) !!}
+                                       </label>
+                                 
+                                       @endforeach
+                                 @endif
+                            </div>
+                       </div>
+
+
                      <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                            <button type="submit" class="btn btn-primary" id="btn_actualizar">Actualizar</button>
@@ -444,11 +566,7 @@
                      <!-- /.col -->
                      <!--div class="col-sm-12"!-->
                      <div class="row">
-                        @php
-                        $foto_principal       = ltrim($data->foto_principal, '/storage');
-                        $foto_secundaria_1    = ltrim($data->foto_secundaria_1, '/storage');
-                        $foto_secundaria_2    = ltrim($data->foto_secundaria_2, '/storage');
-                        @endphp
+                 
                         <div class="row">
                            @if ($sql_foto_escort != '')
                            <div class="col-md-11" style="margin-left:15px;">
@@ -573,9 +691,9 @@
 <!-- /.content -->
 </div>
 @elseif (($vista == 'Usuario Basico') AND (auth()->user()->hasRole('USUARIO REGISTRADO')))
-@include('admin.partials.usuario_registrado')
-@elseif (($vista == 'Administrador') AND (auth()->user()->hasRole('Admin')))
-@include('admin.partials.admin_user')
+   @include('admin.partials.usuario_registrado')
+@elseif (($vista == 'ADMIN') AND (auth()->user()->hasRole('Admin')))
+   @include('admin.partials.admin_user')
 @endif
 @stop
 <script src="/js/jquery-2.1.4.min.js"></script>
@@ -615,7 +733,16 @@
        $j("#telefono_escort").inputmask('9999-999-9999');
        $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
        $j('.select2').select2();
-       $j("#precio_escort").inputmask({ alias : "pesos" })
+       $j("#precio_escort").inputmask('Regex', {regex: "^[0-9]{1,6}(\\,\\d{1,2})?$"});
+
+      //  $j("#precio_escort").inputmask({
+      //    'alias': 'decimal',
+      //      rightAlign: true,
+      //    'groupSeparator': '.',
+      //    'autoGroup': true
+      // });
+
+
        $j('#altura_escort').inputmask('9,99' );
        $j('#medida_escort').inputmask('99-99-99');
     

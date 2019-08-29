@@ -1,398 +1,146 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>@yield('meta-title','Seductives')</title>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <link rel="shortcut icon" href="img/favicon.png">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="{{url('css/bootstrap.min.css') }}">
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="{{url('css/icon.css') }}">
-      <link rel="stylesheet" href='{{url("css/loader.css") }}'>
-      <link rel="stylesheet" href='{{url("css/idangerous.swiper.css") }}'>
-      <link rel="stylesheet" href='{{url("css/jquery-ui.css") }}'>
-      <link rel="stylesheet" href='{{url("css/stylesheet.css")}}'>
-      <link rel="stylesheet" href='{{url("css/magnific.css")}}'>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.2/css/lightgallery.css" />
-      <!--Fontawesome CDN-->
-      <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"!-->
-      <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"!-->
-       
-
-      @stack('styles')
-   </head>
-   <body > 
-      <!-- THE LOADER -->
-      <div class="be-loader">
-         <div class="spinner">
-            <img src='{{ url("img/logo-loader.png") }}'  alt="">
-            <p class="circle">
-               <span class="ouro">
-               <span class="left"><span class="anim"></span></span>
-               <span class="right"><span class="anim"></span></span>
-               </span>
-            </p>
+@include('header')
+@stack('styles')
+<body class="indent">
+   <!--header-->
+   <header class="indent">
+      <em></em>
+      <div class="container">
+         <h1 class="navbar-brand navbar-brand_">
+            <div class="boton-box col-lg-12">
+               <a href="{{ route('registro_escort') }}" class="btn btn-danger btn-md" role="button">¿Eres Escort? Click aqui</a>
+               <a href="{{ route('login') }}" class="btn btn-danger btn-md" role="button">Acceso</a>
+            </div>
+            <div class="div_novedades">
+               <h2>Novedades</h2>
+               <div>
+                  <div class="ticker1" style="width:300px;border: 1px solid #CCCCCC;">
+                     <div class="innerWrap be-user-statistic">
+                        @if (!empty(($noticias)))
+                        @foreach($noticias as $news)
+                        @if (\Carbon\Carbon::parse($news->created_at)->format('Y-m-d') == $today)
+                        <div class="demo">
+                           <img src="{{ url('uploads/escort_fotos/'.$news->foto_principal) }}" class="img-circle" 
+                              style="float: left; margin: 0px 5px 25px 0px;width:35px;">
+                           <p class="parrafo" ><strong>{{ ($news->descripcion)}}</strong>
+                           </p>
+                        </div>
+                        @endif
+                        @endforeach
+                        @endif
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <a href="index.html">
+               <p  alt="logo" style="width:395px;" style="display:none;">
+            </a>
+         </h1>
+         <div class="head_info wow fadeInLeft" data-wow-delay="0.25s">
+            <h2>Encuentra tu Escort Favorita </h2>
+            <form id="buscar" class="form-inline" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
+               @csrf
+               <div class="form-group" style="margin-left:-130px;">
+                  <label for="focusedInput">Buscar por Nombre:</label>
+                  <input class="form-control" id="search_escort" name="search_escort" type="text" placeholder="Introduzca el Nombre">
+                  <a href="#" onClick="document.getElementById('buscar').submit()">
+                  <i class="glyphicon glyphicon-search"></i>
+                  </a>
+               </div>
+            </form>
          </div>
+         <br>
+         <!-- <form id="search" class="search wow fadeInLeft" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
+            @csrf
+            <input type="text" name="search_escort" value="" onfocus="if (this.value == '') {this.value=''}" 
+               onblur="if (this.value == '') {this.value=''}" >
+            <a href="#" onClick="document.getElementById('search').submit()">
+            <img src="{{ asset('img/magnify2.png') }}" alt=""></a> 
+            </form> -->
+         <div class="clearfix"></div>
+         <nav class="navbar navbar-default navbar-static-top tm_navbar clearfix indent wow fadeInUp" role="navigation" data-wow-delay="0.25s">
+            <ul class="nav sf-menu clearfix">
+               <li class="active"><a href="{{ route('inicio')}}">Inicio</a></li>
+               <li class="sub-menu">
+                  <a href="index-2.html">Categorias</a><span></span>
+                  <ul class="submenu">
+                     <li><a href="{!! route('listar_maduras', ['categoria'=>'maduras']) !!}">Maduras</a></li>
+                     <li><a href="{!! route('listar_maduras', ['categoria'=>'lesbianas']) !!}">Lesbianas</a></li>
+                     <li><a href="{!! route('listar_maduras', ['categoria'=>'travestis']) !!}">Travestis</a></li>
+                     <li><a href="{!! route('listar_maduras', ['categoria'=>'gays']) !!}">Gays</a></li>
+                  </ul>
+               </li>
+               <li class="sub-menu">
+                  <a href="index-2.html">Servicios</a><span></span>
+                  <ul class="submenu">
+                     <li><a href="{!! route('listar_servicios', ['servicios'=>'13']) !!}">Dama de Compañia</a></li>
+                     <li><a href="{!! route('listar_servicios', ['servicios'=>'14']) !!}">Trios</a></li>
+                     <li><a href="{!! route('listar_servicios', ['servicios'=>'9']) !!}">Despedida de Solteros</a></li>
+                     <li><a href="{!! route('listar_servicios', ['servicios'=>'5']) !!}">Masajes</a></li>
+                  </ul>
+               </li>
+               <li class="sub-menu">
+                  <a href="{!! route('buscar_todas',['filtro'=>'todas']) !!}">
+                     Buscar Todas
+                     <!-- <form id="search" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
+                        @csrf
+                        <input type="text" name="search_escort" value="" >
+                        <a href="#" onClick="document.getElementById('search').submit()">
+                         <img src="{{ asset('img/magnify2.png') }}" alt=""></a>
+                        </form> -->
+                  </a>
+               </li>
+               <li><a href="index-4.html">Foro</a></li>
+            </ul>
+         </nav>
       </div>
-      <!-- THE HEADER -->
-      @include('header')
+   </header>
+   <div class="global">
       <!-- MAIN CONTENT -->
       @yield('content')
-      <!-- THE FOOTER -->
+      <!--content-->  
+      <!--footer-->
       @include('footer')
-      <div class="be-fixed-filter"></div>
-      <div class="large-popup login" id="div_login">
-         <div class="large-popup-fixed"></div>
-         <div class="container large-popup-container">
-            <div class="row">
-               <div class="col-md-12 col-md-push-3 col-lg-8 col-lg-push-3  large-popup-content">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <i class="fa fa-times close-button"></i>
-                        <h3 class="large-popup-title" style="position:relative;top:0px;">Acceso</h3>
-                     </div>
-                      <form id="login-form" method="post" onsubmit="return LoginUser()" role="form" style="display: block;" class="popup-input-search">
-                        @csrf
-                        <div class="col-md-5">
-                           <input  class="form-control @error('email') is-invalid @enderror" name="email" 
-                             type="email" required="" placeholder="Email" value="{{old('email') }}" required autofocus>
-                             <span class="invalid-feedback" role="alert" 
-                                 style="display: none;color:#fff;color:#f21317;" id="error_mail">
-                                     <strong></strong>
-                             </span>
-                        </div>
-                        
-                        <div class="col-md-5">
-                           <input  type="password" required="" placeholder="Contraseña"
-                              class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                              @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                        </div>
-                        <div class="col-md-2">
-                           <!--input type="submit" id="btn_login" class="btn btn-primary btn-prime white btn-flat"
-                            value="Entrar"/!-->
-                            <!--button type="button" id="btn_login" class="btn btn-primary btn-prime white btn-flat">Entrar</button!-->
-                             <input type="submit" name="login-submit" id="login-submit" tabindex="4" 
-                             class="btn-login btn color-1 size-2 hover-2" value="Entrar">
-                        </div>
-                        <br><br>
-                        <div class="col-xs-6" style="margin-top:10px;">
-                           <a href="blog-detail-2.html" class="link-large-popup" style="color:#FFF;">Olvidaste tu Contraseña?</a>
-                           <a href="#" class="link-large-popup" data-toggle="modal" 
-                              data-target="#exampleModal" id="btn_registro" style="color:#FFF;">Registrarse</a>
-                       </div>
-                       <br>
-                       
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <!--Modal para Registrar un nuevo Usuario !-->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Registro de Usuario</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-               </div>
-               <div class="modal-body">
-                  <div class="row justify-content-center">
-                     <div class="col-md-12">
-                        <div class="box box-primary">
-                           <div class="box-header">
-                              @if (count($errors) > 0)
-                              <div class="alert alert-danger">
-                                 <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                 </ul>
-                              </div>
-                              @endif
-                              <div id="success-msg" class="hide">
-                                 <div class="alert alert-success alert-dismissible fade in" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                    <strong> Su registro ha sido Exitoso...!!</strong>
-                                 </div>
-                              </div>
-                              <div id="warning-msg" class="hide">
-                                 <div class="alert alert-warning alert-dismissible fade in" role="alert" style="background:#f58a42;color:#0d0d0d">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                    <strong><span id="msg">Disculpe usted no ha sido aprobada por los momentos por el personal de seductives,
-                                    usted recibira un email indicandole el estatus del ingreso del sistema a la brevedad...</span>
-                                    </strong>
-                                 </div>
-                              </div>
-                              <form method="POST" id="register">
-                                 {{ csrf_field() }}
-                                 <input type="hidden" name="id_tipo_usuario" value="1">
-                                 <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }} row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">Nombres</label>
-                                    <div class="col-md-6">
-                                       <input id="name" type="text" 
-                                          class="form-control" name="name" 
-                                          value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                       <span class="text-danger">
-                                       <strong id="name-error"></strong>
-                                       </span>
-                                    </div>
-                                 </div>
-                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">Apellidos</label>
-                                    <div class="col-md-6">
-                                       <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
-                                       <span class="text-danger">
-                                       <strong id="last_name-error"></strong>
-                                       </span>
-                                    </div>
-                                 </div>
-                                 <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Correo') }}</label>
-                                    <div class="col-md-6">
-                                       <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                                       <span class="text-danger">
-                                       <strong id="email-error"></strong>
-                                       </span>
-                                    </div>
-                                 </div>
-                                 <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
-                                    <div class="col-md-6">
-                                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                       <span class="text-danger">
-                                       <strong id="password-error"></strong>
-                                       </span>
-                                    </div>
-                                 </div>
-                                 <div class="form-group row">
-                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Contraseña') }}</label>
-                                    <div class="col-md-6">
-                                       <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                 </div>
-                                 <div class="modal-footer">
-                                    <div class="col-md-12 text-center">
-                                       <button type="button" id="submitForm" class="btn-login btn color-1 size-2 hover-2" style="color:#FFF;">Registrar</button>
-                                    </div>
-                                 </div>
-                              </form>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--div class="main-color">
-         <div class="title">Main Color:</div>
-         <div class="colours-wrapper">
-            <div class="entry color1 m-color active" data-colour="style/stylesheet.css"></div>
-            <div class="entry color3 m-color"  data-colour="style/style-green.css"></div>
-            <div class="entry color6 m-color"  data-colour="style/style-orange.css"></div>
-            <div class="entry color8 m-color"  data-colour="style/style-red.css"></div>
-            <div class="title">Second Color:</div>
-            <div class="entry s-color  active color10"  data-colour="style/stylesheet.css"></div>
-            <div class="entry s-color color11"  data-colour="style/style-oranges.css"></div>
-            <div class="entry s-color color12"  data-colour="style/style-greens.css"></div>
-            <div class="entry s-color color13"  data-colour="style/style-reds.css"></div>
-         </div>
-         </div>
-         <div class="open"><img src="img/icon-134.png" alt=""></div>
-         </div> -->
-      <!-- SCRIPTS	 -->
-      
-      <script src='{{ url("js/jquery-2.1.4.min.js") }}'></script>
-      <script src='{{ url("js/jquery-ui.min.js") }}'></script>
-      <script src='{{ url("js/bootstrap.min.js") }}'></script>		
-      <script src='{{ url("js/idangerous.swiper.min.js") }}'></script>
-      <script src='{{ url("js/jquery.mixitup.js") }}'></script>
-      <script src='{{ url("js/jquery.viewportchecker.min.js") }}'></script>
-      <script src='{{ url("js/jquery.viewport.js") }}'></script>
-     
-      <!--script src='{{ url("js/filters.js") }}'></script!-->
-      <script src='{{ url("js/global.js") }}'></script>
-      <script  src='{{ url("assets/dist/js/tooltipster.bundle.min.js") }}'></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.2/js/lightgallery.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
-      <script src='{{ url("js/lightgallery-all.js") }}'></script>
-
+      <!--JS-->
+      @include('scripts')
       @stack('scripts')
-      <script>
+   </div>
+   <script src='{{ url("js/jquery.easy-ticker.js") }}'></script>
+   <script>
+      $( document ).ready(function() {
 
-                   function LoginUser()
-                 {
+      //    $.ajax({
+      //           data:  {
+      //             "vista" : 'geolocalizacion'
+      //           }, 
+      //            url:   '/',
+      //           type:  'GET',
+      //           success:  function (data) {
+      //             alert("GEO2xxx");
+      //             //$('#resultado').html(data);
+      //             //location.reload();
+      //                console.log(data);
+      //           }
+      //   });
 
-                  // alert('prueba');
-                     var token    =  "{{ csrf_token() }}";
-                     var email    = $("input[name=email]").val();
-                     var password = $("input[name=password]").val();
-                     var data = {
-                         _token:token,
-                         email:email,
-                         password:password
-                     };
-                     // Ajax Post 
-                     $.ajax({
-                         type: "post",
-                         url: "/login",
-                         data: data,
-                         cache: false,
-                         success: function (data)
-                         {
-                            
-                             //location.reload();
-                             console.log(data); 
-                             console.log('login request sent !');
-                              console.log('status: ' +data.status);
-                             //  console.log('status: ' +data.user);
-                             // console.log('message: ' +data.message);
-                             window.location = "/admin";
-                         }, 
-                         error: function (data){
-                             console.log(data);
-                            $('#error_mail').html(data.responseJSON.errors.email[0]).show();
-                          //  console.log(data.responseJSON.errors.email[0]);
-                            // console.log(data);
-                            $('#name').val('');
-                            $('#last_name').val('');
-                            $('#email').val('');
-                            $('#password').val('');
-                            $('#password_confirmation').val('');
-                         }
-                     });
-                     return false;
-                 }
-
-
-
-
-
-         $( document ).ready(function() {
          
-            $('#btn_registro').click(function(){
-         			// alert('Sign new href executed.');
-         
-         			$('#div_login').hide();
-             });
-         
-             
-             
-
-            //login usuario
-            // $("#btn_login").click(function(e){
-            //      e.preventDefault();
-            //       var loginForm = $("#login-form");
-            //       var formData = loginForm.serialize();
-
-            //      $.ajax({
-                      
-            //           url:'/login',
-            //           type:'POST',
-            //           data:formData,
-            //            cache: false, 
-            //            processData: false,
-            //            contentType: false, 
-            //          success: function (data) {
-            //             console.log(data.success);
-            //            //alert(data);
-            //            // console.log(data.intended);
-            //           window.location = '/admin' ;
-            //           },
-            //             error: function (jXHR, textStatus, errorThrown) {
-            //              alert(errorThrown);
-            //            }
-
-            //     });
-            //  }); 
-
-             //registrar usuario .
-             $('body').on('click', '#submitForm', function(){
-               var registerForm = $("#register");
-               var formData = registerForm.serialize();
-               $( '#name-error' ).html( "" );
-               $( '#last_name-error' ).html( "" );
-               $( '#email-error' ).html( "" );
-               $( '#password-error' ).html( "" );
-         
-                  $.ajax({
-                        url:'/registro',
-                        type:'POST',
-                        data:formData,
-                        success:function(data) {
-                         alert('data.errors:' + data.errors );
-                           console.log(data);
-                           if(data.errors) {
-
-                              if(data.errors == "NO AUTORIZADA"){
-                                    //$('#warning-msg').removeClass('hide');
-                                    //$('#exampleModal').delay(15000).fadeOut('slow');
-                                    //$('.modal-backdrop').remove();
-                                       $('#name, #last_name,#email, #password, #password-confirm').val('');
-                                       $('.modal-backdrop').remove();
-                                       alert('Disculpe usted no ha sido aprobada por los momentos por el personal de seductives, usted recibira un email indicandole el estatus del ingreso del sistema a la brevedad...');
-                                    
-                                    // setTimeout(function() {
-                                    //    $('#exampleModal').fadeOut('slow');
-                                       
-                                    //    $('#warning-msg').addClass('hide');
-                                    //    }, 5000 );
-                                    location.reload();
-                                      // return false;
-                              }else {  
-
-                                       if(data.errors.name){
-                                             $('#name-error' ).html( data.errors.name[0] );
-                                       }
-                                    
-                                       if(data.errors.last_name){
-                                             $( '#last_name-error' ).html( data.errors.last_name[0] );
-                                       }
-                  
-                                       if(data.errors.email){
-                                             $( '#email-error' ).html( data.errors.email[0] );
-                                       }
-                  
-                  
-                                       if(data.errors.password){
-                                             $( '#password-error' ).html( data.errors.password[0] );
-                                       }
-
-                              }
-                               
-                           }
-                           if(data.success) {
-                             
-                              $('#success-msg').removeClass('hide');
-                              $('.modal-backdrop').remove();
-                              location.reload();
-                              // setInterval(function(){ 
-                              //       $('#SignUp').modal('hide');
-                              //       $('#success-msg').addClass('hide');
-                              //       $('#exampleModal').addClass('hide');
-                              // }, 3000);
-                           } 
-                        },
-                     });
-                  });
-         
-         
-         });
-      </script>
-   </body>
+          $('.ticker1, .ticker2').easyTicker({
+                direction: 'up',
+                easing: 'swing',
+                speed: 'slow',
+                interval: 2000,
+                height: 'auto',
+                visible: 0,
+                mousePause: 1,
+                controls: {
+                   up: '',
+                   down: '',
+                   toggle: '',
+                   playText: 'Play',
+                   stopText: 'Stop'
+                }
+          });
+      
+      });
+   </script>
+</body>
 </html>

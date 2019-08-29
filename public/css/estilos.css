@@ -1,0 +1,98 @@
+.demo  {
+    border: 1px solid #ccc;
+    margin: 25px 0;
+    padding-top: 5px;
+    position: relative; 
+    overflow: hidden; 
+    display: inline-block;
+    /* background-color:#0d58c8; */
+    background-color: #9a2a46;
+    border-bottom:1px solid #EEEEEE;
+    margin-bottom: 1px solid blue;
+    line-height: 1.5em;
+   
+    word-break: break-word;
+    margin: 0px; display:block;
+    width:315px;
+  }
+
+  .div_novedades {
+
+    float: right;
+    
+    
+    
+      }
+
+.parrafo {
+    font-size:13px; 
+    text-align: left;
+    font-family: "Segoe UI",Arial,sans-serif;
+    color: #FFFFFF !important;
+    word-break: break-word;
+   
+ }
+
+ .unfollow_button {
+    background-color:#5FBA7D;
+}
+
+.unfollow_button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+
+  .pending_button {
+    background-color:#FF5733;
+  }
+
+  .pending_button:hover {
+    background-color: #FF5733; /* Green */
+    color: white;
+  }
+
+  div.imagetiles div.col-lg-3.col-md-3.col-sm-3.col-xs-6{
+    padding-top: 10px;
+  }
+
+  .tooltip.bottom .tooltip-inner {
+    max-width:310px;
+ 
+    padding:3px 8px;
+    
+    color:#fff;
+    
+    text-align:center;
+    
+    background-color:#D8534F;
+    
+    border-radius:5px
+  }
+
+  .terms {
+    overflow-y: scroll;
+    height: 300px;
+    width: 100%;
+    border: 1px solid #DDD;
+    padding: 10px;
+  }
+
+  .float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:980px;
+    background-color:#25d366;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index:100;
+    top:140px;
+  }
+  
+  .my-float{
+    margin-top:16px;
+  }

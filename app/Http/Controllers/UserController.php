@@ -10,6 +10,7 @@ use Response;
 use App\Role;
 use App\Escort;
 use Illuminate\Support\Facades\DB;
+use Redirect;
 
 class UserController extends Controller
 {
@@ -21,7 +22,6 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:25',
-            'last_name' => 'required|max:30',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -83,14 +83,12 @@ class UserController extends Controller
                        }
                 
 
-
-             return Response::json(['success' => '1']);
+                       return Redirect::route('acceso')->with('success', 'Registro Exitoso');
+            // return Response::json(['success' => '1']);
 
         }
-         
+        return Redirect::back()->withErrors($validator);
 
-
-        return Response::json(['errors' => $validator->errors()]);
  
     }
 

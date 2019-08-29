@@ -177,6 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
+        \Torann\GeoIP\GeoIPServiceProvider::class,
 
     ],
 
@@ -229,6 +233,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Location' => 'Stevebauman\Location\Facades\Location',
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
       
 
     ],

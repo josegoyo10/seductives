@@ -21,4 +21,19 @@ class Escort extends Model
       return $this->hasMany(Like::class);
     }
 
+   /* toma un precio y lo deja fromaiado con puntitos*/
+     public static function formato_precio($val) {
+        $s = "";
+        $valor = abs($val);
+        $largo = strlen($valor);
+        $mod = ($largo % 3 );
+        for ($i=0; $i<$largo; $i++) {
+          if (((($i - $mod) % 3) == 0) && ($i != 0)) {
+              $s = $s . ".";
+          }
+          $s = $s . substr($valor, $i, 1);
+        }
+        return $s;  
+      }
+
 }

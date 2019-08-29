@@ -18,6 +18,41 @@
 
     Auth::routes();
 
+     //Rutas del Menu de Categorias.
+    Route::get('listar_maduras/{categorias}','PagesController@home')->name('listar_maduras');
+    Route::get('listar_maduras/escort_perfil/{id}','EscortController@getPerfilEscort')->name('escort.perfil');
+    Route::get('listar_servicios/escort_perfil/{id}','EscortController@getPerfilEscort')->name('escort.perfil');
+    
+   //Rutas del Menu de Servicios.
+   Route::get('listar_servicios/{categorias}','PagesController@home')->name('listar_servicios');
+
+   Route::get('buscar_todas/{filtro}', 'PagesController@searchall')->name('buscar_todas');
+
+   Route::get('getIpdetails','PagesController@getGeoLocation')->name('getIpdetails');
+
+   Route::get('get-ip-details', function () {
+   // $ip = '192.168.1.90';
+    $details = json_decode(file_get_contents("http://ipinfo.io/json"));
+    //$position = geoip()->getLocation('190.22.168.166');
+      // $data = \Location::get($ip);
+     $position = Location::get('190.22.168.166');
+      //$ip= \Request::ip();
+    //  dd($details->city);
+  });
+  
+    //Rutas del menu de filtros.
+
+    Route::POST('filter_SelectMenu', 'PagesController@filterOpciones')->name('filter_SelectMenu');
+  // Route::POST('filter_SelectMenu', 'PagesController@home')->name('filter_SelectMenu');
+
+     // // Registration Routes...
+  if ($options['register'] ?? true) {
+      Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+      Route::POST('registro','UserController@store')->name('registro');
+
+     //  Route::post('register', 'Auth\RegisterController@register');
+  }
+
 
       Route::get('admin', 'HomeController@index')->name('home');
 
@@ -80,9 +115,13 @@
 
           //Calificar Escort nav bar.
           Route::GET('calificar/escort', 'EscortRegisterController@qualifyEscort')->name('admin.calificar.escort');
+             
+        //listar escort rating.
+        Route::get('calificar/listarEscort', 'DetailController@listarEscort')->name('admin.list.escort');
 
+           
           //rating escort
-        //  Route::post('/rating/new', 'DetailController@setrating');
+         Route::post('calificar/rating', 'DetailController@setrating')->name('admin.rating.escort');
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna')->name('setrating');
@@ -99,21 +138,20 @@
     Route::get('/getEscortInfo','EscortController@getEscortInfo' ); 
     Route::post('images-upload', 'HomeController@imagesUploadPost')->name('images.upload');
     Route::get('escort_perfil/{id}','EscortController@getPerfilEscort')->name('escort.perfil');
-
-
+    Route::post('buscar_escort', 'PagesController@home')->name('buscar_escort');
+ 
 
  // Authentication Routes...
     //Route::post('/login/user', 'CustomLoginController@loginUser');
 
  
 
-    Route::get('login', 'Auth\LoginController@showLoginForm');
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('acceso');
     Route::post('login', 'Auth\LoginController@login')->name('login');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 
-     Route::POST('registro','UserController@store');
-
+     
  
 
   // Password Reset Routes...

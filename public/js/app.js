@@ -1869,32 +1869,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      escorts: [],
+      arrayescorts: [],
       rating: 0
     };
   },
-  created: function created() {},
+  created: function created() {
+    this.listarEscort();
+  },
   methods: {
+    listarEscort: function listarEscort() {
+      var me = this;
+      var url = 'listarEscort';
+      axios.get(url).then(function (response) {
+        me.arrayescorts = response.data;
+        console.log(me.arrayescorts);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     setRating: function setRating() {
-      fetch('/rating/new', {
-        method: 'post',
-        body: JSON.stringify({
-          escort_id: '1',
-          user: '1',
-          rating: this.rating
-        }),
-        headers: {
-          'content-type': 'application/json'
-        }
-      }).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        alert('gracias');
-      })["catch"](function (err) {
-        alert('fallo');
+      var me = this;
+      axios.post('rating', {
+        'escort_id': this.rating,
+        'user_id': this.rating,
+        'rating': this.$set(this, 'your_object', this.rating)
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   }
@@ -6359,7 +6368,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fa {\nfont-size: 25px;\n}\n.left-bar {\nfloat:left;\nwidth:5%;\nmargin-top:10px;\n}\n.right-bar {\nmargin-top:10px;\nfloat:left;\nwidth: 95%;\n}\n.row-bar:after {\n    content:'';\n    display: table;\n    clear: both;\n}\n.review-rating:after {\n     content:'';\n     display:table;\n     clear:both;\n}\n.left-review {\n     float:left;\n     width: 30%;\n     margin-top:10px;\n     text-align: center;\n}\n.right-review {\n     float:left;\n     width: 70%;\n     margin-top:10px;\n     text-align: center;\n}\n.review-title {\n     font-size: 56pt;\n}\n.review-star {\n     margin: 0 0 10px 0;\n}\n.review-people .fa {\n     font-size: 11pt;\n}\n.bar-container {\n      width:100%;\n      background-color: #f1f1f1;\n      text-align: center;\n      color: white;\n}\n.bar-5 {height: 18px; background-color: #57bb8a;}\n.bar-4 {height: 18px; background-color: #9ace6a;}\n.bar-3 {height: 18px; background-color: #ffcf02;}\n.bar-2 {height: 18px; background-color: #ff9f02;}\n.bar-1 {height: 18px; background-color: #ff6f31;}\n.star-rating {\n     text-align: center;\n}\n.heading {\n     font-size: 25px;\n     color: #999;\n     border-bottom: 2px solid #eee;\n}\n@media (max-width: 400px) {\n.left-bar, .right-bar, .left-review, .right-review {\n         width:100%;\n}\n}\n.custom-text {\n     font-weight: bold;\n     font-size:1.9em;\n     border: 1px solid #cfcfcf;\n     padding-left: 10px;\n     padding-right: 10px;\n     border-radius: 5px;\n     color: #999;\n     background: #fff;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Star Rating */\n* {\nbox-sizing: border-box;\n}\n.fa {\nfont-size: 25px;\n}\n.left-bar {\nfloat: left;\nwidth: 5%;\nmargin-top:10px;\n}\n.right-bar {\nmargin-top:10px;\nfloat: left;\nwidth: 95%;\n}\n.row-bar:after {\ncontent: \"\";\ndisplay: table;\nclear: both;\n}\n.review-rating:after {\ncontent: \"\";\ndisplay: table;\nclear: both;\n}\n.left-review {\nfloat: left;\nwidth: 30%;\nmargin-top:10px;\ntext-align: center;\n}\n.right-review {\nfloat: left;\nwidth: 70%;\nmargin-top:10px;\n}\n.review-title{\nfont-size: 56pt;\n}\n.review-star{\nmargin: 0 0 10px 0;\n}\n.review-people .fa{\nfont-size: 11pt;\n}\n.bar-container {\nwidth: 100%;\nbackground-color: #f1f1f1;\ntext-align: center;\ncolor: white;\n}\n.bar-5 {height: 18px; background-color: #57bb8a;}\n.bar-4 {height: 18px; background-color: #9ace6a;}\n.bar-3 {height: 18px; background-color: #ffcf02;}\n.bar-2 {height: 18px; background-color: #ff9f02;}\n.bar-1 {height: 18px; background-color: #ff6f31;}\n.star-rating{\n      text-align: center;\n      margin:auto;\n      width: 45%;\n}\n.star-rating .fa:hover{\n    color: orange;\n}\n.heading {\n      font-size: 25px;\n      color: #999;\n      border-bottom: 2px solid #eee;\n}\n@media (max-width: 400px) {\n.left-bar, .right-bar, .left-review, .right-review {\n      width: 100%;\n}\n}\n.custom-text {\n      font-weight: bold;\n      font-size: 1.9em;\n      border: 1px solid #cfcfcf;\n      padding-left: 10px;\n      padding-right: 10px;\n      border-radius: 5px;\n      color: #999;\n      background: #fff;\n}\n", ""]);
 
 // exports
 
@@ -37840,45 +37849,58 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Rating Component")
-          ]),
+          _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("h3", [_vm._v("Escort Calificación")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                { staticClass: "col-md-6" },
-                [
-                  _c("star-rating", {
-                    attrs: { increment: 0.5, "text-class": "custom-text" },
-                    model: {
-                      value: _vm.rating,
-                      callback: function($$v) {
-                        _vm.rating = $$v
-                      },
-                      expression: "rating"
-                    }
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            _vm._l(_vm.arrayescorts, function(escort) {
+              return _c("div", { key: escort.id, staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-2" }, [
+                  _c("img", {
+                    staticClass: "img-circle",
+                    staticStyle: { width: "45px" },
+                    attrs: { src: escort.foto_principal, alt: "User Image" }
                   })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6" })
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", on: { click: _vm.setRating } },
-              [_vm._v("Publish")]
-            ),
-            _vm._v(" "),
-            _c("h3", { staticClass: "heading" }, [_vm._v(" Reviews")]),
-            _vm._v(" "),
-            _vm._m(0)
-          ])
+                ]),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "col-sm-3",
+                  domProps: { textContent: _vm._s(escort.nombres) }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-sm-5" },
+                  [
+                    _c("star-rating", {
+                      attrs: { increment: 0.5, "text-class": "custom-text" },
+                      model: {
+                        value: _vm.rating[escort],
+                        callback: function($$v) {
+                          _vm.$set(_vm.rating, escort, $$v)
+                        },
+                        expression: "rating[escort]"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: { click: _vm.setRating }
+                    },
+                    [_vm._v("Valorar")]
+                  )
+                ])
+              ])
+            }),
+            0
+          )
         ])
       ])
     ])
@@ -37889,79 +37911,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "review-rating" }, [
-      _c("div", { staticClass: "left-review" }, [
-        _c("div", { staticClass: "review-title" }, [_vm._v("3.5")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "review-start" }, [
-          _c("span", { staticClass: "fa fa-start" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "fa fa-start" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "fa fa-start" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "fa fa-start-half-o" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "fa fa-start-o" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "review-people" }, [
-          _c("i", { staticClass: "fa fa-user" }),
-          _vm._v("8.433 total")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "right-review" }, [
-        _c("div", { staticClass: "row-bar" }, [
-          _c("div", { staticClass: "left-bar" }, [_vm._v("5")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "rigth-bar" }, [
-            _c("div", { staticClass: "bar-container" }, [
-              _c("div", { staticClass: "bar-5", staticStyle: { width: "60%" } })
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row-bar" }, [
-        _c("div", { staticClass: "left-bar" }, [_vm._v("4")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "rigth-bar" }, [
-          _c("div", { staticClass: "bar-container" }, [
-            _c("div", { staticClass: "bar-5", staticStyle: { width: "60%" } })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row-bar" }, [
-        _c("div", { staticClass: "left-bar" }, [_vm._v("3")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "rigth-bar" }, [
-          _c("div", { staticClass: "bar-container" }, [
-            _c("div", { staticClass: "bar-5", staticStyle: { width: "60%" } })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row-bar" }, [
-        _c("div", { staticClass: "left-bar" }, [_vm._v("2")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "rigth-bar" }, [
-          _c("div", { staticClass: "bar-container" }, [
-            _c("div", { staticClass: "bar-5", staticStyle: { width: "60%" } })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row-bar" }, [
-        _c("div", { staticClass: "left-bar" }, [_vm._v("1")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "rigth-bar" }, [
-          _c("div", { staticClass: "bar-container" }, [
-            _c("div", { staticClass: "bar-5", staticStyle: { width: "60%" } })
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", [_vm._v("Escort Calificación")])
     ])
   }
 ]

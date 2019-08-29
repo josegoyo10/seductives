@@ -47,7 +47,7 @@
                   </div>
                   " data-placement="bottom">
                   <!--"{{ url($row->foto_principal) }}!-->
-                  <img src= "{{ url($row->foto_principal) }}" 
+                  <img src= "{{ url('uploads/escort_fotos/'.$row->foto_principal) }}"
                      alt="omg" class="img-fluid img-thumbnail" style="width:137px;height:190px"  >
                   <span title="The tooltip" data-toggle="tooltip" data-placement="top" ></span>
                </a>

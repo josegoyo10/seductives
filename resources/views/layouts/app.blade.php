@@ -18,14 +18,24 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+    <!-- include the BotDetect layout stylesheet --> 
+   <link href="{{ captcha_layout_stylesheet_url() }}" type="text/css" rel="stylesheet">
+  @stack('styles')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-black bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+              
+                   <a class="navbar-brand" href="{{ url('/') }}" style="margin-left:-60px;">
+                         <img src="{{ url('images/img/sed.png') }}"  class="img-responsive" 
+                         style="width: 125px; top: 10px; left:10px;position: absolute;">
+                    </a>
+                    <!-- <a class="navbar-brand" href="{{ url('/') }}" style="margin-left:920px;">
+                      <img src="{{ url('images/img/LOGOS1/FINAL1.png') }}" style="width:105px;float:right">
+                    </a> -->
+            
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -40,12 +50,12 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
+                            </li> -->
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}" style="color:#ffffff;">{{ __('Registrarse') }}</a>
                                 </li>
                             @endif
                         @else
@@ -76,5 +86,7 @@
             @yield('content')
         </main>
     </div>
+
+    @stack('scripts')
 </body>
 </html>

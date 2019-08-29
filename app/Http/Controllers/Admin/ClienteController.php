@@ -9,6 +9,7 @@ use App\Perfil;
 use App\Region;
 use App\Comuna;
 use App\Like;
+use App\ServiciosEscort;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,7 @@ class ClienteController extends Controller
                 $clientes =   DB::table("escorts")
                 ->select("escorts.id","escorts.rut","escorts.nombres",
                     "escorts.apellidos",
+                    "escorts.apodo_escort",
                     "escorts.email",
                     "escorts.nacionalidad",
                     "escorts.id_estado",
@@ -65,6 +67,7 @@ class ClienteController extends Controller
             ->select("escorts.id","escorts.rut",
             "escorts.nombres",
             "escorts.apellidos",
+            "escorts.apodo_escort",
             "escorts.email",
             "escorts.nacionalidad",
             "escorts.id_estado",
@@ -99,6 +102,7 @@ class ClienteController extends Controller
                     ->select("escorts.id",
                       "escorts.nombres",
                       "escorts.apellidos",
+                      "escorts.apodo_escort",
                       "escorts.email",
                       "escorts.rut",
                       "escorts.fecha_nacimiento",
@@ -142,6 +146,7 @@ class ClienteController extends Controller
             $query = DB::table("escorts")
             ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
              "escorts.nacionalidad","escorts.id_estado",
+             "escorts.apodo_escort",
              "perfiles.id_perfil",
              "perfiles.edad",
              "perfiles.comuna",
@@ -217,21 +222,47 @@ class ClienteController extends Controller
             $escorts->save();
 
             
-             $perfil                    = Perfil::where('id_escort', '=', $escort_id )->firstOrFail();
-             $perfil->region            = Input::get('region_escort');
-             $perfil->comuna            = Input::get('comuna_escort');
-             $perfil->telefono          = Input::get('telefono_escort');
-             $perfil->descripcion       = Input::get('descripcion_servicio_escort');
-             $perfil->comentario_escort = Input::get('comentario_escort');
-             $perfil->altura            = Input::get('altura_escort');
-             $perfil->medidas           = Input::get('medida_escort');
-             $perfil->hora_inicio       = Input::get('horario_ini_escort');
-             $perfil->hora_fin          = Input::get('horario_fin_escort');
-             $perfil->atencion          = Input::get('atencion_escort');
-             $perfil->dias_disponibles  = Input::get('dias_disponible');
-             $perfil->precio            = Input::get('precio_escort'); 
+             $perfil                              = Perfil::where('id_escort', '=', $escort_id )->firstOrFail();
+             $perfil->region                      = Input::get('region_escort');
+             $perfil->comuna                      = Input::get('comuna_escort');
+             $perfil->telefono                    = Input::get('telefono_escort');
+             $perfil->descripcion                 = Input::get('descripcion_servicio_escort');
+             $perfil->comentario_escort           = Input::get('comentario_escort');
+             $perfil->altura                      = Input::get('altura_escort');
+             $perfil->medidas                     = Input::get('medida_escort');
+             $perfil->hora_inicio                 = Input::get('horario_ini_escort');
+             $perfil->hora_fin                    = Input::get('horario_fin_escort');
+             $perfil->atencion                    = Input::get('atencion_escort');
+             $perfil->dias_disponibles            = Input::get('dias_disponible');
+             $perfil->precio                      = str_replace(',', '.', Input::get('precio_escort'));
+             $perfil->categoria_escort            = Input::get('categoria_escort'); 
+             $perfil->color_piel                  = Input::get('color_piel'); 
+             $perfil->color_cabello               = Input::get('color_cabello'); 
+             $perfil->caracteristica_fisicas      = Input::get('caracteristica_fisicas'); 
+
              $perfil->id_estado         = "3" ;
              $perfil->save();
+
+             //insertar tipo servicios de escort.
+             //antes de insertar borramos si la escort ha seleccionado checkbox antes.
+
+             //dd(Input::get('escort_id'));
+             $delete_tipo_servicios = ServiciosEscort::where('id_escort', Input::get('escort_id'))->delete();
+             
+             $tipo_servicios = Input::get('tipo_servicios');
+             if (!empty($tipo_servicios)) {
+             
+                  foreach ( $tipo_servicios as $tipoServicio){
+                    $tipo_servicio = new ServiciosEscort;
+                    $tipo_servicio->id_escort = Input::get('escort_id');
+                    $tipo_servicio->id_tipo_servicio = $tipoServicio;
+                    $tipo_servicio->created_at = now();
+                    $tipo_servicio->updated_at = now();
+                    $tipo_servicio->save();
+                  }
+              }
+
+             //dd($tipo_servicios);
 
 
                  if ($perfil) {

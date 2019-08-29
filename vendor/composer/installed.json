@@ -63,6 +63,163 @@
         ]
     },
     {
+        "name": "captcha-com/captcha",
+        "version": "4.2.5",
+        "version_normalized": "4.2.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.captcha.com/botdetect-php-captcha-library.git",
+            "reference": "4b8b642509bfc63d2f295dccf1c1b4d0e2266a15"
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "suggest": {
+            "captcha-com/cakephp-captcha": "CakePHP Captcha Plugin -- BotDetect PHP CAPTCHA generator integration for the CakePHP framework.",
+            "captcha-com/laravel-captcha": "Laravel Captcha Package -- BotDetect PHP CAPTCHA generator integration for the Laravel framework.",
+            "captcha-com/symfony-captcha-bundle": "Symfony Captcha Bundle -- BotDetect PHP CAPTCHA generator integration for the Symfony framework."
+        },
+        "time": "2019-07-22T16:36:53+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "proprietary"
+        ],
+        "authors": [
+            {
+                "name": "Captcha Support",
+                "email": "botdetect.support@captcha.com",
+                "homepage": "https://captcha.com/php-captcha.html"
+            }
+        ],
+        "description": "Captcha Generator -- BotDetect PHP CAPTCHA Free composer package.",
+        "homepage": "https://captcha.com/php-captcha.html",
+        "keywords": [
+            "captcha",
+            "captcha generator",
+            "captcha library",
+            "php captcha"
+        ]
+    },
+    {
+        "name": "captcha-com/laravel-captcha",
+        "version": "4.2.10",
+        "version_normalized": "4.2.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/captcha-com/laravel-captcha.git",
+            "reference": "7437eb8e02aadbe7382f9c013174b50c2fd698db"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/captcha-com/laravel-captcha/zipball/7437eb8e02aadbe7382f9c013174b50c2fd698db",
+            "reference": "7437eb8e02aadbe7382f9c013174b50c2fd698db",
+            "shasum": ""
+        },
+        "require": {
+            "captcha-com/captcha": "4.*",
+            "php": ">=5.4.0"
+        },
+        "time": "2019-04-08T07:52:26+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "LaravelCaptcha\\": "src/"
+            },
+            "files": [
+                "src/Support/helpers.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Laravel Captcha Package Support",
+                "email": "botdetect.support@captcha.com",
+                "homepage": "https://captcha.com/doc/php/laravel-captcha-quickstart.html"
+            }
+        ],
+        "description": "Laravel Captcha Package -- BotDetect PHP Captcha generator integration for the Laravel framework.",
+        "homepage": "https://captcha.com/doc/php/laravel-captcha-quickstart.html",
+        "keywords": [
+            "Laravel Captcha",
+            "botdetect",
+            "captcha",
+            "captcha generator",
+            "captcha package",
+            "laravel captcha package"
+        ]
+    },
+    {
+        "name": "composer/ca-bundle",
+        "version": "1.2.3",
+        "version_normalized": "1.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/composer/ca-bundle.git",
+            "reference": "f26a67e397be0e5c00d7c52ec7b5010098e15ce5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/composer/ca-bundle/zipball/f26a67e397be0e5c00d7c52ec7b5010098e15ce5",
+            "reference": "f26a67e397be0e5c00d7c52ec7b5010098e15ce5",
+            "shasum": ""
+        },
+        "require": {
+            "ext-openssl": "*",
+            "ext-pcre": "*",
+            "php": "^5.3.2 || ^7.0 || ^8.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 8",
+            "psr/log": "^1.0",
+            "symfony/process": "^2.5 || ^3.0 || ^4.0"
+        },
+        "time": "2019-08-02T09:05:43+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Composer\\CaBundle\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
+            }
+        ],
+        "description": "Lets you find a path to the system CA bundle, and includes a fallback to the Mozilla CA bundle.",
+        "keywords": [
+            "cabundle",
+            "cacert",
+            "certificate",
+            "ssl",
+            "tls"
+        ]
+    },
+    {
         "name": "dnoegel/php-xdg-base-dir",
         "version": "0.1",
         "version_normalized": "0.1.0.0",
@@ -622,6 +779,134 @@
         ]
     },
     {
+        "name": "geoip2/geoip2",
+        "version": "v2.8.0",
+        "version_normalized": "2.8.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maxmind/GeoIP2-php.git",
+            "reference": "63b0d87d47ee8c9431bff70244401db5ced82bd9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/63b0d87d47ee8c9431bff70244401db5ced82bd9",
+            "reference": "63b0d87d47ee8c9431bff70244401db5ced82bd9",
+            "shasum": ""
+        },
+        "require": {
+            "maxmind-db/reader": "~1.0",
+            "maxmind/web-service-common": "~0.4",
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "apigen/apigen": "*",
+            "friendsofphp/php-cs-fixer": "2.*",
+            "phpunit/phpunit": "4.*",
+            "squizlabs/php_codesniffer": "3.*"
+        },
+        "time": "2018-01-18T21:30:24+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GeoIp2\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Gregory J. Oschwald",
+                "email": "goschwald@maxmind.com",
+                "homepage": "http://www.maxmind.com/"
+            }
+        ],
+        "description": "MaxMind GeoIP2 PHP API",
+        "homepage": "https://github.com/maxmind/GeoIP2-php",
+        "keywords": [
+            "IP",
+            "geoip",
+            "geoip2",
+            "geolocation",
+            "maxmind"
+        ]
+    },
+    {
+        "name": "guzzlehttp/psr7",
+        "version": "1.6.1",
+        "version_normalized": "1.6.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/psr7.git",
+            "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
+            "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "psr/http-message": "~1.0",
+            "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
+        },
+        "provide": {
+            "psr/http-message-implementation": "1.0"
+        },
+        "require-dev": {
+            "ext-zlib": "*",
+            "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
+        },
+        "suggest": {
+            "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
+        },
+        "time": "2019-07-01T23:21:34+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Psr7\\": "src/"
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Tobias Schultze",
+                "homepage": "https://github.com/Tobion"
+            }
+        ],
+        "description": "PSR-7 message implementation that also provides common utility methods",
+        "keywords": [
+            "http",
+            "message",
+            "psr-7",
+            "request",
+            "response",
+            "stream",
+            "uri",
+            "url"
+        ]
+    },
+    {
         "name": "hamcrest/hamcrest-php",
         "version": "v2.0.0",
         "version_normalized": "2.0.0.0",
@@ -669,6 +954,78 @@
         "description": "This is the PHP port of Hamcrest Matchers",
         "keywords": [
             "test"
+        ]
+    },
+    {
+        "name": "intervention/image",
+        "version": "2.5.0",
+        "version_normalized": "2.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Intervention/image.git",
+            "reference": "39eaef720d082ecc54c64bf54541c55f10db546d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/39eaef720d082ecc54c64bf54541c55f10db546d",
+            "reference": "39eaef720d082ecc54c64bf54541c55f10db546d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "guzzlehttp/psr7": "~1.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.2",
+            "phpunit/phpunit": "^4.8 || ^5.7"
+        },
+        "suggest": {
+            "ext-gd": "to use GD library based image processing.",
+            "ext-imagick": "to use Imagick based image processing.",
+            "intervention/imagecache": "Caching extension for the Intervention Image library"
+        },
+        "time": "2019-06-24T14:06:31+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            },
+            "laravel": {
+                "providers": [
+                    "Intervention\\Image\\ImageServiceProvider"
+                ],
+                "aliases": {
+                    "Image": "Intervention\\Image\\Facades\\Image"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.com",
+                "homepage": "http://olivervogel.com/"
+            }
+        ],
+        "description": "Image handling and manipulation library with support for Laravel integration",
+        "homepage": "http://image.intervention.io/",
+        "keywords": [
+            "gd",
+            "image",
+            "imagick",
+            "laravel",
+            "thumbnail",
+            "watermark"
         ]
     },
     {
@@ -1178,6 +1535,112 @@
             "sftp",
             "storage"
         ]
+    },
+    {
+        "name": "maxmind-db/reader",
+        "version": "v1.4.1",
+        "version_normalized": "1.4.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maxmind/MaxMind-DB-Reader-php.git",
+            "reference": "eb83d0ee1c1f9b8a340206302136bc81ee02ae74"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/eb83d0ee1c1f9b8a340206302136bc81ee02ae74",
+            "reference": "eb83d0ee1c1f9b8a340206302136bc81ee02ae74",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "2.*",
+            "phpunit/phpunit": "4.* || 5.*",
+            "satooshi/php-coveralls": "1.0.*",
+            "squizlabs/php_codesniffer": "3.*"
+        },
+        "suggest": {
+            "ext-bcmath": "bcmath or gmp is required for decoding larger integers with the pure PHP decoder",
+            "ext-gmp": "bcmath or gmp is required for decoding larger integers with the pure PHP decoder",
+            "ext-maxminddb": "A C-based database decoder that provides significantly faster lookups"
+        },
+        "time": "2019-01-04T19:55:56+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MaxMind\\Db\\": "src/MaxMind/Db"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Gregory J. Oschwald",
+                "email": "goschwald@maxmind.com",
+                "homepage": "http://www.maxmind.com/"
+            }
+        ],
+        "description": "MaxMind DB Reader API",
+        "homepage": "https://github.com/maxmind/MaxMind-DB-Reader-php",
+        "keywords": [
+            "database",
+            "geoip",
+            "geoip2",
+            "geolocation",
+            "maxmind"
+        ]
+    },
+    {
+        "name": "maxmind/web-service-common",
+        "version": "v0.5.0",
+        "version_normalized": "0.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maxmind/web-service-common-php.git",
+            "reference": "61a9836fa3bb1743ab89752bae5005d71e78c73b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/61a9836fa3bb1743ab89752bae5005d71e78c73b",
+            "reference": "61a9836fa3bb1743ab89752bae5005d71e78c73b",
+            "shasum": ""
+        },
+        "require": {
+            "composer/ca-bundle": "^1.0.3",
+            "ext-curl": "*",
+            "ext-json": "*",
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "2.*",
+            "phpunit/phpunit": "4.*",
+            "squizlabs/php_codesniffer": "3.*"
+        },
+        "time": "2018-02-12T22:31:54+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MaxMind\\Exception\\": "src/Exception",
+                "MaxMind\\WebService\\": "src/WebService"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Gregory Oschwald",
+                "email": "goschwald@maxmind.com"
+            }
+        ],
+        "description": "Internal MaxMind Web Service API",
+        "homepage": "https://github.com/maxmind/web-service-common-php"
     },
     {
         "name": "mockery/mockery",
@@ -2455,6 +2918,58 @@
         ]
     },
     {
+        "name": "psr/http-message",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-08-06T14:39:51+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP messages",
+        "homepage": "https://github.com/php-fig/http-message",
+        "keywords": [
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
         "name": "psr/log",
         "version": "1.1.0",
         "version_normalized": "1.1.0.0",
@@ -2628,6 +3143,48 @@
             "interactive",
             "shell"
         ]
+    },
+    {
+        "name": "ralouphie/getallheaders",
+        "version": "3.0.3",
+        "version_normalized": "3.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ralouphie/getallheaders.git",
+            "reference": "120b605dfeb996808c31b6477290a714d356e822"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+            "reference": "120b605dfeb996808c31b6477290a714d356e822",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "require-dev": {
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^5 || ^6.5"
+        },
+        "time": "2019-03-08T08:55:37+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/getallheaders.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ralph Khattar",
+                "email": "ralph.khattar@gmail.com"
+            }
+        ],
+        "description": "A polyfill for getallheaders."
     },
     {
         "name": "ramsey/uuid",
@@ -3366,6 +3923,71 @@
             "permission",
             "security",
             "spatie"
+        ]
+    },
+    {
+        "name": "stevebauman/location",
+        "version": "v3.0.1",
+        "version_normalized": "3.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stevebauman/location.git",
+            "reference": "9affbc6000a35a5c132df6ab6eea3ac1cc21ebfb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stevebauman/location/zipball/9affbc6000a35a5c132df6ab6eea3ac1cc21ebfb",
+            "reference": "9affbc6000a35a5c132df6ab6eea3ac1cc21ebfb",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "geoip2/geoip2": "2.8.*",
+            "illuminate/support": "5.*",
+            "php": ">=5.6.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "orchestra/testbench": "~3.2",
+            "phpunit/phpunit": "~4.8|~5.0"
+        },
+        "time": "2018-04-16T23:16:13+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Stevebauman\\Location\\LocationServiceProvider"
+                ],
+                "aliases": {
+                    "Location": "Stevebauman\\Location\\Facades\\Location"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Stevebauman\\Location\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Steve Bauman",
+                "email": "steven_bauman@outlook.com"
+            }
+        ],
+        "description": "Retrieve a users location by their IP Address using Laravel 5",
+        "keywords": [
+            "IP",
+            "geo",
+            "geo-location",
+            "geoip",
+            "laravel",
+            "location",
+            "php"
         ]
     },
     {
@@ -4874,6 +5496,144 @@
         ],
         "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
         "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles"
+    },
+    {
+        "name": "torann/geoip",
+        "version": "1.0.9",
+        "version_normalized": "1.0.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Torann/laravel-geoip.git",
+            "reference": "dc3c4fc17779b3521736dd4e04d1fa2dd8f55db9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Torann/laravel-geoip/zipball/dc3c4fc17779b3521736dd4e04d1fa2dd8f55db9",
+            "reference": "dc3c4fc17779b3521736dd4e04d1fa2dd8f55db9",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/console": "~5.0",
+            "illuminate/support": "~5.0",
+            "php": "^7.0"
+        },
+        "require-dev": {
+            "geoip2/geoip2": "~2.1",
+            "mockery/mockery": "^0.9.4",
+            "phpunit/phpunit": "^4.8"
+        },
+        "suggest": {
+            "geoip2/geoip2": "Required to use the MaxMind database or web service with GeoIP (~2.1).",
+            "monolog/monolog": "Allows for storing location not found errors to the log"
+        },
+        "time": "2019-01-21T15:59:28+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            },
+            "laravel": {
+                "providers": [
+                    "Torann\\GeoIP\\GeoIPServiceProvider"
+                ],
+                "aliases": {
+                    "GeoIP": "Torann\\GeoIP\\Facades\\GeoIP"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/helpers.php"
+            ],
+            "psr-4": {
+                "Torann\\GeoIP\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-2-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Daniel Stainback",
+                "email": "torann@gmail.com"
+            }
+        ],
+        "description": "Support for multiple GeoIP services.",
+        "keywords": [
+            "IP API",
+            "geoip",
+            "geolocation",
+            "infoDB",
+            "laravel",
+            "laravel 5",
+            "location",
+            "maxmind"
+        ]
+    },
+    {
+        "name": "uxweb/sweet-alert",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/uxweb/sweet-alert.git",
+            "reference": "5b74ad1e51b913ede67c17c667dad6c162766fdc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/uxweb/sweet-alert/zipball/5b74ad1e51b913ede67c17c667dad6c162766fdc",
+            "reference": "5b74ad1e51b913ede67c17c667dad6c162766fdc",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/session": "~5.0",
+            "illuminate/support": "~5.0",
+            "php": ">=7.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*",
+            "phpunit/phpunit": "^7.0"
+        },
+        "time": "2018-11-20T19:21:08+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "UxWeb\\SweetAlert\\SweetAlertServiceProvider"
+                ],
+                "aliases": {
+                    "Alert": "UxWeb\\SweetAlert\\SweetAlert"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "UxWeb\\SweetAlert\\": "src/SweetAlert/"
+            },
+            "files": [
+                "src/SweetAlert/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Uziel Bueno",
+                "email": "ux.webs@gmail.com"
+            }
+        ],
+        "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
+        "keywords": [
+            "alert",
+            "laravel",
+            "notifier",
+            "sweet"
+        ]
     },
     {
         "name": "vlucas/phpdotenv",

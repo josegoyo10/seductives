@@ -9,6 +9,8 @@ use App\Comuna;
 use App\Comment;
 use App\User;
 use App\Like;
+use App\Categorias;
+use App\TipoServicios;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -52,7 +54,7 @@ class HomeController extends Controller
            
     
     
-    //    dd($coments_escort);
+    //dd($user->id_tipo_usuario );
 
      if ($user->id_tipo_usuario == 1) {
 
@@ -70,8 +72,13 @@ class HomeController extends Controller
          ->select("escorts.id","escorts.nombres","escorts.apellidos",
           "escorts.nacionalidad",
           "escorts.comentario_escort",
+          "escorts.apodo_escort",
          "perfiles.id_perfil",
          "perfiles.edad",
+         "perfiles.categoria_escort",
+         "perfiles.color_piel",
+         "perfiles.color_cabello",
+         "perfiles.caracteristica_fisicas",
          "perfiles.comuna",
          "perfiles.region",
          "perfiles.telefono",
@@ -91,10 +98,11 @@ class HomeController extends Controller
         ->join("perfiles","perfiles.id_escort","=","escorts.id")
         ->join("regiones","regiones.id","=","perfiles.region")
         ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+        ->LEFTJOIN("categorias", "categorias.id", "=", "perfiles.categoria_escort")
         ->WHERE("escorts.id", "=", $sql_escort->id)
         ->first();
         
-    //      //dd($data);
+         //dd($data);
 
        $usuario =  User::find($sql_escort->id);
 
@@ -104,9 +112,20 @@ class HomeController extends Controller
        ->WHERE("escort_fotos.id_escort", "=", $sql_escort->id)
        ->get();
 
-       $regiones = Region::all();
-       $comunas   = Comuna::all();
+       $regiones    = Region::all();
+       $comunas     = Comuna::all();
 
+       $categorias   = Categorias::all();
+       $tipo_servicios = TipoServicios::all();
+
+       
+      $data_tipoServicios = DB::table("servicios_escort")
+      ->select("servicios_escort.id_escort","servicios_escort.id_tipo_servicio","tipo_servicios.nombre_servicio")
+      ->join("tipo_servicios","tipo_servicios.id","=","servicios_escort.id_tipo_servicio")
+      ->WHERE("servicios_escort.id_escort", "=", $sql_escort->id)
+      ->get();
+
+       //dd($data_tipoServicios);
        $count = Comment::where(['escort_id' => $sql_escort->id ])->count();
 
        $comentarios =  Comment::all();
@@ -118,7 +137,7 @@ class HomeController extends Controller
      } else if($user->id_tipo_usuario == 2) {
 
         $vista = "Usuario Basico";
-     
+       //dd(auth()->user()->hasRole('USUARIO REGISTRADO'));
        //dd($vista);
 
         $data = DB::table("users")
@@ -128,6 +147,7 @@ class HomeController extends Controller
         ->select("escorts.id",
           "escorts.nombres",
           "escorts.apellidos",
+          "escorts.apodo_escort",
           "escorts.email",
           "escorts.nacionalidad",
           "perfiles.id_perfil",
@@ -155,7 +175,7 @@ class HomeController extends Controller
         ->orderby('escorts.id')
         ->get();
 
-      
+      //dd($clientes);
 
            //obtener las fotos de la escort
          $sql_foto_escort = DB::table("escort_fotos")
@@ -166,6 +186,13 @@ class HomeController extends Controller
 
          $regiones = Region::all();
          $comunas   = Comuna::all();
+         $categorias   = Categorias::all();
+         $tipo_servicios = TipoServicios::all();
+
+         $data_tipoServicios = DB::table("servicios_escort")
+         ->select("servicios_escort.id_escort","servicios_escort.id_tipo_servicio","tipo_servicios.nombre_servicio")
+         ->join("tipo_servicios","tipo_servicios.id","=","servicios_escort.id_tipo_servicio")
+         ->get();
 
        $sql_desc_comuna = DB::table("comuna")
        ->SELECT("comuna.id","comuna.nombre");
@@ -174,20 +201,24 @@ class HomeController extends Controller
 
       }elseif ($user->id_tipo_usuario == 3) {
 
-        $vista = "Administrador";
+           
+        $vista = "ADMIN";
         $count = 0;
         $user = Auth::user(); 
         // dd($user);
         $data = DB::table("users")
         ->WHERE("users.email",'=',  $user->email)->first();
             
+       // dd(auth()->user()->hasRole('Admin'));
             if (auth()->user()->hasRole('Admin')) {
+         
 
                //  $clientes = Escort::orderBy('id', 'ASC')->get();
                 $clientes =   $query = DB::table("escorts")
                 ->select("escorts.id","escorts.rut","escorts.nombres",
                     "escorts.apellidos",
                     "escorts.email",
+                    "escorts.apodo_escort",
                     "escorts.nacionalidad",
                     "escorts.id_estado",
                     "escorts.fecha_nacimiento",
@@ -207,6 +238,7 @@ class HomeController extends Controller
                 ->orderby('escorts.id')
                 ->get();
 
+               
                    //obtener las fotos de la escort
                         $sql_foto_escort = DB::table("escort_fotos")
                         ->select("escort_fotos.id","escort_fotos.url_fotos")
@@ -221,12 +253,18 @@ class HomeController extends Controller
                     ->SELECT("comuna.id","comuna.nombre");
 
                     $comentarios =  Comment::all();
+                    $categorias   = Categorias::all();
+                    $tipo_servicios = TipoServicios::all();
+                    $data_tipoServicios = DB::table("servicios_escort")
+                    ->select("servicios_escort.id_escort","servicios_escort.id_tipo_servicio","tipo_servicios.nombre_servicio")
+                    ->join("tipo_servicios","tipo_servicios.id","=","servicios_escort.id_tipo_servicio")
+                    ->get();
             }
 
       }
     
   
-       return view('admin.dashboard',compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort','comentarios'));
+       return view('admin.dashboard', compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort','comentarios','categorias','tipo_servicios','data_tipoServicios'));
         
     }
 }

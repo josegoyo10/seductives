@@ -67,6 +67,7 @@ trait AuthenticatesUsers
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
+            'CaptchaCode' => 'required|valid_captcha'
         ]);
     }
 

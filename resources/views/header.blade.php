@@ -1,60 +1,27 @@
-<header>
-		<div class="container-fluid custom-container">
-			<div class="row no_row row-header">
-				<div class="brand-be">
-					<a href="{{ route('inicio') }}">   
-				    	<img style="height:65px;width:100%;margin:-13px;" src ='{{ url("images/logo_header_seductives.jpg") }}' alt="logo2">
-						<!--img class="logo-c active be_logo img-responsive"  src="images/logo_seductives.jpg" alt="logo"!-->
-						<!--img class="logo-c be_logo" src="img/logo-green.png" alt="logo2"!-->
-						<img  class="logo-c be_logo" src='{{ url("img/logo-orang.png") }}' alt="logo3">
-						<img class="logo-c be_logo" src='{{ url("img/logo-red.png") }}' alt="logo4">
-					</a>  
-				</div>
-						 
-				<div class="header-menu-block">
-					<button class="cmn-toggle-switch cmn-toggle-switch__htx"><span></span></button>
-					<ul class="header-menu" id="one">
-						<li><a href="activity.html">Actividad</a></li>
-						<li><a href="search.html">Categorias</a>
-							<ul>
-								<li><a href="search.html">Escorts</a></li>
-								<li><a href="people.html">Maduras</a></li>
-								<li><a href="gallery.html">Lesbianas</a></li>
-							</ul>
-						</li>
-						<li><a href="author-login.html">Contactanos</a></li>
-						<li><a href="site-map.html">Quienes Somos</a></li>
-						<li><a href="organization.html">Organization</a></li>
-						<li id="ad-work-li">
-						<!-- <a id="add-work-btn" class="btn btn-primary" 
-						data-toggle="modal" data-target="#escortModal" 
-						data-whatever="@getbootstrap">Registro Escort </a> -->
-						<!--a id="add-work-btn"  
-						href="{{ route('registro_escort') }}">Registro Escort </a!--> 
+<head>
+<title>Inicio | Seductives</title>
+<meta charset="utf-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<meta name="description" content="Your description">
+<meta name="keywords" content="Your keywords">
+<meta name="author" content="Your name">
+<meta name = "format-detection" content = "telephone=no" />
+<!--CSS-->
 
-						</li>
-					</ul>
-					
-				</div>
-		       
-				<div class="login-header-block" style="margin:20px;">
-					<div class="login_block">
-						<a class="btn-login btn color-1 size-3 hover-2" href="" ><i class="fa fa-user"></i>
-						Acceder</a>
-					</div>	
-				</div>
-				<div class="login-header-block" style="float:right;margin:20px;">
-					<div>
-					<a class="btn-login btn color-1 size-3 hover-2"  href="{{ route('registro_escort') }}"><i class="fa fa-user"></i>
-						¿Eres Escort click aqui? </a>
-					</div>	
-				</div>
-			</div>
-		</div>
-	</header>
-	
-	
-  <!--JQUERY !-->
-  <script src='{{ url("js/jquery-2.1.4.min.js") }}'></script>
-  	<!-- Date Picker -->
-	<!--script src='{{ url("assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") }}'></script!-->
+<link rel="stylesheet" href="{{url('css/bootstrap.css') }}" >
+<link rel="stylesheet" href="{{url('css/style.css') }}">
+<link rel="stylesheet" href="{{url('css/animate.css') }}">
+<link rel="stylesheet" href="{{url('css/kwicks-slider.css') }}">
+<link rel="stylesheet" href="{{url('fonts/font-awesome.css') }}">
+<link rel="stylesheet" href="{{url('css/touchTouch.css') }}">
+<link rel="stylesheet" href="{{url('fonts/font-awesome.css') }}">
+<link rel="stylesheet" href="{{url('css/estilos.css') }}" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{url('adminlte/bower_components/select2/dist/css/select2.css') }}" >
+
+</head>
+
+
+

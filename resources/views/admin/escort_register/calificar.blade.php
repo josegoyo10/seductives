@@ -4,6 +4,7 @@
    
         <link href="{{asset('css/plantilla.css')}}" rel="stylesheet"> <!--Añadimos el css generado con webpack-->
         <link rel="stylesheet" href='{{url("css/star-rating.css")}}'>
+        <!-- <link rel="stylesheet" href='{{ url("css/base.css") }}'> -->
         <link rel="stylesheet" href='{{ url("adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css") }}'>
     @section('content')
             <div id="app" ><!--La equita id debe ser app, como hemos visto en app.js-->

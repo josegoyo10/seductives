@@ -56,6 +56,7 @@ class EscortRegisterController extends Controller
            $query = DB::table("escorts")
            ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
             "escorts.nacionalidad","escorts.id_estado",
+            "escorts.apodo_escort",
             "perfiles.id_perfil",
             "perfiles.edad",
             "perfiles.comuna",

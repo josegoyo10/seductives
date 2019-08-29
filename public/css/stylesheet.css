@@ -103,7 +103,7 @@ a:focus { outline: none; outline-offset: 0px; color: inherit; }
 header * { -webkit-backface-visibility: hidden; }
 
 header { 
-      height: 70px; 
+      height: 110px; 
       width: 100%; 
       color: #fff; 
       font-size: 14px; 
@@ -113,7 +113,13 @@ header {
       line-height: 0; 
       z-index: 1000; 
 }
+input[type="text"] {
+    text-transform: uppercase;
+}
 
+textarea { 
+    text-transform: uppercase; 
+}
 header .custom-container { position: relative; }
 
 header .row-header .brand-be { margin-top: 16.5px; float: left; }
@@ -3862,12 +3868,6 @@ body .login-user-down:hover {
 
   }
 
-  .parrafo {
-   font-size:10px; 
-   text-align: justify;
-   font-family: "Segoe UI",Arial,sans-serif;
-   color: #686868 !important;
-}
 
 .unfollow_button {
     background-color:#5FBA7D;
