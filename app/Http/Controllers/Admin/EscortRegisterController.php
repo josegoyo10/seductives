@@ -11,9 +11,11 @@ use App\Comuna;
 use App\User; 
 use App\Comment;
 use App\Visited_Profile;
+use App\Rating;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use App\ServiciosEscort;
 use Response;
 
 class EscortRegisterController extends Controller
@@ -107,9 +109,50 @@ class EscortRegisterController extends Controller
           $count = Comment::count();
           $comentarios =  Comment::all();
 
-      //dd($count);
+          //obtener SI el usuario evaluo la escort.
+          $sql_rating_escort = DB::table("ratings")
+            ->WHERE("escort_id",'=',$id)
+            ->Where("user_id",'=',$user->id)
+            ->first();
+
+          //obtener el numero de usuarios que han evaluado la escort.
+          $sql_rating_total =  DB::table('ratings')->where("escort_id",'=',$id)->sum('rating_total');
+         
+          $count_escort = Rating::where('escort_id','=', $id)->count();
+
+          
+         $tipo_servicios = DB::table("servicios_escort")
+         ->SELECT("servicios_escort.id_tipo_servicio","tipo_servicios.nombre_servicio")
+         ->JOIN("tipo_servicios","tipo_servicios.id",'=',"servicios_escort.id_tipo_servicio")
+         ->WHERE("servicios_escort.id_escort",'=',$id)
+         ->get();
+
+          $count_tipoServicios = ServiciosEscort::where("servicios_escort.id_escort",'=',$id)->count();
+          $suma_tipoServicios  = $count_tipoServicios + 6;
+          //dd($count_tipoServicios);
+
+          // $rating_calificado = DB::table("servicios_evaluados_escort")
+          // ->SELECT("servicios_evaluados_escort.id_rating","servicios_evaluados_escort.nombre_servicio",
+          //  "servicios_evaluados_escort.valor_servicio_evaluado")
+          // ->JOIN("ratings","ratings.id",'=',"servicios_evaluados_escort.id_rating")
+          // ->WHERE("ratings.escort_id",'=',$id)
+          // ->get();
+
+
+          $rating_calificado = DB::table("servicios_evaluados_escort")
+          ->select("servicios_evaluados_escort.nombre_servicio"
+              ,DB::raw('SUM(servicios_evaluados_escort.valor_servicio_evaluado) as total'))
+          ->join("ratings","ratings.id","=","servicios_evaluados_escort.id_rating")
+          ->WHERE("ratings.escort_id",'=',$id)
+          ->groupBy("servicios_evaluados_escort.nombre_servicio")
+          ->get();
+
       
-        return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data','usuario','count','sql_follow_escort','comentarios'));
+     // dd($rating_calificado);
+
+        return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas',
+        'sql_desc_comuna','data','usuario','count','sql_follow_escort','comentarios','sql_rating_escort','count_escort',
+        'sql_rating_total','tipo_servicios','suma_tipoServicios','rating_calificado'));
     }
 
 

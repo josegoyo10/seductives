@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use Response;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class PagesController extends Controller
 {
@@ -33,10 +35,11 @@ class PagesController extends Controller
 		$regiones =  Region::where('nombre','LIKE',"%{$details->city}%")->get();
 
 		$opciones =  Input::get('opciones');
+		$nombre_region = trim(str_replace("Región Metropolitana de", " ", $regiones[0]->nombre));
 
 		//dd($opciones);
 	  
-		//dd($regiones);
+		//dd($nombre_region);
 
 		$vista =  Input::get('filtro');
 		
@@ -96,6 +99,7 @@ class PagesController extends Controller
 
 				} else if (($buscar == '') && ($categorias == '')) {
 
+					
 					$data = DB::table("escorts")
 								->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 								"escorts.nacionalidad",
@@ -112,6 +116,7 @@ class PagesController extends Controller
 								->join("regiones","regiones.id","=","perfiles.region")
 								->join("comuna", "comuna.id", "=", "perfiles.comuna")
 								->Where("perfiles.region","=",$regiones[0]->id)
+								->where("escorts.id_estado",'=','3')
 								->orderby('escorts.id')
 							->get();
 				} else {
@@ -181,13 +186,13 @@ class PagesController extends Controller
 				}
 	
 		}
-    	return view('welcome', compact('data','noticias','today','tipo_servicios'));
+    	return view('welcome', compact('data','noticias','today','tipo_servicios','nombre_region'));
 
 
 	}
 
 
-   public function searchall($filtro) {
+   public function searchall() {
 	
 	$noticias = DB::table("news")
 	->select("news.escort_id","news.descripcion","news.created_at","perfiles.foto_principal")
@@ -197,6 +202,8 @@ class PagesController extends Controller
 	$today = Carbon::today()->toDateString();
 
 	$tipo_servicios = TipoServicios::all();
+
+	$nombre_region =  null;
 
 	$data = DB::table("escorts")
 	->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
@@ -217,7 +224,7 @@ class PagesController extends Controller
 	->orderby('escorts.id')
 	->get();
 	
-	return view('welcome', compact('data','noticias','today','tipo_servicios'));
+	return view('welcome', compact('data','noticias','today','tipo_servicios','nombre_region'));
 	
    }
 
@@ -225,9 +232,13 @@ class PagesController extends Controller
     public function filterOpciones () {
 
 		$opciones =  Input::get('opciones');
-
+		$filtro   =  Input::get('filtro');
+		$filter   = Input::get('filter');
+	//dd($filter);
+		
 		$tipo_servicios = TipoServicios::all();
 
+	if (isset($opciones)) {
 		$noticias = DB::table("news")
 		->select("news.escort_id","news.descripcion","news.created_at","perfiles.foto_principal")
 		->join("perfiles","perfiles.id_escort","=","news.escort_id")
@@ -236,34 +247,146 @@ class PagesController extends Controller
 		$today = Carbon::today()->toDateString();
 
 		//$data = Perfil::whereIn('caracteristica_fisicas', $opciones)->get();
-		$data = DB::table("escorts")
-			->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
-			"escorts.nacionalidad",
-			"escorts.apodo_escort",
-			"perfiles.edad",
-			"perfiles.comuna",
-			"perfiles.telefono",
-			"perfiles.altura",
-			"perfiles.medidas",
-			"perfiles.foto_principal",
-			"regiones.nombre as descripcion_region",
-			"comuna.nombre as descripcion_comuna" )
-			->join("perfiles","perfiles.id_escort","=","escorts.id")
-			->join("regiones","regiones.id","=","perfiles.region")
-			->join("comuna", "comuna.id", "=", "perfiles.comuna")
-			->whereIn('caracteristica_fisicas', $opciones)
-			->get();
 
-		//return $data;
-		return response()->json(['success' => true, 
-				  'Message' => 'Your category was created.',  
-				  'resultados' => $data]);
-		//return view('welcome', compact('data','noticias','today','tipo_servicios'));
-		//return view('welcome', compact('data','noticias','today','tipo_servicios'));
+	   // En caso que el filtro sea edad.
+	 //dd($filter);
+	    if (($filter == "Edad")) {
+	       
+			$data = [];
+			foreach($opciones as $key=>$value) {
+				$myArray = explode('-', $value);
+                
+						$sql = DB::table("escorts")
+						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+						"escorts.nacionalidad",
+						"escorts.apodo_escort",
+						"perfiles.edad",
+						"perfiles.comuna",
+						"perfiles.telefono",
+						"perfiles.altura",
+						"perfiles.medidas",
+						"perfiles.foto_principal",
+						"regiones.nombre as descripcion_region",
+						"comuna.nombre as descripcion_comuna" )
+						->leftjoin("perfiles","perfiles.id_escort","=","escorts.id")
+						->leftjoin("regiones","regiones.id","=","perfiles.region")
+						->leftjoin("comuna", "comuna.id", "=", "perfiles.comuna")
+						->whereBetween('edad', [$myArray[0] ,$myArray[1] ])
+						->get();
+						//
+						$data[] = $sql;
+						$collection = collect($data);
+
+			}
+			$results = $collection->flatten();
+
+			return response()->json(['success' => true, 
+									'Message' => 'existe filtro.',  
+									'resultados' => $results]);
+
+		} elseif (($filter == "Precio")) {
+			$data = [];
+			foreach($opciones as $key=>$value) {
+				$myArray = explode('-', $value);
+                
+						$sql = DB::table("escorts")
+						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+						"escorts.nacionalidad",
+						"escorts.apodo_escort",
+						"perfiles.edad",
+						"perfiles.comuna",
+						"perfiles.telefono",
+						"perfiles.altura",
+						"perfiles.medidas",
+						"perfiles.foto_principal",
+						"regiones.nombre as descripcion_region",
+						"comuna.nombre as descripcion_comuna" )
+						->leftjoin("perfiles","perfiles.id_escort","=","escorts.id")
+						->leftjoin("regiones","regiones.id","=","perfiles.region")
+						->leftjoin("comuna", "comuna.id", "=", "perfiles.comuna")
+						->whereBetween('precio', [$myArray[0] ,$myArray[1] ])
+						->get();
+						//
+						$data[] = $sql;
+						$collection = collect($data);
+
+			}
+			$results = $collection->flatten();
+
+             
+					return response()->json(['success' => true, 
+					'Message' => 'existe filtro.',  
+					'resultados' => $results]);
+
+
+		} elseif (($filter == "Servicios")) {
+
+					$data = DB::table("escorts")
+						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+						"escorts.nacionalidad",
+						"escorts.apodo_escort",
+						"perfiles.edad",
+						"perfiles.comuna",
+						"perfiles.telefono",
+						"perfiles.altura",
+						"perfiles.medidas",
+						"perfiles.foto_principal",
+						"regiones.nombre as descripcion_region",
+						"comuna.nombre as descripcion_comuna" )
+						->leftjoin("perfiles","perfiles.id_escort","=","escorts.id")
+						->leftjoin("regiones","regiones.id","=","perfiles.region")
+						->leftjoin("comuna", "comuna.id", "=", "perfiles.comuna")
+						 ->JOIN ("servicios_escort","servicios_escort.id_escort", "=","perfiles.id_escort")
+						 ->JOIN ("tipo_servicios","tipo_servicios.id", "=","servicios_escort.id_tipo_servicio")
+						 ->whereIn('tipo_servicios.nombre_servicio', $opciones)
+						->get();
+
+			
+						return response()->json(['success' => true, 
+						'Message' => 'existe filtro.',  
+						'resultados' => $data]);
+
+		} else {		
+			
+			
+			$data = DB::table("escorts")
+						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+						"escorts.nacionalidad",
+						"escorts.apodo_escort",
+						"perfiles.edad",
+						"perfiles.comuna",
+						"perfiles.telefono",
+						"perfiles.altura",
+						"perfiles.medidas",
+						"perfiles.foto_principal",
+						"regiones.nombre as descripcion_region",
+						"comuna.nombre as descripcion_comuna" )
+						->leftjoin("perfiles","perfiles.id_escort","=","escorts.id")
+						->leftjoin("regiones","regiones.id","=","perfiles.region")
+						->leftjoin("comuna", "comuna.id", "=", "perfiles.comuna")
+						->whereIn('caracteristica_fisicas', $opciones)
+						->orwhereIn('color_piel',$opciones)
+						->orwhereIn('color_cabello',$opciones)
+						->get();
+
+
+					//return $data;
+					return response()->json(['success' => true, 
+							'Message' => 'existe filtro.',  
+							'resultados' => $data]);
+				//->join("servicios_escort", "servicios_escort.id_escort", "=", "perfiles.id_escort")
+				//->join("tipo_servicios", "tipo_servicios.id", "=", "servicios_escort.id_tipo_servicio")
 		
-	
-	
+			   }
+	    
+		  } else {
+					return response()->json(['error' => false, 
+					'Message' => 'no existe.',  
+					'resultados' =>"0"]);
+			   }
+			
 	}
+	
 
 
 

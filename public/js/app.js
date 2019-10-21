@@ -37876,11 +37876,11 @@ var render = function() {
                     _c("star-rating", {
                       attrs: { increment: 0.5, "text-class": "custom-text" },
                       model: {
-                        value: _vm.rating[escort],
+                        value: _vm.rating,
                         callback: function($$v) {
-                          _vm.$set(_vm.rating, escort, $$v)
+                          _vm.rating = $$v
                         },
-                        expression: "rating[escort]"
+                        expression: "rating"
                       }
                     })
                   ],

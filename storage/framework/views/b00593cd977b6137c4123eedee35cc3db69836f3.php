@@ -32,7 +32,7 @@
             <!-- Logo -->
             <a href="<?php echo e(url('admin')); ?>" class="logo" style="background-color:#000000">
                <!-- mini logo for sidebar mini 50x50 pixels -->
-               <span class="logo-mini"><b>A</b>LT</span>
+               <span class="logo-mini"><b>Seductives</b></span>
                <!-- logo for regular state and mobile devices -->
                <span class="logo-lg">
                   <img src="<?php echo e(url('images/img/sedchico.png')); ?>"  alt="">
@@ -281,13 +281,13 @@
                            <!-- Menu Footer-->
                            <li class="user-footer">
                               <div class="pull-left">
-                                 <a href="#" class="btn btn-default btn-flat" style="background-color:#000000;color:#FFFF;">Perfil</a>
+                                 <a href="#" class="btn btn-default btn-flat" >Perfil</a>
                               </div>
                               <div class="pull-right">
                                  <a  href="<?php echo e(route('logout')); ?>" 
                                     class="btn btn-default btn-flat"
                                     onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit(); "  style="background-color:#000000;color:#FFFF;">Salir
+                                    document.getElementById('logout-form').submit(); ">Salir
                                  </a>
                                  <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
                                     <?php echo csrf_field(); ?>

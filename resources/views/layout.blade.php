@@ -37,7 +37,7 @@
          </h1>
          <div class="head_info wow fadeInLeft" data-wow-delay="0.25s">
             <h2>Encuentra tu Escort Favorita </h2>
-            <form id="buscar" class="form-inline" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
+            <!-- <form id="buscar" class="form-inline" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
                @csrf
                <div class="form-group" style="margin-left:-130px;">
                   <label for="focusedInput">Buscar por Nombre:</label>
@@ -46,9 +46,8 @@
                   <i class="glyphicon glyphicon-search"></i>
                   </a>
                </div>
-            </form>
+               </form> -->
          </div>
-         <br>
          <!-- <form id="search" class="search wow fadeInLeft" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
             @csrf
             <input type="text" name="search_escort" value="" onfocus="if (this.value == '') {this.value=''}" 
@@ -78,19 +77,31 @@
                      <li><a href="{!! route('listar_servicios', ['servicios'=>'5']) !!}">Masajes</a></li>
                   </ul>
                </li>
-               <li class="sub-menu">
+               <!-- <li class="sub-menu">
                   <a href="{!! route('buscar_todas',['filtro'=>'todas']) !!}">
                      Buscar Todas
-                     <!-- <form id="search" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
+                    <form id="search" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
                         @csrf
                         <input type="text" name="search_escort" value="" >
                         <a href="#" onClick="document.getElementById('search').submit()">
                          <img src="{{ asset('img/magnify2.png') }}" alt=""></a>
-                        </form> -->
+                        </form> 
                   </a>
-               </li>
+                  </li> -->
                <li><a href="index-4.html">Foro</a></li>
+               </form>
             </ul>
+            <div style="position:absolute; margin-left:860px;top:15px;">
+               <form id="buscar" class="form-inline" action="{{ route('buscar_escort') }}" method="POST" accept-charset="utf-8">
+               @csrf
+               <div class="form-group" style="margin-left:-130px;">
+                  <label for="focusedInput"></label>
+                  <input class="form-control" id="search_escort" name="search_escort" type="text" placeholder="Introduzca el Nombre">
+                  <a href="#" onClick="document.getElementById('buscar').submit()">
+                  <i class="glyphicon glyphicon-search"></i>
+                  </a>
+               </div>
+            </div>
          </nav>
       </div>
    </header>
@@ -107,7 +118,7 @@
    <script src='{{ url("js/jquery.easy-ticker.js") }}'></script>
    <script>
       $( document ).ready(function() {
-
+      
       //    $.ajax({
       //           data:  {
       //             "vista" : 'geolocalizacion'
@@ -121,7 +132,7 @@
       //                console.log(data);
       //           }
       //   });
-
+      
          
           $('.ticker1, .ticker2').easyTicker({
                 direction: 'up',

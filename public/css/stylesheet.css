@@ -1271,7 +1271,7 @@ span.right { float: right; }
 
 .be-detail-header { border-bottom: 1px solid #edeff2; margin-bottom: 50px; }
 
-.be-detail-container { padding-top: 50px; }
+.be-detail-container { padding-top:0px; }
 
 .be-user-counter { position: absolute; top: 15px; left: 15px; width: 57px; height: 57px; background: #0d58c8; border-radius: 57px; padding-top: 8px; }
 

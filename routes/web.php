@@ -26,7 +26,8 @@
    //Rutas del Menu de Servicios.
    Route::get('listar_servicios/{categorias}','PagesController@home')->name('listar_servicios');
 
-   Route::get('buscar_todas/{filtro}', 'PagesController@searchall')->name('buscar_todas');
+   //Route::get('buscar_todas/{filtro}', 'PagesController@searchall')->name('buscar_todas');
+   Route::get('buscar_todas', 'PagesController@searchall')->name('buscar_todas');
 
    Route::get('getIpdetails','PagesController@getGeoLocation')->name('getIpdetails');
 
@@ -43,7 +44,6 @@
     //Rutas del menu de filtros.
 
     Route::POST('filter_SelectMenu', 'PagesController@filterOpciones')->name('filter_SelectMenu');
-  // Route::POST('filter_SelectMenu', 'PagesController@home')->name('filter_SelectMenu');
 
      // // Registration Routes...
   if ($options['register'] ?? true) {
@@ -122,6 +122,10 @@
            
           //rating escort
          Route::post('calificar/rating', 'DetailController@setrating')->name('admin.rating.escort');
+
+         //obtener calificacion total de la escort.
+         Route::post('/calificacion/total_escort', 'DetailController@showCalifications')->name('admin.total.calification');
+
       }); 
 
       Route::get('updatecomuna/{id}', 'ComunaController@updatecomboComuna')->name('setrating');
