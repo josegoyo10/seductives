@@ -119,6 +119,7 @@
                   });
                 
                 var estatus_follower = 0;
+                alert("prueba");
                   $.ajax({
                          type: "get",
                          url: "admin/getLikes",
@@ -194,6 +195,7 @@
                      //    alert("bajar");
                      // }
                       var id_like = $(this).attr('data-ID');
+                    //  alert("id like:" + id_like);
 
                       var data = {
                          id:id_like,
@@ -206,7 +208,8 @@
                          cache: false,
                          success: function (data)
                          {
-                           location.reload();
+                            console.log("response:" + data);
+                          // location.reload();
                            $('#like_'+id_like+'-bs3').html(data);
                            
                              console.log(data); 

@@ -95,6 +95,7 @@ class DetailController extends Controller
 
         //$listEscort = Escort::all();
         $id_escort = $request->get('escort_id');
+   
 
         $count_escort = Rating::where('escort_id','=',  $id_escort)->count();
 
@@ -111,7 +112,9 @@ class DetailController extends Controller
            ->orderBy("id")
            ->groupBy(DB::raw("escort_id"))
            ->get();  
-           
+            
+           //dd($listEscort);
+
            $comentarios_user = DB::table("ratings")
                     ->select(DB::raw('users.id as id_user,DATE_FORMAT(ratings.fecha_calificacion,"%d/%m/%Y") as fecha_calificacion, users.name,ratings.rating_total,ratings.comentarios_users as comentario'))
                     ->JOIN("users","users.id",'=',"ratings.user_id")

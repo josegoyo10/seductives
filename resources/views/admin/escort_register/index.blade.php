@@ -458,8 +458,6 @@
                               <th style="width: 30%"></th>
                            </tr>
                                 <td>
-                                   
-                             
                                      <div class="row">
 
                                           @foreach($rating_calificado as $tipo)
@@ -470,7 +468,7 @@
                                              @endphp
 
                                              <div class="col-md-12">
-                                                  <span style="font-size:15px"><strong>{!! $tipo->nombre_servicio !!}: {!! $notaEvaluada !!} </strong></b>
+                                                  <span style="font-size:13px"><strong>{!! $tipo->nombre_servicio !!}: {!! $notaEvaluada !!} </strong></b>
                                                   <hr>
                                             </div>
                                           
@@ -721,7 +719,7 @@
                                           jQuery("#btnCalificar").modal("hide");
                                           
                                           $('#myBtn').hide(); 
-                                          //location.reload();
+                                          location.reload();
                                         
                                      } else {
                                        alert("ha ocurrido un error");
@@ -751,10 +749,10 @@
                                  type: "POST",
                                  url: '{{url("admin/calificacion/total_escort")}}',
                                  data: {
-                                       escort_id :          $('#escort_id').val(),
+                                       escort_id : $('#escort_id').val(),
                                     },
                                    success: function (data) {
-                                   // console.log(data);
+                                    console.log(data);
                                   //  console.log("comentarios:" + data.comentarios);
                                   //$("#tbcomentariosUsuarios").append("<tr><th>Fecha</th><th>Usuario</th><th>Nota</th><th>Comentario</th></tr>");
                                  //  console.log(data.contador);
@@ -773,9 +771,7 @@
                                            "<tr id='collapseme_"+data.comentarios[index].id_user+"' class='collapse out'><td><div><span class='text-center'>"+ data.comentarios[index].comentario +"</span></div></td></tr>");
                                          
                                           });
-                                     
-                                         
-                                                             
+                                             
 
                                        $('#llamada').html(parseInt(data.data[0]['llamada']/data.contador));
                                        $('#lugar_atencion').html(parseInt(data.data[0]['lugar_atencion']/data.contador));

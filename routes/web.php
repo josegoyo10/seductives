@@ -1,19 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
     Route::get('/', 'PagesController@home')->name('inicio');
 
     Auth::routes();
@@ -116,15 +102,14 @@
           //Calificar Escort nav bar.
           Route::GET('calificar/escort', 'EscortRegisterController@qualifyEscort')->name('admin.calificar.escort');
              
-        //listar escort rating.
-        Route::get('calificar/listarEscort', 'DetailController@listarEscort')->name('admin.list.escort');
-
-           
+            //listar escort rating.
+           Route::get('calificar/listarEscort', 'DetailController@listarEscort')->name('admin.list.escort');
+                 
           //rating escort
-         Route::post('calificar/rating', 'DetailController@setrating')->name('admin.rating.escort');
+           Route::post('calificar/rating', 'DetailController@setrating')->name('admin.rating.escort');
 
-         //obtener calificacion total de la escort.
-         Route::post('/calificacion/total_escort', 'DetailController@showCalifications')->name('admin.total.calification');
+          //obtener calificacion total de la escort.
+           Route::post('/calificacion/total_escort', 'DetailController@showCalifications')->name('admin.total.calification');
 
       }); 
 

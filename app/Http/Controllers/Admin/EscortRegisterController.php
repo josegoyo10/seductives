@@ -148,7 +148,7 @@ class EscortRegisterController extends Controller
           ->get();
 
       
-     // dd($rating_calificado);
+    // dd($rating_calificado);
 
         return view('admin.escort_register.index', compact('query','sql_foto_escort','regiones','comunas',
         'sql_desc_comuna','data','usuario','count','sql_follow_escort','comentarios','sql_rating_escort','count_escort',
