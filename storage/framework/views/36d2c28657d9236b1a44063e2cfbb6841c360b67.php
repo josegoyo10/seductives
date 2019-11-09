@@ -21,7 +21,7 @@
    </ol>
 </section>
 <!-- Main content -->
-<section class="content">
+<section class="content"> 
    <div class="row">
       <div class="col-md-3">
          <!-- Profile Image -->
@@ -698,7 +698,8 @@
 <!-- /.content -->
 </div>
 <?php elseif(($vista == 'Usuario Basico') AND (auth()->user()->hasRole('USUARIO REGISTRADO'))): ?>
-   <?php echo $__env->make('admin.partials.usuario_registrado', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('admin.partials.usuario_registrado', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+ 
 <?php elseif(($vista == 'ADMIN') AND (auth()->user()->hasRole('Admin'))): ?>
    <?php echo $__env->make('admin.partials.admin_user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php endif; ?>

@@ -1,0 +1,1 @@
+<?php echo $__env->make('header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\seductives\resources\views/admin/partials/user_register.blade.php ENDPATH**/ ?>

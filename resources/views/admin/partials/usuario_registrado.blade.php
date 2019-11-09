@@ -95,6 +95,7 @@
       </div>
    </div>
    @endforeach
+
 </div>
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script>
@@ -119,7 +120,7 @@
                   });
                 
                 var estatus_follower = 0;
-                alert("prueba");
+               
                   $.ajax({
                          type: "get",
                          url: "admin/getLikes",

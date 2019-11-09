@@ -22,7 +22,7 @@
    </ol>
 </section>
 <!-- Main content -->
-<section class="content">
+<section class="content"> 
    <div class="row">
       <div class="col-md-3">
          <!-- Profile Image -->
@@ -691,7 +691,8 @@
 <!-- /.content -->
 </div>
 @elseif (($vista == 'Usuario Basico') AND (auth()->user()->hasRole('USUARIO REGISTRADO')))
-   @include('admin.partials.usuario_registrado')
+@include('admin.partials.usuario_registrado')
+ 
 @elseif (($vista == 'ADMIN') AND (auth()->user()->hasRole('Admin')))
    @include('admin.partials.admin_user')
 @endif
