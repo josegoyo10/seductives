@@ -1,767 +1,254 @@
-<link rel="stylesheet" href='<?php echo e(url("adminlte/bower_components/select2/dist/css/select2.min.css")); ?>'>
-<!-- daterange picker -->
-<link rel="stylesheet" href='<?php echo e(url("adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")); ?>'>
-<!-- bootstrap datepicker -->
-<link rel="stylesheet" href='<?php echo e(url("adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")); ?>'>
-<!-- Bootstrap time Picker -->
-<link rel="stylesheet" href='<?php echo e(url("adminlte/plugins/timepicker/bootstrap-timepicker.min.css")); ?>'>
-<!-- LightBox -->
-<link rel="stylesheet" href='<?php echo e(url("css/lightbox.css")); ?>'>
-<link rel="stylesheet" href='<?php echo e(url("css/styles.css")); ?>'>
-<link rel="stylesheet" href='<?php echo e(url("css/albumize.css")); ?>'>
-<?php $__env->startSection('content'); ?>
-<?php if($vista == 'Escort'): ?>
-<!-- Content Header (Page header) -->
-<section class="content-header">
-   <h1>Perfil del Usuario </h1>
-   <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Inicio</a></li>
-      <li><a href="#">Mis Datos</a></li>
-      <li class="active">Actualizar mi Perfil</li>
-   </ol>
-</section>
-<!-- Main content -->
-<section class="content"> 
-   <div class="row">
-      <div class="col-md-3">
-         <!-- Profile Image -->
-         <div class="box box-primary">
-            <div class="box-body box-profile"> 
-               <img  id="upfile1"  class="profile-user-img img-responsive img-circle" src= "<?php echo e(url('uploads/escort_fotos/'.$data->foto_principal)); ?>"  
-                  alt="User profile picture" style="cursor:pointer" onmouseover="this.src='images/upload.png'" 
-                  onmouseout="this.src = '<?php echo e(url('uploads/escort_fotos/'.$data->foto_principal)); ?>'"/>
-   
-               <h3 class="profile-username text-center"> <?php echo e(ucfirst(auth()->user()->name)); ?></h3>
-               <div class="row justify-content-center">
-                  <form  id="frmUpload" action ="<?php echo e(route('admin.update.perfil_foto')); ?>" method="POST" enctype="multipart/form-data">
-                     <?php echo csrf_field(); ?>
-                     <input type="hidden"   id="escortID"  name="escortID" value="<?php echo e($data->id); ?>" />
-                     <div class="form-group text-center">
-                        <input type="file"   class="form-control-file" name="avatar" id="file1" 
-                           style="font-size:13px;cursor:pointer;display:none;"  onchange="form.submit()">
-                     </div>
-                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-sm"  id="submit-btn" style="display: none;"></button>
-                     </div>
-                  </form>
-               </div>
-               <ul class="list-group list-group-unbordered">
-                  <li class="list-group-item">
-                     <b>Seguidores</b> <a class="pull-right">1,322</a>
-                  </li>
-               </ul>
-            </div>
-            <!-- /.box-body -->
-         </div>
-         <!-- /.box -->
-         <!-- About Me Box -->
-         <div class="box box-primary">
-            <div class="box-header with-border">
-               <h3 class="box-title">Sobre Mi</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-               <strong><i class="fa fa-book margin-r-5"></i> Mis Servicios</strong>
-               <p class="text-muted">
-                  <?php echo e($data->descripcion_servicio); ?>
-
-               </p>
-               <hr>
-               <strong><i class="fa fa-map-marker margin-r-5"></i> Ubicación</strong>
-               <p class="text-muted"><?php echo e($data->descripcion_region); ?>, <?php echo e($data->descripcion_comuna); ?></p>
-               <hr>
-            </div>
-            <!-- /.box-body -->
-         </div>
-         <!-- /.box -->
-      </div>
-      <!-- /.col -->
-      <div class="col-md-9">
-         <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-               <li class="active"><a href="#activity" data-toggle="tab">Actividad</a></li>
-               <li><a href="#settings"     data-toggle="tab">Actualizar Mi Perfil</a></li>
-               <li><a href="#mis_fotos"    data-toggle="tab">Actualizar Mis Fotos</a></li>
-               <li><a href="#galleryfotos" data-toggle="tab">Galeria de Fotos</a></li>
-               <li><a href="#uploadNews"   data-toggle="tab">Agregar Mis Noticias</a></li>
-            </ul>
-            <!--Tab Principal !-->
-            <div class="tab-content">
-               <div class="active tab-pane" id="activity">
-                  <!-- Post -->
-                  <div class="post">
-                     <p class="comment-text"><strong>Comentarios:  </strong> 
-                        <i class="fa fa-comments bg-yellow"></i>
-                        <span class="label label-success" id="comentarioCount"><?php echo e($count); ?></span>
-                     </p>
-                     <ul>
-                        <li>
-                           <div class="alert alert-success" id="divMsjEliminar" style="display:none;">
-                              <p>
-                                 Comentario eliminado
-                              </p>
-                           </div>
-                           <?php echo $__env->make('admin.escort_register.commentsDisplay', ['comments' => $comentarios, 
-                           'escort_id' => $data->id], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                           <h4>Añadir Comentario:</h4>
-                           <form method="POST" action="<?php echo e(route('comments.store' )); ?>">
-                              <?php echo csrf_field(); ?>
-                              <div class="form-group">
-                                 <textarea class="form-control" name="body" rows="3"></textarea>
-                                 <input type="hidden" name="escort_id" value="<?php echo e($data->id); ?>" />
-                              </div>
-                              <div class="form-group"> 
-                                 <input type="submit" class="btn color-1"  style="padding-top:10px"
-                                    value="Añadir Comentario" />
-                              </div>
-                           </form>
-                           <!-- <div class="timeline-item">
-                              <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                              <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                              <div class="timeline-body">
-                                 Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                 weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                 jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                 quora plaxo ideeli hulu weebly balihoo...
-                              </div>
-                              <div class="timeline-footer">
-                                 <a class="btn btn-primary btn-xs">Responder</a>
-                                 <a class="btn btn-danger btn-xs">Borrar</a>
-                              </div>
-                              </div> -->
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <!-- <li>
-                           <i class="fa fa-user bg-aqua"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-                              <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
-                              </h3>
-                           </div>
-                           </li> -->
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <!-- <li>
-                           <i class="fa fa-comments bg-yellow"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-                              <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                              <div class="timeline-body">
-                                 Take me to your leader!
-                                 Switzerland is small and neutral!
-                                 We are more like Germany, ambitious and misunderstood!
-                              </div>
-                              <div class="timeline-footer">
-                                 <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                              </div>
-                           </div>
-                           </li> -->
-                        <!-- END timeline item -->
-                        <!-- timeline time label -->
-                        <!-- <li class="time-label">
-                           <span class="bg-green">
-                           3 Jan. 2014
-                           </span>
-                           </li> -->
-                        <!-- /.timeline-label -->
-                        <!-- timeline item -->
-                        <!-- <li>
-                           <i class="fa fa-camera bg-purple"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                              <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                              <div class="timeline-body">
-                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                 <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              </div>
-                           </div>
-                           </li> -->
-                        <!-- END timeline item -->
-                     </ul>
-                  </div>
-               </div>
-               <!--fin tab numero 1 !-->
-               <!-- /.tab-pane -->
-               <div class="tab-pane" id="timeline">
-                  <!-- The timeline -->
-                  <ul class="timeline timeline-inverse">
-                     <!-- timeline time label -->
-                     <li class="time-label">
-                        <span class="bg-red">
-                        10 Feb. 2014
-                        </span>
-                     </li>
-                     <!-- /.timeline-label -->
-                     <!-- timeline item -->
-                     <li>
-                        <i class="fa fa-envelope bg-blue"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                           <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                           <div class="timeline-body">
-                              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                              weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                              jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                              quora plaxo ideeli hulu weebly balihoo...
-                           </div>
-                           <div class="timeline-footer">
-                              <a class="btn btn-primary btn-xs">Read more</a>
-                              <a class="btn btn-danger btn-xs">Delete</a>
-                           </div>
-                        </div>
-                     </li>
-                     <!-- END timeline item -->
-                     <!-- timeline item -->
-                     <li>
-                        <i class="fa fa-user bg-aqua"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-                           <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
-                           </h3>
-                        </div>
-                     </li>
-                     <!-- END timeline item -->
-                     <!-- timeline item -->
-                     <li>
-                        <i class="fa fa-comments bg-yellow"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-                           <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                           <div class="timeline-body">
-                              Take me to your leader!
-                              Switzerland is small and neutral!
-                              We are more like Germany, ambitious and misunderstood!
-                           </div>
-                           <div class="timeline-footer">
-                              <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                           </div>
-                        </div>
-                     </li>
-                     <!-- END timeline item -->
-                     <!-- timeline time label -->
-                     <li class="time-label">
-                        <span class="bg-green">
-                        3 Jan. 2014
-                        </span>
-                     </li>
-                     <!-- /.timeline-label -->
-                     <!-- timeline item -->
-                     <li>
-                        <i class="fa fa-camera bg-purple"></i>
-                        <div class="timeline-item">
-                           <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                           <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                           <div class="timeline-body">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                              <img src="http://placehold.it/150x100" alt="..." class="margin">
-                           </div>
-                        </div>
-                     </li>
-                     <!-- END timeline item -->
-                     <li>
-                        <i class="fa fa-clock-o bg-gray"></i>
-                     </li>
-                  </ul>
-               </div>
-               <?php if($errors->any()): ?>
-               <div class="alert alert-danger">
-                  <ul>
-                     <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                     <li><?php echo e($error); ?></li>
-                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                  </ul>
-               </div>
-               <?php endif; ?>
-               <?php if(\Session::has('success')): ?>
-               <div class="alert alert-success">
-                  <ul>
-                     <li><?php echo \Session::get('success'); ?></li>
-                  </ul>
-               </div>
-               <?php endif; ?>
-
-               <div class="alert alert-success alert-dismissible fade in" role="alert" id="ajax-alert" style="display:none;">
-                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                     <span aria-hidden="true">×</span>
-                     </button>
-                     <strong> Perfil Actualizado Exitosamente...!!</strong>
-                  </div>
-               <!-- /.tab-pane --><!--Actualizar mi Perfil !-->
-               <div class="tab-pane" id="settings">
-                  
-                  <form class="form-horizontal" id="frm_dataEscort" method="POST">
-                     <?php echo csrf_field(); ?>
-                     <input type="hidden"   id="escort_id"  name="escort_id" value="<?php echo e($data->id); ?>" />
-                     <input type="hidden" id="perfil_id"  name="perfil_id"  value="<?php echo e($data->id_perfil); ?>" />
-                     <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Nombre</label>
-                        <div class="col-sm-10">
-                           <input type="text" class="form-control" id="nombre_escort" name="nombre_escort" value="<?php echo e($data->nombres); ?>" >
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Apellido</label>
-                        <div class="col-sm-10">
-                           <input type="text" class="form-control"  id="apellido_escort" name="apellido_escort"  value="<?php echo e($data->apellidos); ?>" >
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Edad</label>
-                        <div class="col-sm-10">
-                           <input type="text" class="form-control"  id="edad_escort" name="edad_escort"  value="<?php echo e($data->edad); ?>" disabled>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Télefono</label>
-                        <div class="col-sm-10">
-                           <input type="text" class="form-control item" id="telefono_escort" name="telefono_escort" 
-                              placeholder="Phone Number"  data-inputmask="'mask': '+56 9 99 99 99 99 '" value="<?php echo e($data->telefono); ?>">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Comentario</label>
-                        <div class="col-sm-10">
-                           <textarea class="form-control" id="comentario_escort" name="comentario_escort" rows="5" style="resize:none;" ><?php echo e($data->comentario_escort); ?></textarea>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Descripción Servicio</label>
-                        <div class="col-sm-10">
-                           <textarea class="form-control" id="descripcion_servicio_escort" name="descripcion_servicio_escort" rows="5" style="resize:none;"><?php echo e($data->descripcion_servicio); ?></textarea>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Altura</label>
-                        <div class="col-sm-10">
-                           <input type="text" class="form-control" id="altura_escort" name="altura_escort"
-                              name="altura_escort" value="<?php echo e($data->altura); ?>" >
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Medidas</label>
-                        <div class="col-sm-10">
-                           <input type="text" class="form-control" id="medida_escort" name="medida_escort" 
-                              value="<?php echo e($data->medidas); ?>" >
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Hora Inicio</label>
-                        <div class="row">
-                           <div class="col-sm-5">
-                              <div class="bootstrap-timepicker">
-                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker" id="horario_ini_escort" name="horario_ini_escort" value="<?php echo e($data->hora_inicio); ?>"> 
-                                    <div class="input-group-addon">
-                                       <i class="fa fa-clock-o"></i>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Hora Fin</label>
-                        <div class="row">
-                           <div class="col-sm-5">
-                              <div class="bootstrap-timepicker">
-                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker" id="horario_fin_escort" name="horario_fin_escort" value="<?php echo e($data->hora_fin); ?>">
-                                    <div class="input-group-addon">
-                                       <i class="fa fa-clock-o"></i>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Atención</label>
-                        <div class="col-sm-10">
-                           <select class="form-control" 
-                              style="width: 100%;" name="atencion_escort" id="atencion_escort">
-                              <option  value="0">«« SELECCIONE »»</option>
-                              <option  value="Depto Propio" <?php echo $data->atencion == 'Depto Propio' ? 'selected' : ''; ?>>Depto Propio</option>
-                              <option  value="Domicilio"    <?php echo $data->atencion == 'Domicilio' ? 'selected' : ''; ?>>Domicilio</option>
-                              <option  value="Hoteles"      <?php echo $data->atencion == 'Hoteles' ? 'selected' : ''; ?>>Hoteles</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Días Disponibles</label>
-                        <div class="col-sm-10">
-                           <select class="form-control" 
-                              data-placeholder="Seleccione"
-                              style="width: 100%;" name="dias_disponible" id="dias_disponible">
-                              <option  value="0">«« SELECCIONE »»</option>
-                              <option  value="Lunes a Domingo" <?php echo $data->dias_disponibles == 'Lunes a Domingo' ? 'selected' : ''; ?>>Lunes a Domingo</option>
-                              <option  value="Lunes a Viernes" <?php echo $data->dias_disponibles == 'Lunes a Viernes' ? 'selected' : ''; ?>>Lunes a Viernes</option>
-                              <option  value="Lunes a Sabado"  <?php echo $data->dias_disponibles == 'Lunes a Sabado' ? 'selected' : ''; ?>>Lunes a Sabado</option>
-                              <option  value="Viernes a Domingo" <?php echo $data->dias_disponibles == 'Viernes a Domingo' ? 'selected' : ''; ?>>Viernes a Domingo</option>
-                              <option  value="Viernes a Sabado" <?php echo $data->dias_disponibles == 'Viernes a Sabado' ? 'selected' : ''; ?>>Viernes a Sabado</option>
-                              <option  value="Sabado a Domingo" <?php echo $data->dias_disponibles == 'Sabado a Domingo' ? 'selected' : ''; ?>>Sabado a Domingo</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Región</label>
-                        <div class="col-sm-10">
-                           <select name="region_escort" id="region_escort" class="form-control">
-                              <option value="">«« SELECCIONE UNA REGION »»</option>
-                              <?php $__currentLoopData = $regiones; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $region): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <option value="<?php echo e($region->id); ?>" 
-                              <?php echo e($data->region == $region->id ? 'selected' : ''); ?>
-
-                              ><?php echo e($region->nombre); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Comuna</label>
-                        <div class="col-sm-10">
-                           <select name="comuna_escort" id="comuna_escort" class="form-control">
-                              <option value="<?php echo e($sql_desc_comuna->id); ?>"  selected ><?php echo e($sql_desc_comuna->nombre); ?>
-
-                              </option>
-                           </select>
-                        </div>
-                     </div>
-                     <!-- <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Precio</label>
-                        <div class="col-sm-10" style="text-align:left;">
-                           <input type="text" class="form-control" id="precio_escort" 
-                              name="precio_escort" value="<?php echo e($data->precio); ?>" maxlength="10" style="text-align:left;" 
-                              data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits':2, 'digitsOptional': false, 'placeholder': '0'" value="<?php echo e($data->precio); ?>">
-                        </div>
-                     </div> -->
-                      <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Precio</label>
-                        <div class="col-sm-10" style="text-align:left;">
-                           <input type="text" class="form-control" id="precio_escort" 
-                              name="precio_escort" value="<?php echo e($data->precio); ?>" maxlength="10" style="text-align:left;" 
-                               value="<?php echo e($data->precio); ?>">
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Categorias</label>
-                         <div class="col-sm-10">
-                           <select name="categoria_escort" id="categoria_escort" class="form-control">
-                            <option value="">«« SELECCIONE UNA CATEGORIA »»</option>
-                              <?php $__currentLoopData = $categorias; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categoria): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <option value="<?php echo e($categoria->id); ?>" 
-                              <?php echo e($data->categoria_escort == $categoria->id ? 'selected' : ''); ?>
-
-                              ><?php echo e($categoria->nombre); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                           </select>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="inputSkills" class="col-sm-2 control-label">Color de Piel</label>
-                          <div class="col-sm-10">
-                             <select class="form-control" 
-                              data-placeholder="Seleccione"
-                              style="width: 100%;" name="color_piel" id="color_piel">
-                              <option  value="0">«« SELECCIONE »»</option>
-                              <option  value="Triguena" <?php echo $data->color_piel == 'Triguena' ? 'selected' : ''; ?>>Trigueña</option>
-                              <option  value="Blanca" <?php echo $data->color_piel == 'Blanca' ? 'selected' : ''; ?>>Blanca</option>
-                              <option  value="Morena"  <?php echo $data->color_piel == 'Morena' ? 'selected' : ''; ?>>Morena</option>
-                              <option  value="Negra" <?php echo $data->color_piel == 'Negra' ? 'selected' : ''; ?>>Negra</option>
-     
-                           </select>
-                          </div>
-                       </div>
-
-                       <div class="form-group">
-                          <label for="inputSkills" class="col-sm-2 control-label">Color de Cabello</label>
-                          <div class="col-sm-10">
-                             <select class="form-control" 
-                              data-placeholder="Seleccione"
-                              style="width: 100%;" name="color_cabello" id="color_cabello">
-                              <option  value="0">«« SELECCIONE »»</option>
-                              <option  value="Negro" <?php echo $data->color_cabello == 'Negro' ? 'selected' : ''; ?>>Negro</option>
-                              <option  value="Rubia" <?php echo $data->color_cabello == 'Rubia' ? 'selected' : ''; ?>>Rubia</option>
-                              <option  value="Peliroja"  <?php echo $data->color_cabello == 'Peliroja' ? 'selected' : ''; ?>>Peliroja</option>
-                              <option  value="Castano" <?php echo $data->color_cabello == 'Castano' ? 'selected' : ''; ?>>Castaño</option>
-     
-                           </select>
-                          </div>
-                       </div>
-
-                       <div class="form-group">
-                          <label for="inputSkills" class="col-sm-2 control-label">Caracteristicas Fisicas</label>
-                          <div class="col-sm-10">
-                             <select class="form-control" 
-                              data-placeholder="Seleccione"
-                              style="width: 100%;" name="caracteristica_fisicas" id="caracteristica_fisicas">
-                              <option  value="0">«« SELECCIONE »»</option>
-                              <option  value="Delgada" <?php echo $data->caracteristica_fisicas == 'Delgada' ? 'selected' : ''; ?>>Delgada</option>
-                              <option  value="Normal" <?php echo $data->caracteristica_fisicas == 'Normal' ? 'selected' : ''; ?>>Normal</option>
-                              <option  value="Rellena"  <?php echo $data->caracteristica_fisicas == 'Rellena' ? 'selected' : ''; ?>>Rellena</option>
-                              <option  value="Tetona" <?php echo $data->caracteristica_fisicas == 'Tetona' ? 'selected' : ''; ?>>Tetona</option>
-                              <option  value="Culona" <?php echo $data->caracteristica_fisicas == 'Culona' ? 'selected' : ''; ?>>Culona</option>
-     
-                           </select>
-                          </div>
-                       </div>
-
-                     <?php if(!empty($data_tipoServicios)): ?>
-                           <?php $__currentLoopData = $data_tipoServicios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $object): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <?php
-                                 $servicios_escort[] = $object->id_tipo_servicio;
-                                 
-                           ?>
-                       
-                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                         <?php else: ?>
-                          <?php
-                            $servicios_escort[] = array("0");
-                         ?>
-                     <?php endif; ?>
-                      
-            
-              
-                       <div class="form-group">
-                          <label for="inputSkills" class="col-sm-2 control-label">Tipo de Servicios</label>
-                             <div class="col-sm-10">
-                                 <?php if(!empty($servicios_escort)): ?>
-                               
-                                       <?php $__currentLoopData = $tipo_servicios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                       
-                                       <label class="checkbox-inline">
-                                             <input type="checkbox" value="<?php echo e($value->id); ?>" 
-                                             name="tipo_servicios[]" 
-                                          <?php echo e(in_array($value->id, $servicios_escort) ?  'checked' : ''); ?>
-
-                                          ><?php echo ucwords($value->nombre_servicio); ?>
-
-                                       </label>
-                                 
-                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                   <?php else: ?>
-                                      <?php $__currentLoopData = $tipo_servicios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                       
-                                       <label class="checkbox-inline">
-                                             <input type="checkbox" value="<?php echo e($value->id); ?>" 
-                                             name="tipo_servicios[]" 
-                                              ><?php echo ucwords($value->nombre_servicio); ?>
-
-                                       </label>
-                                 
-                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                 <?php endif; ?>
-                            </div>
-                       </div>
-
-
-                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                           <button type="submit" class="btn btn-primary" id="btn_actualizar">Actualizar</button>
-                        </div>
-                     </div>
-                  </form>
-                  <div class="row margin-bottom">
-                     <!-- /.col -->
-                     <!--div class="col-sm-12"!-->
-                     <div class="row">
-                 
-                        <div class="row">
-                           <?php if($sql_foto_escort != ''): ?>
-                           <div class="col-md-11" style="margin-left:15px;">
-                              <div class="box box-primary">
-                                 <div class="box-body">
-                                    <div class="row">
-                                       <div class="col-md-12">
-                                          <?php $__currentLoopData = $sql_foto_escort; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $foto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <form  method="POST" action ="<?php echo e(route('admin.photos.destroy',$foto->url_fotos)); ?>">
-                                             <?php echo e(method_field('DELETE')); ?> <?php echo e(csrf_field()); ?>
-
-                                             <div class="col-md-2">
-                                                <button class="btn btn-danger btn-xs" style="position:absolute">
-                                                <i class="fa fa-remove"></i>
-                                                </button>
-                                                <img class="img-responsive" 
-                                                   src="/uploads_escorts/<?php echo e($foto->url_fotos); ?>" style="margin-bottom:10px;" >
-                                             </div>
-                                          </form>
-                                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <?php endif; ?>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- /.tab-pane -->
-               <div class="tab-pane" id="mis_fotos">
-                  <div class="container">
-                     <div class="row">
-                        <div class="col-md-8">
-                           <div class="panel panel-primary">
-                              <div class="panel-heading">
-                                 Mis Fotos
-                              </div>
-                              <div class="panel-body">
-                                 <form class="dropzone" id="my-dropzone" 
-                                    action=" <?php echo e(route('files.store')); ?>"  
-                                    enctype="multipart/form-data" method="POST" onsubmit="return subirFotos()">
-                                    <?php echo csrf_field(); ?>
-                                    <input type="hidden" id="id_escort"  name="id_escort"  value="<?php echo e($data->id); ?>" />
-                                    <input type="hidden" id="id_perfil"  name="id_perfil"  value="<?php echo e($data->id_perfil); ?>" />
-                                    <div class="dz-message" style="height:200px;">
-                                       Arrastras tus fotos hasta aqui
-                                    </div>
-                                    <div class="dropzone-previews"></div>
-                                    <button type="text"   class="btn btn-primary"  
-                                       id="submit">Subir</button>
-                                 </form>
-                              </div>
-                           </div>
-                        </div>
-                        <hr>
-                     </div>
-                  </div>
-               </div>
-               <!--fin tab mis fotos !-->
-               <!--Tab Galeria de Fotos !-->
-               <div class="tab-pane" id="galleryfotos">
-                  <div class="container-fluid">
-                     <div class="row">
-                        <div class="col-md-12">
-                           <div class="panel panel-primary" style="heigth:30px">
-                              <div class="panel-heading">
-                                 Mis Fotos
-                              </div>
-                              <div class="panel-body">
-                                 <?php if($sql_foto_escort != ''): ?> 
-                                 <div class="albumize" title="Album title" style="overflow: hidden;">
-                                    <div class="container">
-                                       <div class="row">
-                                          <?php $__currentLoopData = $sql_foto_escort; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $foto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                          <div class="col-md-2">
-                                             <div class="thumbnail">
-                                                <a href = "/uploads_escorts/<?php echo e($foto->url_fotos); ?>" title="image title"> 
-                                                <img src="/uploads_escorts/<?php echo e($foto->url_fotos); ?>" 
-                                                   style="height:130px;width: 70%;"></img>
-                                                </a>
-                                             </div>
-                                          </div>
-                                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <?php endif; ?>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!--Tab News !-->
-               <div class="tab-pane" id="uploadNews">
-                  <div><?php echo e($errors->first('cantidad_news')); ?></div>
-                  <form class="form-horizontal" action="<?php echo e(route('admin.addnews.store')); ?>" method="POST">
-                     <?php echo csrf_field(); ?>
-                     <input type="hidden"    id="escort_id"  name="escort_id" value="<?php echo e($data->id); ?>" />
-                     <input type="hidden"      id="perfil_id"  name="perfil_id"  value="<?php echo e($data->id_perfil); ?>" />
-                     <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Agregar Noticia:</label>
-                        <div class="col-sm-10">
-                           <textarea class="form-control" id="add_news_escort" name="add_news_escort" rows="5" style="resize:none;"></textarea>
-                        </div>
-                     </div>
-                     <button type="submit"  class="btn btn-primary"  >Subir</button>
-                  </form>
-               </div>
-            </div>
-            <!--------UPLOAD VIDEO !-->
-            <!-- /.tab-content -->
-         </div>
-         <!-- /.nav-tabs-custom -->
-      </div>
-      <!-- /.col -->
-   </div>
-   </div>
-   <!-- /.row -->
-</section>
-<!-- /.content -->
-</div>
-<?php elseif(($vista == 'Usuario Basico') AND (auth()->user()->hasRole('USUARIO REGISTRADO'))): ?>
-<?php echo $__env->make('admin.partials.usuario_registrado', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
- 
-<?php elseif(($vista == 'ADMIN') AND (auth()->user()->hasRole('Admin'))): ?>
-   <?php echo $__env->make('admin.partials.admin_user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php endif; ?>
+<?php $__env->startSection('css'); ?>
 <?php $__env->stopSection(); ?>
-<script src="/js/jquery-2.1.4.min.js"></script>
+<?php $__env->startSection('content'); ?>
+<div>
+
+<div id="container">
+   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
+ 
+   <?php if($nombre_region == null): ?> 
+   <div style="margin-top:10px;margin-left:10px;"> 
+      <a href="<?php echo e(route('inicio')); ?>" class="btn btn-danger" >
+      <i class="glyphicon glyphicon-plus"></i>
+      <span style="font-size:12px;">Ubicación: Todas las Escorts</span>
+      </a>
+   </div>
+   <?php else: ?>
+   <div style="margin-top:10px;margin-left:10px;">
+      <a href="<?php echo e(route('buscar_todas')); ?>" class="btn btn-danger" >
+      <i class="glyphicon glyphicon-plus"></i>
+      <span style="font-size:12px;">
+      Ubicación: <?php echo e($nombre_region); ?>
+
+      </span>
+      </a>
+      <?php endif; ?>
+   </div>
+   <hr>
+   <div id="demo"  style="color:#ffff;">
+      <?php echo csrf_field(); ?>
+      <?php if(($vista == 'Escort')): ?>
+      <?php echo $__env->make('admin.clientes.acciones_escort', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+      <?php elseif(($vista == 'ADMIN') AND (auth()->user()->hasRole('Admin'))): ?>
+      <?php echo $__env->make('admin.partials.admin_user', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+      <?php elseif((auth()->user()->hasRole('USUARIO REGISTRADO')) OR (auth()->user()->hasRole('Admin'))): ?>
+      <div class="row" style="margin-left:1px">
+         <div class="col-sm-2 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Apariencias Fisicas</button>
+            <ul class="dropdown-menu">
+               <li>
+                  <a href="#" class="small" data-value="Delgada" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" id="checkbox_Delgada" value="Delgada" />&nbsp;Delgada</a>
+               </li>
+               <li><a href="#" class="small" data-value="Normal" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Normal"  value="Normal"/>&nbsp;Normal</a>
+               </li>
+               <li><a href="#" class="small" data-value="Culona" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Culona" value="Culona"/>&nbsp;Culona</a>
+               </li>
+               <li><a href="#" class="small" data-value="Tetona" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Tetona" value="Tetona"/>&nbsp;Tetona</a>
+               </li>
+               <li><a href="#" class="small" data-value="Rellena" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" id="checkbox_Rellena" value="Rellena"/>&nbsp;Rellena</a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-sm-2 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Servicios</button>
+            <ul class="dropdown-menu">
+               <?php $__currentLoopData = $tipo_servicios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tipo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+               <li><a href="#" class="small" data-value="<?php echo $tipo->nombre_servicio; ?>" tabIndex="-1">
+                  <input type="checkbox" value="<?php echo $tipo->nombre_servicio; ?>"   data-filter="Servicios"   id="checkbox_<?php echo $tipo->nombre_servicio; ?>" name="checkFilters[]" />&nbsp;<?php echo $tipo->nombre_servicio; ?>
+
+                  </a>
+               </li>
+               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+         </div>
+         <div class="col-sm-2 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Color de Piel</button>
+            <ul class="dropdown-menu">
+               <li><a href="#" class="small" data-value="Blanca" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]"  id="checkbox_Blanca" value="Blanca" />&nbsp;Blanca</a>
+               </li>
+               <li><a href="#" class="small" data-value="Morena" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]"  id="checkbox_Morena" value="Morena" />&nbsp;Morena</a>
+               </li>
+               <li><a href="#" class="small" data-value="Rubia"  tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Rubia" value="Rubia" />&nbsp;Rubia</a>
+               </li>
+               <li><a href="#" class="small" data-value="Negra" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Negra" value="Negra"/>&nbsp;Negra</a>
+               </li>
+               <li><a href="#" class="small" data-value="Triguena" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Triguena" value="Triguena"/>&nbsp;Trigueña</a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-sm-2 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Color de Cabello</button>
+            <ul class="dropdown-menu">
+               <li><a href="#" class="small" data-value="Negro" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Negro" value="Negro"/>&nbsp;Negro</a>
+               </li>
+               <li><a href="#" class="small" data-value="Peliroja" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]" id="checkbox_Peliroja" value="Peliroja"/>&nbsp;Peliroja</a>
+               </li>
+               <li><a href="#" class="small" data-value="Rubio" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" id="checkbox_Rubio" value="Rubio"/>&nbsp;Rubio</a>
+               </li>
+               <li><a href="#" class="small" data-value="Castaño" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]"  id="checkbox_Castano" value="Castano"/>&nbsp;Castaño</a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-sm-1 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Estatura</button>
+            <ul class="dropdown-menu">
+               <li><a href="#" class="small" data-value="Menos de 1.60" tabIndex="-1">
+                  <input type="checkbox" id="checkbox_1.60" value="1.60" />&nbsp;Menos de 1.60 mts</a>
+               </li>
+               <li><a href="#" class="small" data-value="1.60 a 1.65" tabIndex="-1">
+                  <input type="checkbox" id="checkbox_1.65" value="1.65" />&nbsp;1.60 a 1.65 mts</a>
+               </li>
+               <li><a href="#" class="small" data-value="1.70 a 1.75" tabIndex="-1">
+                  <input type="checkbox" id="checkbox_1.70" />&nbsp;1.70 a 1.75 mts</a>
+               </li>
+               <li><a href="#" class="small" data-value="Más de 1.75" tabIndex="-1">
+                  <input type="checkbox" id="checkbox_1.75"/>&nbsp;Más de 1.75 mts</a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-sm-1 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" style="position: relative;left:35px;" data-toggle="dropdown" value="Apariencia Fisicas">Edad</button>
+            <ul class="dropdown-menu">
+               <li><a href="#" class="small" data-value="18,21"  tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]"  data-filter="Edad" value="18-21" />&nbsp;18 a 21 </a>
+               </li>
+               <li><a href="#" class="small" data-value="21,25"  tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]"   data-filter="Edad" value="21-25"/>&nbsp;21 a 25 </a>
+               </li>
+               <li><a href="#" class="small" data-value="25,30" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]"  data-filter="Edad" value="25-30" />&nbsp;25 a 30 </a>
+               </li>
+               <li><a href="#" class="small" data-value="31,60" tabIndex="-1">
+                  <input type="checkbox"  name="checkFilters[]"  data-filter="Edad" value="31-60" />&nbsp;Mayor de 30
+                  </a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-sm-2 text-center">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Precio</button>
+            <ul class="dropdown-menu">
+               <li><a href="#" class="small" data-value="20.000 a 40.000" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="20000-40000" />&nbsp; $20.000 a $40.000 </a>
+               </li>
+               <li><a href="#" class="small" data-value="45.000 a 60.000" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="45000-60000" />&nbsp; $45.000 a $60.000 
+                  </a>
+               </li>
+               <li><a href="#" class="small" data-value="60.000 a 80.000" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="60000-80000" />&nbsp;$60.000 a $80.000 
+                  </a>
+               </li>
+               <li><a href="#" class="small" data-value="Mayor de 80.000" tabIndex="-1">
+                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="80000-1000000" />&nbsp;Mayor de  $80.000</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+     
+      <hr>
+      <!--Div para mostrar boton de las escorts !-->
+      <div class="divbutton" id="buttonFilter"></div>
+      <br>
+   
+      <div class="row imagetiles" id="resultadoFilter"></div>
+            <div class="imagetiles imgshow" id="divEscorts">
+               <?php if(!empty(($listEscort))): ?>
+               <div class="row">
+                  <?php $__currentLoopData = $listEscort; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <div class="col-md-3">
+                     <div class="thumbnail">
+                        <a href="admin/escort_private_profile/<?php echo e($row->id); ?>">
+                           <img src="<?php echo e(url('uploads/escort_fotos/'.$row->foto_principal)); ?>" alt="Lights" style="width:100%">
+                           <div class="caption">
+                              <p class="text-muted text-center" style="margin-bottom:0px;"><?php echo e(strtoupper($row->apodo_escort)); ?></p>
+                              <p class="text-muted text-center" style="margin-bottom:0px;"><?php echo e($row->telefono); ?></p>
+                              <p class="text-muted text-center" style="margin-bottom:0px;"><?php echo e($row->descripcion_comuna); ?></p>
+                           </div>
+                        </a>
+                     </div>
+                  </div>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+               </div>
+               <?php endif; ?>
+            </div>
+            <?php endif; ?>
+         </div>
+
+</div>
+
+<?php $__env->stopSection(); ?>
+<script src="<?php echo e(url('js/jquery-2.1.4.min.js')); ?>"></script>
+<script src='<?php echo e(url("adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js")); ?>'></script>
+<script src='<?php echo e(url("adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")); ?>'></script>
 <script src='<?php echo e(url("adminlte/bower_components/select2/dist/js/select2.full.min.js")); ?>'></script>
-<!-- bootstrap time picker -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.js'></script>
 <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-<script src='<?php echo e(url("js/albumize.js")); ?>'></script>
-<script src='<?php echo e(url("js/lightbox.js")); ?>'></script>
-<?php $__env->startSection('scripts'); ?> 
 <?php echo Html::script('assets/dist/js/dropzone.js');; ?>
 
-<!-- LightBox -->
-<?php $__env->stopSection(); ?>
+
 <script>
    $j=jQuery.noConflict();
-   
-    $j(document).ready(function () {
-      // Initialize InputMask
-     
-         lightbox.option({
-         'resizeDuration': 200,
-         'wrapAround': true
-      })
-   
-      $j('#show-my-albums-button').click(function(){
-         $j.albumize();
-      });
-   
-        
-        //Subir imagen del perfil automaticamente
-         $("#upfile1").click(function () {
-            $("#file1").trigger('click');
-        
+   $j(document).ready(function () {
+           
+      $j(function () {
+         $j('#cliente-table').DataTable({
+                 'paging'      : true,
+                 'lengthChange': false,
+                 'searching'   : true,
+                 'ordering'    : true,
+                 'info'        : true,
+                 'autoWidth'   : true,
+                 "language": {
+                     "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+                  }
+               })
          });
    
+      $j(document).on('click', '.dropdown-menu-button', function (e) {
+                      e.stopPropagation()
+               });
+        
    
-       $j("#telefono_escort").inputmask('9999-999-9999');
-       $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
-       $j('.select2').select2();
-       $j("#precio_escort").inputmask('Regex', {regex: "^[0-9]{1,6}(\\,\\d{1,2})?$"});
-
-      //  $j("#precio_escort").inputmask({
-      //    'alias': 'decimal',
-      //      rightAlign: true,
-      //    'groupSeparator': '.',
-      //    'autoGroup': true
-      // });
-
-
-       $j('#altura_escort').inputmask('9,99' );
-       $j('#medida_escort').inputmask('99-99-99');
+               // $j('#show-my-albums-button').click(function(){
+               //    $.albumize();
+               // });
+               
+               //Subir imagen del perfil automaticamente
+               $j("#upfile1").click(function () {
+                  $j("#file1").trigger('click');
+               
+                  });
+   
+         // $j("#telefono_escort").inputmask('9999-999-9999');
+         // $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
+         // $j('.select2').select2();
+         // $j("#precio_escort").inputmask('Regex', {regex: "^[0-9]{1,6}(\\,\\d{1,2})?$"});
+   
+   
+         // $j('#altura_escort').inputmask('9,99' );
+         // $j('#medida_escort').inputmask('99-99-99');
     
-         //Timepicker
-         $j('.timepicker').timepicker({
-            showInputs: false
-         })
+         // //Timepicker
+         // $j('.timepicker').timepicker({
+         //    showInputs: false
+         // })
    
         //actualizar informacion de la escort
-       $('#btn_actualizar').on('click', function(e) {
+        $j('#btn_actualizar').on('click', function(e) {
               e.preventDefault();
    
                var data = $("#frm_dataEscort").serialize();
@@ -786,9 +273,9 @@
    
                 //actualizar combo de regiones y comuna
            //para refrescar el combo de factores reporte 5
-           $('select[name="region_escort"]').on('change', function() {
+           $j('select[name="region_escort"]').on('change', function() {
               var stateID = $(this).val();
-              $('select[name="comuna_escort"]').empty();
+              $j('select[name="comuna_escort"]').empty();
            //   alert('stateid:'+ stateID);
    
             if(stateID) {
@@ -859,10 +346,192 @@
                     );
                 }
             };
+   
+   
+   
+      
+            $j('input[name="checkFilters[]"]').on('change', function (e) {
+   
+            e.preventDefault();
+            apariencia_select = []; // reset
+            filterWrapper = $('#resultadoFilter');
+            buttonWrapper = $('#buttonFilter');
+            var filter = $(this).attr("data-filter");
+            
+             
+            $j('input[name="checkFilters[]"]:checked').each(function() {
+                  
+                   
+                     apariencia_select.push($(this).val());
+                     //alert('check_seleccionado:' + apariencia_select);
+                     //console.log(apariencia_select);
+                    
+               
+            });
+   
+            $.ajax({
+                
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+             data:  {
+               "opciones" : apariencia_select,
+                     "filtro": "showFiltros",
+                     "filter": filter
+             }, 
+              url:   '/filter_SelectMenu',
+              type:  'POST',
+                    dataType: "json",
+              success:  function (data) {
+                    
+                      if (data.success == true) {
+                         $('#divEscorts').empty();
+                         $('#images_escorts').empty();
+                         $('#resultadoFilter').empty();
+                         $('#buttonFilter').empty();
+   
+                         //$('#btnFilter').html(apariencia_select + "<i class='glyphicon glyphicon-remove'></i>");
+                   
+                           console.log(data);
+                         
+                           //console.log(data.resultados[0].foto_principal);
+                           filterWrapper.html();
+                           buttonWrapper.html();
+                          //alert(data.resultados[0].apodo_escort)
+                           
+                              for (var i = 0, j = data.resultados.length; i < j; i++){
+                             
+                                 //$(buttonWrapper).append('<li><a href="#">'+ apariencia_select[i] +'</a></li>');
+                                 if(i==0 || i%4 == 0)
+                                 {
+                                  //  $("#buttonFilter").html(apariencia_select +  ' ' + "<i class='glyphicon glyphicon-remove'></i>");
+                                    //var showFilter =  $('#btnFilter').html(apariencia_select +  ' ' + "<i class='glyphicon glyphicon-remove'></i>");
+                                   var showFilter = $("<div class='row'></div>").appendTo(buttonWrapper);
+                                    
+                                    
+                                    var appendEl = $("<div class='row' style='padding-top:5px;'></div>").appendTo(filterWrapper);
+                                 } 
+                                  if (apariencia_select[i] != undefined) {
+                                     // alert("data-filter:" + filter );
+                                      if (filter == "Precio") {
+                                          $("</div><div class='col-md-3 col-sm-3 col-xs-3' style='width:10%;margin-left:20px;'><button type='button' class='btn btn-danger btnRemoveCheckbox' data-filterx = "+filter+" id='button_"+apariencia_select[i]+"' data-value="+apariencia_select[i] + " >"+ apariencia_select[i] + " " + "<i class='glyphicon glyphicon-remove'></i></button></div>").appendTo(showFilter);
+                                      } else {
+                                       $("</div><div class='col-md-3 col-sm-3 col-xs-3' style='width:7%;margin-left:20px;'><button type='button' class='btn btn-danger btnRemoveCheckbox'   data-filterx = "+filter+" id='button_"+apariencia_select[i]+"' data-value="+apariencia_select[i] + " >"+ apariencia_select[i] + " " + "<i class='glyphicon glyphicon-remove'></i></button></div>").appendTo(showFilter);
+                                      }
+                                  }
+                                    $("</div><div class='col-md-3 col-sm-3 col-xs-3'><a href=escort_perfil/"+ data.resultados[i].id +"><img src=uploads/escort_fotos/"+ data.resultados[i].foto_principal  + " data-id="+i+" class='img-responsive img-thumbnail'></a></div>").appendTo(appendEl);
+                                    
+                                
+                               }
+                               
+                              //  $('input[name="checkFilters[]"]').each(function() {
+                              //    if (this.checked) {
+                              //          $(this).prop("checked", false);
+                              //             console.log($(this).val()); 
+                              //       }
+   
+                              //  });
+   
+                          //    console.log(data);
+                 } else {
+                           $('#divEscorts').empty();
+                           $('#images_escorts').empty();
+                           $('#resultadoFilter').empty();
+                         return false;
+                       }
+   
+   
+                    }
+   
+   
+            });
+            
+            }); 
+   
            
    
-    });//fin document on ready
+            //eliminar checkbox seleccionados.
+            $j(document).on('click','.btnRemoveCheckbox',function(e){
+               var valor_seleccionado = $(this).attr("data-value");
+               var opc_remove =  $(this).attr("data-filterx");
+               e.preventDefault();
+               
+               checkbox_select = [];
+               
+                $('input[name="checkFilters[]"]:checked').each(function() {
+                     if ($(this).val() == valor_seleccionado) {
+                        $('#checkbox_'+ valor_seleccionado).attr('checked', false);
+                        $("#button_"+ valor_seleccionado).hide();
+                     } else {
    
+                        checkbox_select.push($(this).val());
+                     }
+   
+   
+               });
+               console.log("valor:" +  checkbox_select);
+              
+               $.ajax({
+                
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                    data:  {
+                      "opciones" : checkbox_select,
+                      "filtro": 'remover_filtro',
+                      "filter": opc_remove
+                    }, 
+                     url:   '/filter_SelectMenu',
+                     type:  'POST',
+                     dataType: "json",
+                     success:  function (data) {
+                     
+                       if (data.success == true) {
+                          $('#divEscorts').empty();
+                          $('#images_escorts').empty();
+                          $('#resultadoFilter').empty();
+                          //$('#buttonFilter').empty();
+   
+                            console.log(data);
+                            //console.log(data.resultados[0].foto_principal);
+                            filterWrapper.html();
+                            buttonWrapper.html();
+                           //alert(data.resultados[0].apodo_escort)
+                            
+                               for (var i = 0, j = data.resultados.length; i < j; i++){
+                              
+                                  if(i==0 || i%4 == 0)
+                                  {
+                                     
+                                     var appendEl = $("<div class='row'></div>").appendTo(filterWrapper);
+                                  } 
+                                     
+                                     
+                                     $("</div><div class='col-md-3 col-sm-3 col-xs-3'><a href=escort_perfil/"+ data.resultados[i].id +"><img src=uploads/escort_fotos/"+ data.resultados[i].foto_principal  + " data-id="+i+" class='img-responsive img-thumbnail'></a></div>").appendTo(appendEl);
+                                     
+                                 
+                                }
+                         
+   
+                              // console.log(data);
+                        } else {
+                            $('#divEscorts').empty();
+                            $('#images_escorts').empty();
+                            $('#resultadoFilter').empty();
+                          return false;
+                        }
+   
+   
+                     }
+   
+   
+                   });
+            });
+   
+              
+              $('.select2').select2();
+   
+   
+   }); 
 </script>
-
 <?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\seductives\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

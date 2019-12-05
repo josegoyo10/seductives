@@ -58,12 +58,16 @@ class DetailController extends Controller
 
 
         if ($rating) {
+
+            //obtiene la sumaria total de evaluaciones de la escort
             $sql_rating_total =  DB::table('ratings')->where("escort_id",'=',Input::get('escort_id'))
-                                   ->sum('rating_total');
+                                   ->sum('rating_total'); // lo que lleva acumulado
 
             //  dd("suma:".$sql_rating_total);
+            
+            //cantidad de veces que ha sido evaluada.
+           $count_escort = Rating::where('escort_id','=', Input::get('escort_id'))->count();
 
-            $count_escort = Rating::where('escort_id','=', Input::get('escort_id'))->count();
             $nota_final =   $sql_rating_total/ $count_escort;
              
             return response()->json(['nota_final' => round($nota_final,2), 'message' => 1]);
@@ -96,6 +100,16 @@ class DetailController extends Controller
         //$listEscort = Escort::all();
         $id_escort = $request->get('escort_id');
    
+        $sql_rating_total =  DB::table('ratings')->where("escort_id",'=',$id_escort)
+                                   ->sum('rating_total'); // lo que lleva acumulado
+
+            //  dd("suma:".$sql_rating_total);
+            
+            //cantidad de veces que ha sido evaluada.
+           $count_escort = Rating::where('escort_id','=', $id_escort)->count();
+
+            $nota_final =   $sql_rating_total/ $count_escort;
+         
 
         $count_escort = Rating::where('escort_id','=',  $id_escort)->count();
 
@@ -124,6 +138,7 @@ class DetailController extends Controller
 
            
             return response()->json(['data' => $listEscort,
+                                       'nota_final' => $nota_final,
                                       'contador' => $count_escort,
                                       'comentarios' => $comentarios_user,
                                       'message' => '1']);

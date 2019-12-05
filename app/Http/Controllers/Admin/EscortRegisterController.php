@@ -12,18 +12,20 @@ use App\User;
 use App\Comment;
 use App\Visited_Profile;
 use App\Rating;
+use App\TipoServicios;
+use App\News;
+use App\Escort_Fotos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use App\ServiciosEscort;
 use Response;
+use Carbon\Carbon;
 
 class EscortRegisterController extends Controller
 {
     
     public function getPerfilRegister($id) {
-        
-         
 
         $user = Auth::user(); 
         // dd($user->id_tipo_usuario);
@@ -166,6 +168,9 @@ class EscortRegisterController extends Controller
 
         return view('admin.escort_register.calificar',compact('data'));
     }
+
+
+   
 
 
 

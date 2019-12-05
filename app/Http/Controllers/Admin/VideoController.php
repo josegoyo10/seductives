@@ -6,12 +6,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Response;
 use App\Video;
+use App\Categorias;
+use App\Region;
+use App\Comuna;
+use App\TipoServicios;
+use Illuminate\Support\Facades\Input;
+
 use Illuminate\Support\Facades\File;
 
 class VideoController extends Controller
 {
      public function index() {
       $user = Auth::user(); 
+      $user = Auth::user();
+      $details = json_decode(file_get_contents("http://ipinfo.io/json"));
+      $regiones =  Region::where('nombre','LIKE',"%{$details->city}%")->get();
+      $opciones =  Input::get('opciones');
+      $nombre_region = trim(str_replace("Región Metropolitana de", " ", $regiones[0]->nombre));
+
+      $regiones    = Region::all();
+      $comunas     = Comuna::all();
+      $categorias   = Categorias::all();
+      $tipo_servicios = TipoServicios::all();
+
 
       $data = DB::table("users")
       ->WHERE("users.email",'=',  $user->email)->first();
@@ -52,7 +69,7 @@ class VideoController extends Controller
       ->orderby('escorts.id')
       ->first();
 
-        return view('admin.clientes.video',compact('data','clientes'));
+        return view('admin.clientes.video',compact('data','clientes','regiones', 'comunas','categorias','tipo_servicios'));
      }
 
 

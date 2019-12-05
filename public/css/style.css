@@ -1,7 +1,7 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
 @import url(//fonts.googleapis.com/css?family=Roboto:100,400,300,500,700,900);
 body {
-	background: #ffffff url(../img/bg_pic2.jpg) center 0 no-repeat;
+	/*background: #ffffff url(../img/bg_pic2.jpg) center 0 no-repeat;*/
 	font: 14px 'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 1.428571429;
 	color: #24201f;
@@ -282,7 +282,7 @@ header.indent h1.navbar-brand_ {
 }
 footer {
 	padding: 58px 0;
-	background: #e6f5eb;
+	background: #1C0000;
 }
 footer p {
 	font: 600 14px/20px 'Open Sans';
@@ -291,6 +291,7 @@ footer p {
 	float: left;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+	margin-top: 10px;
 }
 footer p a {
 	color: #b1c5b8;

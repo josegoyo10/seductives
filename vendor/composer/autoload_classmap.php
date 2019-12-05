@@ -61,6 +61,7 @@ return array(
     'App\\Region' => $baseDir . '/app/Region.php',
     'App\\Role' => $baseDir . '/app/Role.php',
     'App\\ServiciosEscort' => $baseDir . '/app/ServiciosEscort.php',
+    'App\\Servicios_Evaluados' => $baseDir . '/app/Servicios_Evaluados.php',
     'App\\TipoServicios' => $baseDir . '/app/TipoServicios.php',
     'App\\TipoUsuario' => $baseDir . '/app/TipoUsuario.php',
     'App\\User' => $baseDir . '/app/User.php',

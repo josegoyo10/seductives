@@ -313,7 +313,7 @@ class EscortController extends Controller
        ->join("perfiles","perfiles.id_escort","=","news.escort_id")
        ->get();
 
-       $today = Carbon::today()->toDateString();
+        $today = Carbon::today()->toDateString();
 
  
           

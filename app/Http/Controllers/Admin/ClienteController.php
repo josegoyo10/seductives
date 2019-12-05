@@ -10,6 +10,7 @@ use App\Region;
 use App\Comuna;
 use App\Like;
 use App\ServiciosEscort;
+use App\TipoServicios;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
@@ -140,6 +141,8 @@ class ClienteController extends Controller
           $data = DB::table("users")
           ->WHERE("users.email",'=',  $user->email)->first();
 
+
+          $tipo_servicios = TipoServicios::all();
            $regiones = Region::all();
            $comunas   = Comuna::all();
 
@@ -178,7 +181,8 @@ class ClienteController extends Controller
           ->SELECT("comuna.id","comuna.nombre")
           ->WHERE("comuna.id",'=', $query->comuna)->first();
 
-           return view('admin.clientes.show', compact('query','sql_foto_escort','regiones','comunas','sql_desc_comuna','data'));
+           return view('admin.clientes.show', compact('query',
+           'sql_foto_escort','regiones','comunas','sql_desc_comuna','data','tipo_servicios'));
 
        }
 

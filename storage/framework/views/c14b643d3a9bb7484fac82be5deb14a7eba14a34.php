@@ -7,19 +7,19 @@
                <table id="cliente-table" class="table table-bordered table-striped">
                   <thead>
                      <tr>
-                        <th>Run</th>
-                        <th>Nombres</th>
-                        <th>Email</th>
-                        <th>Fecha Nacimiento</th>
-                        <th>Nacionalidad</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
+                        <th width="10%" style="font-size:14px;">Run</th>
+                        <th width="15%" style="font-size:14px;">Nombres</th>
+                        <th width="30%" style="font-size:14px;">Email</th>
+                        <th width="14%" style="font-size:14px;">Fecha Nacimiento</th>
+                        <th width="12%" style="font-size:14px;">Nacionalidad</th>
+                        <th width="10%" style="font-size:14px;">Estado</th>
+                        <th width="9%" style="font-size:14px;">Acciones</th>
                      </tr>
                   </thead>
                   <tbody>
                      <?php $__currentLoopData = $clientes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cliente): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                      <tr>
-                        <td><?php echo e($cliente->rut); ?></td>
+                        <td width="10%"><?php echo e($cliente->rut); ?></td>
                         <td><?php echo e($cliente->nombres); ?> <?php echo e($cliente->apellidos); ?> </td>
                         <td><?php echo e($cliente->email); ?></td>
                         <td><?php echo e($cliente->fecha_nacimiento); ?></td>

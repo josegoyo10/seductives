@@ -46,9 +46,10 @@
       Route::group(['prefix' => 'admin','namespace'=>'Admin','middleware' => 'auth'],
                 function () {
            //rutas de administración
-           
+        
 
           Route::get('clientes', 'ClienteController@index')->name('admin.clientes.index');
+          
           Route::get('showInfoCliente/{id}', 'ClienteController@getInfoCliente')->name('admin.clientes.info');
           Route::get('updateestado_escort', 'ClienteController@updateEstadoescort')->name('admin.clientes.updateEstado');            
           
@@ -110,6 +111,23 @@
 
           //obtener calificacion total de la escort.
            Route::post('/calificacion/total_escort', 'DetailController@showCalifications')->name('admin.total.calification');
+
+
+           //buscar el perfil de una escort una vez logueado
+           Route::get('escort_private_profile/{id}','AdminController@ShowPerfilEscort');
+           Route::post('search_escort', 'AdminController@searchEscort')->name('admin.search_escort');
+           Route::get('/', 'AdminController@inicio')->name('admin');
+
+               //Rutas del Menu de Categorias Admin.
+            Route::get('list-category/{categorias}','AdminController@inicio')->name('list-category');
+            Route::get('list-services/escort_perfil/{id}','AdminController@ListServiceEscort')->name('list-services');
+            Route::get('listar_maduras/escort_perfil/{id}','EscortController@getPerfilEscort')->name('escort.perfil');
+             
+            Route::get('ver-clientas', 'AdminController@VerClientas')->name('ver-clientas');
+            Route::get('escort-acciones', 'AdminController@actionEscort')->name('escort-acciones');
+            
+
+
 
       }); 
 

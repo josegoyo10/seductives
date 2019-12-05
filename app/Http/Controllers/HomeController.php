@@ -33,12 +33,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+
+    public function index($categorias=null)
     {
         //return viesw('home');
         $user = Auth::user();
       //dd($user);
       $ldate = date('d-m-Y H:i:s');
+
+      $details = json_decode(file_get_contents("http://ipinfo.io/json"));
+
+	  	$regiones =  Region::where('nombre','LIKE',"%{$details->city}%")->get();
+
+		  $opciones =  Input::get('opciones');
+	  	$nombre_region = trim(str_replace("Región Metropolitana de", " ", $regiones[0]->nombre));
 
       $likes_user = Like::select(['likes_count.*'])
                        ->groupBy('id')
@@ -52,9 +60,9 @@ class HomeController extends Controller
                        ->groupBy('id')
                        ->count();
            
+    $buscar = Input::get('search_escort');
     
-    
-    //dd($user->id_tipo_usuario );
+  //dd($user->id_tipo_usuario );
 
      if ($user->id_tipo_usuario == 1) {
 
@@ -143,6 +151,147 @@ class HomeController extends Controller
         $data = DB::table("users")
         ->WHERE("users.email",'=',  $user->email)->first();
 
+         
+        if  ($opciones != '') {
+
+          $listEscort = DB::table("escorts")
+            ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+            "escorts.nacionalidad",
+            "escorts.apodo_escort",
+            "perfiles.edad",
+            "perfiles.comuna",
+            "perfiles.telefono",
+            "perfiles.altura",
+            "perfiles.medidas",
+            "perfiles.foto_principal",
+            "regiones.nombre as descripcion_region",
+            "comuna.nombre as descripcion_comuna" )
+            ->join("perfiles","perfiles.id_escort","=","escorts.id")
+            ->join("regiones","regiones.id","=","perfiles.region")
+            ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+            ->whereIn('caracteristica_fisicas', $opciones)
+            ->get();
+           
+        }else {
+          
+          
+          if ($buscar != '') {
+
+             
+              $listEscort = DB::table("escorts")
+              ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+              "escorts.nacionalidad",
+              "escorts.apodo_escort",
+              "perfiles.edad",
+              "perfiles.comuna",
+              "perfiles.telefono",
+              "perfiles.altura",
+              "perfiles.medidas",
+              "perfiles.foto_principal",
+              "regiones.nombre as descripcion_region",
+              "comuna.nombre as descripcion_comuna" )
+              ->join("perfiles","perfiles.id_escort","=","escorts.id")
+              ->join("regiones","regiones.id","=","perfiles.region")
+              ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+              ->where("escorts.id_estado",'=','3')
+              ->where('escorts.apodo_escort', 'like', '%'. $buscar . '%')
+              ->orderby('escorts.id')
+            ->get();
+    
+    
+            } else if (($buscar == '') && ($categorias == '')) {
+    
+             
+              $listEscort = DB::table("escorts")
+                    ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+                    "escorts.nacionalidad",
+                    "escorts.apodo_escort",
+                    "perfiles.edad",
+                    "perfiles.comuna",
+                    "perfiles.telefono",
+                    "perfiles.altura",
+                    "perfiles.medidas",
+                    "perfiles.foto_principal",
+                    "regiones.nombre as descripcion_region",
+                    "comuna.nombre as descripcion_comuna" )
+                    ->join("perfiles","perfiles.id_escort","=","escorts.id")
+                    ->join("regiones","regiones.id","=","perfiles.region")
+                    ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+                    ->Where("perfiles.region","=",$regiones[0]->id)
+                    ->where("escorts.id_estado",'=','3')
+                    ->orderby('escorts.id')
+                  ->get();
+
+                  //dd($data);
+
+
+            } else {
+              if ( $categorias != '') {
+    
+                $id_categoria = DB::table("categorias")
+                ->select("categorias.id")
+                ->where("categorias.nombre",'=',$categorias)->first();
+              
+                  if ($id_categoria <> null) {
+              
+    
+                    $listEscort = DB::table("escorts")
+                      ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+                      "escorts.nacionalidad",
+                      "escorts.apodo_escort",
+                      "perfiles.edad",
+                      "perfiles.comuna",
+                      "perfiles.telefono",
+                      "perfiles.altura",
+                      "perfiles.medidas",
+                      "perfiles.foto_principal",
+                      "regiones.nombre as descripcion_region",
+                      "comuna.nombre as descripcion_comuna" )
+                      ->join("perfiles","perfiles.id_escort","=","escorts.id")
+                      ->join("regiones","regiones.id","=","perfiles.region")
+                      ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+                      ->Where("perfiles.categoria_escort", '=', $id_categoria->id)
+                      ->orderby('escorts.id')
+                      ->get();
+    
+              //dd($data);
+    
+              } else {
+                if ( $categorias != '') {
+                  //dd($categorias);
+                  $listEscort = DB::table("escorts")
+                  ->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
+                  "escorts.nacionalidad",
+                  "escorts.apodo_escort",
+                  "perfiles.edad",
+                  "perfiles.comuna",
+                  "perfiles.telefono",
+                  "perfiles.altura",
+                  "perfiles.medidas",
+                  "perfiles.foto_principal",
+                  "regiones.nombre as descripcion_region",
+                  "comuna.nombre as descripcion_comuna" )
+                  ->join("perfiles","perfiles.id_escort","=","escorts.id")
+                  ->join("regiones","regiones.id","=","perfiles.region")
+                  ->join("comuna", "comuna.id", "=", "perfiles.comuna")
+                  ->join("servicios_escort", "servicios_escort.id_escort", "=", "escorts.id")
+                  ->join("tipo_servicios", "tipo_servicios.id", "=", "servicios_escort.id_tipo_servicio")
+                  ->Where("tipo_servicios.id", '=', $categorias)
+                  ->orderby('escorts.id')
+                  ->get();
+    
+                //dd($data);
+    
+                  }
+    
+                }
+              }
+            }
+      
+        }
+
+       
+
         $clientes =  DB::table("escorts")
         ->select("escorts.id",
           "escorts.nombres",
@@ -198,6 +347,7 @@ class HomeController extends Controller
        ->SELECT("comuna.id","comuna.nombre");
 
        $count = Comment::where(['user_id' => $data->id ])->count();
+      // dd($count);
 
       }elseif ($user->id_tipo_usuario == 3) {
 
@@ -255,6 +405,7 @@ class HomeController extends Controller
                     $comentarios =  Comment::all();
                     $categorias   = Categorias::all();
                     $tipo_servicios = TipoServicios::all();
+                    
                     $data_tipoServicios = DB::table("servicios_escort")
                     ->select("servicios_escort.id_escort","servicios_escort.id_tipo_servicio","tipo_servicios.nombre_servicio")
                     ->join("tipo_servicios","tipo_servicios.id","=","servicios_escort.id_tipo_servicio")
@@ -263,8 +414,10 @@ class HomeController extends Controller
 
       }
     
-  
-       return view('admin.dashboard', compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort','comentarios','categorias','tipo_servicios','data_tipoServicios'));
+       
+     
+       return view('admin.dashboard', compact('data','sql_foto_escort','regiones','comunas','sql_desc_comuna','vista','clientes','count','ldate','usuario','likes_user','seen','coments_escort',
+       'comentarios','categorias','tipo_servicios','data_tipoServicios','nombre_region','listEscort'));
         
     }
 }

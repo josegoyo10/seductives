@@ -518,6 +518,7 @@ class ComposerStaticInita8d3cabfdd06becbd5837cd53637ed35
         'App\\Region' => __DIR__ . '/../..' . '/app/Region.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\ServiciosEscort' => __DIR__ . '/../..' . '/app/ServiciosEscort.php',
+        'App\\Servicios_Evaluados' => __DIR__ . '/../..' . '/app/Servicios_Evaluados.php',
         'App\\TipoServicios' => __DIR__ . '/../..' . '/app/TipoServicios.php',
         'App\\TipoUsuario' => __DIR__ . '/../..' . '/app/TipoUsuario.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',

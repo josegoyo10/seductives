@@ -1,10 +1,18 @@
 <footer>
-    <div class="container">
-        <figure> 
-           <img src="{{ asset('images/img/sed.png') }}" alt="" style="width:280px;">
+   <div class="container" style="background-color:#1C0000;">
+      <div id="fizquerda" style=" position: 'relative', top: '-15px'">
+         <p style="font-size:8px;">Seductives es un sitio solo para mayores de 18 años.
+            Seductives NO es un sitio de agencia, ni tiene vínculo laboral con los avisadores.
+            Seductives es un sitio de Prensa y Publicación Visual de textos y fotografías de los avisadores.
+            Seductives no es responsable de ninguno de los productos o servicios publicados por los avisadores, 
+            quienes son independientes.
+         </p>
+      </div>
+     
+         <img src="{{ asset('images/logo1.png') }}" alt="">
+   </div>
+   <div id="fabajo">
+                <h6> Copyright 2019 © Todos los derechos reservados</h6>
+            </div>
             
-            </figure>
-        <p>&copy; <em id="copyright-year"></em><br><a href="index-5.html">Derechos Reservados</a></p>
-    </div>
-  <!-- {%FOOTER_LINK} -->
 </footer>
