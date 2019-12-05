@@ -103,13 +103,19 @@ class DetailController extends Controller
         $sql_rating_total =  DB::table('ratings')->where("escort_id",'=',$id_escort)
                                    ->sum('rating_total'); // lo que lleva acumulado
 
-            //  dd("suma:".$sql_rating_total);
+          // dd("suma:".$sql_rating_total);
             
             //cantidad de veces que ha sido evaluada.
            $count_escort = Rating::where('escort_id','=', $id_escort)->count();
+          //dd($count_escort);
 
-            $nota_final =   $sql_rating_total/ $count_escort;
+        if ( $sql_rating_total != 0) {
+              $nota_final =   $sql_rating_total/ $count_escort;
          
+        } else {
+            $nota_final = 0;
+
+        }
 
         $count_escort = Rating::where('escort_id','=',  $id_escort)->count();
 

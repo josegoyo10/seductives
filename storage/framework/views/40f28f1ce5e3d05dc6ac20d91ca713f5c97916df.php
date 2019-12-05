@@ -1,5 +1,6 @@
 <?php $__env->startSection('content'); ?>
 <div class="container">
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
    <div class="row">
       <div class="col-sm-4">
          <div class="text-center">
@@ -88,13 +89,7 @@
                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                            Calificar Escort
                            </button>
-                           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                 Launch demo modal
-                              </button>
-
-
-
-                           <?php endif; ?>
+                  <?php endif; ?>
                </div>
             </div>
          </div>
@@ -113,6 +108,9 @@
                <p><?php echo e($data->descripcion); ?></p>
             </div>
          </div>
+         <div  class="text-center">
+             <button type="button" class="btn btn-danger">Escribir Comentario </button>
+            </div>
       </div>
    </div>
 </div>
@@ -150,33 +148,6 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -217,8 +188,9 @@
                               <option value="9">9</option>
                               <option value="10">10</option>
                            </select>
+                           <p style="color:red;display:none;" id="error_llamada" > campos requeridos (*) </p>
                         </div>
-                     </td>
+                     </td>  
                      <td>
                         <span style="font-size:14px">Lugar de Atención: </span>
                         <div  id='lugar_atencion' data-id="lugar_atencion"></div>
@@ -235,6 +207,7 @@
                            <option value="9">9</option>
                            <option value="10">10</option>
                         </select>
+                        <p style="color:red;display:none;" id="error_eleccion_lugar_atencion" > campos requeridos (*) </p> 
                      </td>
                      <td>
                         <span style="font-size:14px">Presentación personal:</span>
@@ -252,6 +225,7 @@
                            <option value="9">9</option>
                            <option value="10">10</option>
                         </select>
+                          <p style="color:red;display:none;" id="error_eleccion_present_personal" > campos requeridos (*) </p> 
                      </td>
                   </tr>
                   <hr>
@@ -277,6 +251,7 @@
                            <option value="9">9</option>
                            <option value="10">10</option>
                         </select>
+                        <p style="color:red;display:none;" id="error_eleccion_rostro" > campos requeridos (*) </p> 
                      </td>
                      <td>
                         <span style="font-size:14px">Busto:</span>  
@@ -294,6 +269,7 @@
                            <option value="9">9</option>
                            <option value="10">10</option>
                         </select>
+                        <p style="color:red;display:none;" id="error_eleccion_busto" > campos requeridos (*) </p> 
                      </td>
                      <td>
                         <span style="font-size:14px">Trasero:</span>
@@ -311,6 +287,7 @@
                            <option value="9">9</option>
                            <option value="10">10</option>
                         </select>
+                        <p style="color:red;display:none;" id="error_eleccion_trasero" > campos requeridos (*) </p>
                      </td>
                   </tr>
                   <hr>
@@ -613,14 +590,19 @@
               var valor_nota    = getPromedio();
               var  contador_servicios = $('#cont_servicios').val();
               var acum = 0;           
-   
+              var eleccion_llamada           = $('#eleccion_llamada').val();
+              var eleccion_lugar_atencion    = $('#eleccion_lugar_atencion').val();
+              var eleccion_present_personal  = $('#eleccion_present_personal').val();
+              var eleccion_rostro            = $('#eleccion_rostro').val();
+              var eleccion_busto             = $('#eleccion_busto').val();
+              var eleccion_trasero           = $('#eleccion_trasero').val();
+              
               $(".options").each(function() {
                  if ($(this).val() == "0") {
                   acum+=1;
                     
                  }
              });
-   
    
    
               var average_final = (valor_nota/(contador_servicios -  acum)).toFixed(2);
@@ -630,14 +612,65 @@
               var array_services = [];
               //$(this).attr('data-nombre')
               var isValid = true;
-              $(".options").each(function() {
-                 $(".error").html();
-                 if ($(this).val() == " ") {
-                   cont+=1;
-                    isValid = false;
-                 }
-             });
-   
+            //   $(".options").each(function() {
+            //      $(".error").html();
+            //      if ($(this).val() == " ") {
+            //        cont+=1;
+            //         isValid = false;
+            //      }
+            //  });
+             if (eleccion_llamada == 0) {
+                  $('#error_llamada').show();
+                      cont+=1;
+                     isValid = false;
+               } else if (eleccion_lugar_atencion == 0) {
+                    $('#error_llamada').hide();
+                    $('#error_eleccion_lugar_atencion').show();
+                     cont+=1;
+                     isValid = false;
+ 
+                } else if (eleccion_present_personal == 0) {
+                    $('#error_llamada').hide();
+                    $('#error_eleccion_lugar_atencion').hide();
+                    $('#error_eleccion_present_personal').show();
+                     cont+=1;
+                     isValid = false;
+
+                } else if (eleccion_rostro == 0) {
+                    $('#error_llamada').hide();
+                    $('#error_eleccion_lugar_atencion').hide();
+                    $('#error_eleccion_present_personal').hide();
+                    $('#error_eleccion_rostro').show();
+                     cont+=1;
+                     isValid = false;
+
+                } else if (eleccion_busto == 0) {
+                    $('#error_llamada').hide();
+                    $('#error_eleccion_lugar_atencion').hide();
+                    $('#error_eleccion_present_personal').hide();
+                    $('#error_eleccion_rostro').hide();
+                    $('#error_eleccion_busto').show();
+                     cont+=1;
+                     isValid = false;
+
+                   
+                } else if (eleccion_trasero == 0) {
+
+                    $('#error_llamada').hide();
+                    $('#error_eleccion_lugar_atencion').hide();
+                    $('#error_eleccion_present_personal').hide();
+                    $('#error_eleccion_rostro').hide();
+                    $('#error_eleccion_busto').hide();
+                    $('#error_eleccion_trasero').show();
+                     cont+=1;
+                     isValid = false;
+
+                } else {
+                  $('#error_eleccion_trasero').hide();
+                  cont = 0;
+                }
+             
+           
    
    
              if (cont > 0) {
