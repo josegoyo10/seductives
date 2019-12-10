@@ -1,6 +1,7 @@
 @include('header')
 <body>
-   <div class="containerx">
+   <div>
+   <meta name="csrf-token" content="{{ csrf_token() }}">
       <div id="barraTop">
          <div id="menuC1">
             <a href="{{ route('inicio')}}"> <img id="logoBarraTop" src="{{ asset('images/sedchico.png') }}"></a>
@@ -115,6 +116,7 @@
    </div>
    @include('footer')
 </body>
+<!-- <script src='js/app.js'></script> -->
 <script src='{{ url("js/jquery.easy-ticker.js") }}'></script>
 <script>
 

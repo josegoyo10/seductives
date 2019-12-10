@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Events\WebsocketDemoEvent;
 use Illuminate\Http\Request;
 use App\Escort;
 use App\Perfil;
@@ -25,11 +25,13 @@ class PagesController extends Controller
 		// 	->where('published_at','<=', Carbon::now())
 		// ->latest('published_at')->get();
 
+		//\broadcast(new WebsocketDemoEvent('some data'));
+
        // se llama a el query scope declarado en el modelo Post llamdo scopePublished de esta forma
 		//podemos reusar con una sola linea
-       
+
 		//$posts = Post::published()->paginate(1);
-		
+
 		$details = json_decode(file_get_contents("http://ipinfo.io/json"));
 
 		$regiones =  Region::where('nombre','LIKE',"%{$details->city}%")->get();
@@ -38,11 +40,11 @@ class PagesController extends Controller
 		$nombre_region = trim(str_replace("Región Metropolitana de", " ", $regiones[0]->nombre));
 
 		//dd($opciones);
-	  
+
 		//dd($nombre_region);
 
 		$vista =  Input::get('filtro');
-		
+
 		$tipo_servicios = TipoServicios::all();
 		$noticias = DB::table("news")
 					->select("news.escort_id","news.descripcion","news.created_at","perfiles.foto_principal")
@@ -50,7 +52,7 @@ class PagesController extends Controller
 					->get();
 
 		$today = Carbon::today()->toDateString();
-	
+
 		$buscar = Input::get('search_escort');
 		//$categorias = Input::get('categoria');
 
@@ -99,7 +101,7 @@ class PagesController extends Controller
 
 				} else if (($buscar == '') && ($categorias == '')) {
 
-					
+
 					$data = DB::table("escorts")
 								->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 								"escorts.nacionalidad",
@@ -125,9 +127,9 @@ class PagesController extends Controller
 						$id_categoria = DB::table("categorias")
 						->select("categorias.id")
 						->where("categorias.nombre",'=',$categorias)->first();
-					
+
 							if ($id_categoria <> null) {
-					
+
 
 								$data = DB::table("escorts")
 									->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
@@ -151,7 +153,7 @@ class PagesController extends Controller
 					//dd($data);
 
 
-					
+
 
 					} else {
 						if ( $categorias != '') {
@@ -184,7 +186,7 @@ class PagesController extends Controller
 						}
 					}
 				}
-	
+
 		}
     	return view('welcome', compact('data','noticias','today','tipo_servicios','nombre_region'));
 
@@ -193,7 +195,7 @@ class PagesController extends Controller
 
 
    public function searchall() {
-	
+
 	$noticias = DB::table("news")
 	->select("news.escort_id","news.descripcion","news.created_at","perfiles.foto_principal")
 	->join("perfiles","perfiles.id_escort","=","news.escort_id")
@@ -223,9 +225,9 @@ class PagesController extends Controller
 	->where("escorts.id_estado",'=','3')
 	->orderby('escorts.id')
 	->get();
-	
+
 	return view('welcome', compact('data','noticias','today','tipo_servicios','nombre_region'));
-	
+
    }
 
 
@@ -235,7 +237,7 @@ class PagesController extends Controller
 		$filtro   =  Input::get('filtro');
 		$filter   = Input::get('filter');
 	//dd($filter);
-		
+
 		$tipo_servicios = TipoServicios::all();
 
 	if (isset($opciones)) {
@@ -251,11 +253,11 @@ class PagesController extends Controller
 	   // En caso que el filtro sea edad.
 	 //dd($filter);
 	    if (($filter == "Edad")) {
-	       
+
 			$data = [];
 			foreach($opciones as $key=>$value) {
 				$myArray = explode('-', $value);
-                
+
 						$sql = DB::table("escorts")
 						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 						"escorts.nacionalidad",
@@ -280,15 +282,15 @@ class PagesController extends Controller
 			}
 			$results = $collection->flatten();
 
-			return response()->json(['success' => true, 
-									'Message' => 'existe filtro.',  
+			return response()->json(['success' => true,
+									'Message' => 'existe filtro.',
 									'resultados' => $results]);
 
 		} elseif (($filter == "Precio")) {
 			$data = [];
 			foreach($opciones as $key=>$value) {
 				$myArray = explode('-', $value);
-                
+
 						$sql = DB::table("escorts")
 						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 						"escorts.nacionalidad",
@@ -313,9 +315,9 @@ class PagesController extends Controller
 			}
 			$results = $collection->flatten();
 
-             
-					return response()->json(['success' => true, 
-					'Message' => 'existe filtro.',  
+
+					return response()->json(['success' => true,
+					'Message' => 'existe filtro.',
 					'resultados' => $results]);
 
 
@@ -341,14 +343,14 @@ class PagesController extends Controller
 						 ->whereIn('tipo_servicios.nombre_servicio', $opciones)
 						->get();
 
-			
-						return response()->json(['success' => true, 
-						'Message' => 'existe filtro.',  
+
+						return response()->json(['success' => true,
+						'Message' => 'existe filtro.',
 						'resultados' => $data]);
 
-		} else {		
-			
-			
+		} else {
+
+
 			$data = DB::table("escorts")
 						->select("escorts.id","escorts.nombres","escorts.apellidos","escorts.email",
 						"escorts.nacionalidad",
@@ -371,27 +373,27 @@ class PagesController extends Controller
 
 
 					//return $data;
-					return response()->json(['success' => true, 
-							'Message' => 'existe filtro.',  
+					return response()->json(['success' => true,
+							'Message' => 'existe filtro.',
 							'resultados' => $data]);
 				//->join("servicios_escort", "servicios_escort.id_escort", "=", "perfiles.id_escort")
 				//->join("tipo_servicios", "tipo_servicios.id", "=", "servicios_escort.id_tipo_servicio")
-		
+
 			   }
-	    
+
 		  } else {
-					return response()->json(['error' => false, 
-					'Message' => 'no existe.',  
+					return response()->json(['error' => false,
+					'Message' => 'no existe.',
 					'resultados' =>"0"]);
 			   }
-			
+
 	}
-	
+
 
 
 
 	public function getGeoLocationxx () {
-		
+
 		$details = json_decode(file_get_contents("http://ipinfo.io/json"));
 
 		$regiones =  Region::where('nombre','LIKE',"%{$details->city}%")->get();
@@ -403,7 +405,7 @@ class PagesController extends Controller
 		->get();
 
 		$today = Carbon::today()->toDateString();
-		
+
 		$vista = Input::get('vista');
 
 		$data = DB::table("escorts")
@@ -424,16 +426,16 @@ class PagesController extends Controller
 		->orWhere("perfiles.region","=",$regiones[0]->id)
 		->orderby('escorts.id')
 		->get();
-	   
+
 		return Response::json( array(
-			'data' => $data, 
+			'data' => $data,
 			'vista' => $vista
 			));
-	
-		
+
+
 		//view('welcome', compact('data','noticias','today','vista'));
-	
-		
+
+
 	}
 
 

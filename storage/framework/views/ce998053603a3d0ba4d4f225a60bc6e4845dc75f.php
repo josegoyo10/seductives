@@ -1,6 +1,7 @@
 <?php echo $__env->make('header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <body>
-   <div class="containerx">
+   <div>
+   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
       <div id="barraTop">
          <div id="menuC1">
             <a href="<?php echo e(route('inicio')); ?>"> <img id="logoBarraTop" src="<?php echo e(asset('images/sedchico.png')); ?>"></a>
@@ -115,6 +116,7 @@
    </div>
    <?php echo $__env->make('footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </body>
+<!-- <script src='js/app.js'></script> -->
 <script src='<?php echo e(url("js/jquery.easy-ticker.js")); ?>'></script>
 <script>
 

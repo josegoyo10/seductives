@@ -1,13 +1,12 @@
 <?php $__env->startSection('css'); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="global indentx">
-<!--content-->
+<div  class="global indentx">
+
 <div class="containerxx">
-   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
    <!--&nbsp; <?php echo ($nombre_region == null ? 'Todas las Escorts' : $nombre_region ); ?> !-->
-   <?php if($nombre_region == null): ?> 
-   <div style="margin-top:10px;margin-left:10px;"> 
+   <?php if($nombre_region == null): ?>
+   <div style="margin-top:10px;margin-left:10px;">
       <a href="<?php echo e(route('inicio')); ?>" class="btn btn-danger" >
       <i class="glyphicon glyphicon-plus"></i>
       <span style="font-size:12px;">Ubicación: Todas las Escorts</span>
@@ -27,7 +26,7 @@
    <hr>
    <div id="demo"  style="color:#ffff;">
       <?php echo csrf_field(); ?>
-     
+
       <div class="row" style="margin-left:1px">
          <div class="col-sm-2 text-center">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" value="Apariencia Fisicas">Apariencias Fisicas</button>
@@ -141,11 +140,11 @@
                   <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="20000-40000" />&nbsp; $20.000 a $40.000 </a>
                </li>
                <li><a href="#" class="small" data-value="45.000 a 60.000" tabIndex="-1">
-                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="45000-60000" />&nbsp; $45.000 a $60.000 
+                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="45000-60000" />&nbsp; $45.000 a $60.000
                   </a>
                </li>
                <li><a href="#" class="small" data-value="60.000 a 80.000" tabIndex="-1">
-                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="60000-80000" />&nbsp;$60.000 a $80.000 
+                  <input type="checkbox" name="checkFilters[]" data-filter="Precio" value="60000-80000" />&nbsp;$60.000 a $80.000
                   </a>
                </li>
                <li><a href="#" class="small" data-value="Mayor de 80.000" tabIndex="-1">
@@ -186,6 +185,7 @@
 </div>
 <!--global indent !-->
 <?php $__env->stopSection(); ?>
+
 <script src="<?php echo e(url('js/jquery-2.1.4.min.js')); ?>"></script>
 <script src='<?php echo e(url("adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js")); ?>'></script>
 <script src='<?php echo e(url("adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")); ?>'></script>
@@ -200,7 +200,7 @@
 <script>
    $j=jQuery.noConflict();
    $j(document).ready(function () {
-           
+
       $j(function () {
          $j('#cliente-table').DataTable({
                  'paging'      : true,
@@ -214,40 +214,40 @@
                   }
                })
          });
-   
+
       $j(document).on('click', '.dropdown-menu-button', function (e) {
                       e.stopPropagation()
                });
-        
-   
+
+
                // $j('#show-my-albums-button').click(function(){
                //    $.albumize();
                // });
-               
+
                //Subir imagen del perfil automaticamente
                $j("#upfile1").click(function () {
                   $j("#file1").trigger('click');
-               
+
                   });
-   
+
          // $j("#telefono_escort").inputmask('9999-999-9999');
          // $j('#horario_escort').inputmask("9{1,2}:99 aa - 9{1,2}:99 aa");
          // $j('.select2').select2();
          // $j("#precio_escort").inputmask('Regex', {regex: "^[0-9]{1,6}(\\,\\d{1,2})?$"});
-   
-   
+
+
          // $j('#altura_escort').inputmask('9,99' );
          // $j('#medida_escort').inputmask('99-99-99');
-    
+
          // //Timepicker
          // $j('.timepicker').timepicker({
          //    showInputs: false
          // })
-   
+
         //actualizar informacion de la escort
         $j('#btn_actualizar').on('click', function(e) {
               e.preventDefault();
-   
+
                var data = $("#frm_dataEscort").serialize();
               $.ajax({
                   type: "post",
@@ -265,16 +265,16 @@
                       console.log('error');
                   }
                 });
-   
+
              });
-   
+
                 //actualizar combo de regiones y comuna
            //para refrescar el combo de factores reporte 5
            $j('select[name="region_escort"]').on('change', function() {
               var stateID = $(this).val();
               $j('select[name="comuna_escort"]').empty();
            //   alert('stateid:'+ stateID);
-   
+
             if(stateID) {
                   $.ajax({
                      // url: '/admin/updatecomuna/'+stateID,
@@ -282,92 +282,92 @@
                       type: "GET",
                       dataType: "json",
                       success:function(data) {
-   
+
                        $.each(data.comuna, function(i, comuna){
                           //do something
                           //console.log(comuna.nombre);
                           $('select[name="comuna_escort"]').append('<option value="'+ comuna.id +'">'+ comuna.nombre+'</option>');
                        });
-   
-   
+
+
                        //   $('select[name="comuna_escort"]').empty();
                        if(data == ""){
                               $('select[name="comuna_escort"]').append('<option value="0">'+'«« No hay Comunas »»'+'</option>');
-                               
+
                             }
-                       
+
                         },
-                        
-                        fail: function(jqXHR, textStatus, errorThrown){ 
-                        alert('Error: ' + jqXHR.responseText); 
-          
+
+                        fail: function(jqXHR, textStatus, errorThrown){
+                        alert('Error: ' + jqXHR.responseText);
+
                        }
                    });
                 }else{
-                
+
                   //$('select[name="factor_id"]').empty();
-                  
+
                 }
             });
-   
-   
-         //subir fotos 
+
+
+         //subir fotos
          Dropzone.options.myDropzone = {
                 autoProcessQueue: false,
                 uploadMultiple: true,
                 maxFilezise: 10,
                 maxFiles: 8,
-            
+
                 init: function() {
                     var submitBtn = document.querySelector("#submit");
                     myDropzone = this;
-                    
+
                     submitBtn.addEventListener("click", function(e){
                         e.preventDefault();
                         e.stopPropagation();
                         myDropzone.processQueue();
-   
+
                     });
                     this.on("addedfile", function(file) {
                        // alert("file uploaded");
-   
+
                     });
-                    
+
                     this.on("complete", function(file) {
                        location.reload(true);
                         myDropzone.removeFile(file);
                     });
-     
-                    this.on("success", 
+
+                    this.on("success",
                         myDropzone.processQueue.bind(myDropzone)
                     );
                 }
             };
-   
-   
-   
-      
+
+
+
+
             $j('input[name="checkFilters[]"]').on('change', function (e) {
-   
+
             e.preventDefault();
             apariencia_select = []; // reset
             filterWrapper = $('#resultadoFilter');
             buttonWrapper = $('#buttonFilter');
             var filter = $(this).attr("data-filter");
-            
-             
+
+
             $j('input[name="checkFilters[]"]:checked').each(function() {
-                  
-                   
+
+
                      apariencia_select.push($(this).val());
                      //alert('check_seleccionado:' + apariencia_select);
                      //console.log(apariencia_select);
-                    
-               
+
+
             });
-   
+
             $.ajax({
-                
+
                headers: {
                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                  },
@@ -375,39 +375,39 @@
                "opciones" : apariencia_select,
                      "filtro": "showFiltros",
                      "filter": filter
-             }, 
+             },
               url:   '/filter_SelectMenu',
               type:  'POST',
                     dataType: "json",
               success:  function (data) {
-                    
+
                       if (data.success == true) {
                          $('#divEscorts').empty();
                          $('#images_escorts').empty();
                          $('#resultadoFilter').empty();
                          $('#buttonFilter').empty();
-   
+
                          //$('#btnFilter').html(apariencia_select + "<i class='glyphicon glyphicon-remove'></i>");
-                   
+
                            console.log(data);
-                         
+
                            //console.log(data.resultados[0].foto_principal);
                            filterWrapper.html();
                            buttonWrapper.html();
                           //alert(data.resultados[0].apodo_escort)
-                           
+
                               for (var i = 0, j = data.resultados.length; i < j; i++){
-                             
+
                                  //$(buttonWrapper).append('<li><a href="#">'+ apariencia_select[i] +'</a></li>');
                                  if(i==0 || i%4 == 0)
                                  {
                                   //  $("#buttonFilter").html(apariencia_select +  ' ' + "<i class='glyphicon glyphicon-remove'></i>");
                                     //var showFilter =  $('#btnFilter').html(apariencia_select +  ' ' + "<i class='glyphicon glyphicon-remove'></i>");
                                    var showFilter = $("<div class='row'></div>").appendTo(buttonWrapper);
-                                    
-                                    
+
+
                                     var appendEl = $("<div class='row' style='padding-top:5px;'></div>").appendTo(filterWrapper);
-                                 } 
+                                 }
                                   if (apariencia_select[i] != undefined) {
                                      // alert("data-filter:" + filter );
                                       if (filter == "Precio") {
@@ -417,18 +417,18 @@
                                       }
                                   }
                                     $("</div><div class='col-md-3 col-sm-3 col-xs-3'><a href=escort_perfil/"+ data.resultados[i].id +"><img src=uploads/escort_fotos/"+ data.resultados[i].foto_principal  + " data-id="+i+" class='img-responsive img-thumbnail'></a></div>").appendTo(appendEl);
-                                    
-                                
+
+
                                }
-                               
+
                               //  $('input[name="checkFilters[]"]').each(function() {
                               //    if (this.checked) {
                               //          $(this).prop("checked", false);
-                              //             console.log($(this).val()); 
+                              //             console.log($(this).val());
                               //       }
-   
+
                               //  });
-   
+
                           //    console.log(data);
                  } else {
                            $('#divEscorts').empty();
@@ -436,40 +436,40 @@
                            $('#resultadoFilter').empty();
                          return false;
                        }
-   
-   
+
+
                     }
-   
-   
+
+
             });
-            
-            }); 
-   
-           
-   
+
+            });
+
+
+
             //eliminar checkbox seleccionados.
             $j(document).on('click','.btnRemoveCheckbox',function(e){
                var valor_seleccionado = $(this).attr("data-value");
                var opc_remove =  $(this).attr("data-filterx");
                e.preventDefault();
-               
+
                checkbox_select = [];
-               
+
                 $('input[name="checkFilters[]"]:checked').each(function() {
                      if ($(this).val() == valor_seleccionado) {
                         $('#checkbox_'+ valor_seleccionado).attr('checked', false);
                         $("#button_"+ valor_seleccionado).hide();
                      } else {
-   
+
                         checkbox_select.push($(this).val());
                      }
-   
-   
+
+
                });
                console.log("valor:" +  checkbox_select);
-              
+
                $.ajax({
-                
+
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                   },
@@ -477,39 +477,39 @@
                       "opciones" : checkbox_select,
                       "filtro": 'remover_filtro',
                       "filter": opc_remove
-                    }, 
+                    },
                      url:   '/filter_SelectMenu',
                      type:  'POST',
                      dataType: "json",
                      success:  function (data) {
-                     
+
                        if (data.success == true) {
                           $('#divEscorts').empty();
                           $('#images_escorts').empty();
                           $('#resultadoFilter').empty();
                           //$('#buttonFilter').empty();
-   
+
                             console.log(data);
                             //console.log(data.resultados[0].foto_principal);
                             filterWrapper.html();
                             buttonWrapper.html();
                            //alert(data.resultados[0].apodo_escort)
-                            
+
                                for (var i = 0, j = data.resultados.length; i < j; i++){
-                              
+
                                   if(i==0 || i%4 == 0)
                                   {
-                                     
+
                                      var appendEl = $("<div class='row'></div>").appendTo(filterWrapper);
-                                  } 
-                                     
-                                     
+                                  }
+
+
                                      $("</div><div class='col-md-3 col-sm-3 col-xs-3'><a href=escort_perfil/"+ data.resultados[i].id +"><img src=uploads/escort_fotos/"+ data.resultados[i].foto_principal  + " data-id="+i+" class='img-responsive img-thumbnail'></a></div>").appendTo(appendEl);
-                                     
-                                 
+
+
                                 }
-                         
-   
+
+
                               // console.log(data);
                         } else {
                             $('#divEscorts').empty();
@@ -517,24 +517,25 @@
                             $('#resultadoFilter').empty();
                           return false;
                         }
-   
-   
+
+
                      }
-   
-   
+
+
                    });
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
             });
-   
-              
+
+
               $('.select2').select2();
-   
-   
-   }); 
+
+
+   });
 </script>
+
 <?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\seductives\resources\views/welcome.blade.php ENDPATH**/ ?>
